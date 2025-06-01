@@ -1,0 +1,82 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":dependencyDashboard",
+    ":rebaseStalePrs",
+    ":separateMajorReleases",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":prImmediately",
+    ":updateNotScheduled",
+    ":automergeDisabled",
+    ":maintainLockFilesWeekly",
+    ":prConcurrentLimit10"
+  ],
+  "platformAutomerge": true,
+  "rangeStrategy": "bump",
+  "semanticCommits": "enabled",
+  "timezone": "Europe/Berlin",
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "assignees": ["danielsogl"],
+  "reviewers": ["danielsogl"],
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "groupName": "non-major dependencies",
+      "groupSlug": "all-minor-patch"
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "groupName": "major dependencies",
+      "groupSlug": "all-major"
+    },
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "groupName": "TypeScript type definitions",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "matchPackagePatterns": ["^eslint", "^prettier", "^husky", "^lint-staged"],
+      "groupName": "linting and formatting",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "matchPackageNames": ["typescript", "ts-node"],
+      "groupName": "TypeScript core",
+      "automerge": false
+    },
+    {
+      "matchPackageNames": ["lighthouse", "@modelcontextprotocol/sdk"],
+      "groupName": "core dependencies",
+      "automerge": false,
+      "reviewersFromCodeOwners": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["at any time"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "prCreation": "immediate",
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "updatePinnedDependencies": false,
+  "enabledManagers": ["npm"],
+  "ignoreDeps": [],
+  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"]
+}
