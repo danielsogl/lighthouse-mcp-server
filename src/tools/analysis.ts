@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { resourceAnalysisSchema, unusedJavaScriptSchema } from "../schemas";
-import { findUnusedJavaScript, analyzeResources } from "../lighthouse";
+import { findUnusedJavaScript, analyzeResources } from "../lighthouse-analysis";
 
 export function registerAnalysisTools(server: McpServer) {
   server.tool(

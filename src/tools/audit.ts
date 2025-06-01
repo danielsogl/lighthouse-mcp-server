@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { runLighthouseAudit, getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "../lighthouse";
+import { runLighthouseAudit } from "../lighthouse-core";
+import { getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "../lighthouse-categories";
 import { auditParamsSchema, detailedAuditSchema } from "../schemas";
 
 export function registerAuditTools(server: McpServer) {

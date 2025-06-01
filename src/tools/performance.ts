@@ -2,17 +2,17 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   basicAuditSchema,
   coreWebVitalsSchema,
-  performanceBudgetSchema,
   compareDevicesSchema,
+  performanceBudgetSchema,
   lcpOpportunitiesSchema,
 } from "../schemas";
 import {
   getPerformanceScore,
   getCoreWebVitals,
-  checkPerformanceBudget,
   compareMobileDesktop,
+  checkPerformanceBudget,
   getLcpOpportunities,
-} from "../lighthouse";
+} from "../lighthouse-performance";
 
 export function registerPerformanceTools(server: McpServer) {
   server.tool(

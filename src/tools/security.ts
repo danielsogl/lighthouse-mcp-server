@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { securityAuditSchema } from "../schemas";
-import { getSecurityAudit } from "../lighthouse";
+import { getSecurityAudit } from "../lighthouse-analysis";
 
 export function registerSecurityTools(server: McpServer) {
   server.tool(
