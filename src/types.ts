@@ -3,13 +3,20 @@ export interface LighthouseCategory {
   title: string;
   score: number;
   description: string;
+  auditRefs?: Array<{ id: string; weight?: number; group?: string }>;
 }
 
 export interface LighthouseAudit {
   title: string;
+  description?: string;
   numericValue?: number;
   displayValue?: string;
   score: number | null;
+  scoreDisplayMode?: string;
+  details?: {
+    items?: Record<string, unknown>[];
+    [key: string]: unknown;
+  };
 }
 
 export interface LighthouseResult {

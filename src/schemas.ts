@@ -89,7 +89,6 @@ export const unusedJavaScriptSchema = {
   url: baseSchemas.url,
   device: baseSchemas.device,
   minBytes: z.number().min(0).default(2048).describe("Minimum unused bytes to report (default: 2048)"),
-  includeSourceMaps: z.boolean().default(false).describe("Include source map analysis"),
 };
 
 export const securityAuditSchema = {

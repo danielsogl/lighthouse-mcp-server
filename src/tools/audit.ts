@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { runLighthouseAudit } from "../lighthouse";
+import { runLighthouseAudit, getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "../lighthouse";
 import { auditParamsSchema, detailedAuditSchema } from "../schemas";
 
 export function registerAuditTools(server: McpServer) {
@@ -61,41 +61,143 @@ export function registerAuditTools(server: McpServer) {
     "get_accessibility_score",
     "Get the accessibility score and recommendations for a website",
     detailedAuditSchema,
-    async ({ url, device, includeDetails }) => ({
-      content: [
-        {
-          type: "text",
-          text: `Accessibility score for ${url} on ${device}${includeDetails ? " with detailed recommendations" : ""}`,
-        },
-      ],
-    }),
+    async ({ url, device, includeDetails }) => {
+      try {
+        const result = await getAccessibilityScore(url, device, includeDetails);
+
+        const content = [
+          {
+            type: "text" as const,
+            text: `# Accessibility Score\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Accessibility Score:** ${result.accessibilityScore}/100\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+          },
+        ];
+
+        if (includeDetails && "audits" in result) {
+          content.push({
+            type: "text" as const,
+            text: `## Accessibility Audits\n\n${result.audits
+              .map(
+                (audit) =>
+                  `### ${audit.title}\n- **Score:** ${audit.score !== null ? Math.round((audit.score || 0) * 100) : "N/A"}/100\n- **Description:** ${audit.description}\n- **Display Value:** ${audit.displayValue || "N/A"}`,
+              )
+              .join("\n\n")}`,
+          });
+
+          content.push({
+            type: "text" as const,
+            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
+          });
+        }
+
+        return { content };
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `# Accessibility Score Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
   );
 
   server.tool(
     "get_seo_analysis",
     "Get SEO analysis and recommendations for a website",
     detailedAuditSchema,
-    async ({ url, device, includeDetails }) => ({
-      content: [
-        {
-          type: "text",
-          text: `SEO analysis for ${url} on ${device}${includeDetails ? " with detailed recommendations" : ""}`,
-        },
-      ],
-    }),
+    async ({ url, device, includeDetails }) => {
+      try {
+        const result = await getSeoAnalysis(url, device, includeDetails);
+
+        const content = [
+          {
+            type: "text" as const,
+            text: `# SEO Analysis\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**SEO Score:** ${result.seoScore}/100\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+          },
+        ];
+
+        if (includeDetails && "audits" in result) {
+          content.push({
+            type: "text" as const,
+            text: `## SEO Audits\n\n${result.audits
+              .map(
+                (audit) =>
+                  `### ${audit.title}\n- **Score:** ${audit.score !== null ? Math.round((audit.score || 0) * 100) : "N/A"}/100\n- **Description:** ${audit.description}\n- **Display Value:** ${audit.displayValue || "N/A"}`,
+              )
+              .join("\n\n")}`,
+          });
+
+          content.push({
+            type: "text" as const,
+            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
+          });
+        }
+
+        return { content };
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `# SEO Analysis Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
   );
 
   server.tool(
     "check_pwa_readiness",
     "Check Progressive Web App readiness and requirements",
     detailedAuditSchema,
-    async ({ url, device, includeDetails }) => ({
-      content: [
-        {
-          type: "text",
-          text: `PWA readiness check for ${url} on ${device}${includeDetails ? " with detailed requirements" : ""}`,
-        },
-      ],
-    }),
+    async ({ url, device, includeDetails }) => {
+      try {
+        const result = await checkPwaReadiness(url, device, includeDetails);
+
+        const content = [
+          {
+            type: "text" as const,
+            text: `# PWA Readiness Check\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**PWA Score:** ${result.pwaScore}/100\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+          },
+        ];
+
+        if (includeDetails && "audits" in result) {
+          content.push({
+            type: "text" as const,
+            text: `## PWA Audits\n\n${result.audits
+              .map(
+                (audit) =>
+                  `### ${audit.title}\n- **Score:** ${audit.score !== null ? Math.round((audit.score || 0) * 100) : "N/A"}/100\n- **Description:** ${audit.description}\n- **Display Value:** ${audit.displayValue || "N/A"}`,
+              )
+              .join("\n\n")}`,
+          });
+
+          content.push({
+            type: "text" as const,
+            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
+          });
+        }
+
+        return { content };
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: `# PWA Readiness Check Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+    },
   );
 }
