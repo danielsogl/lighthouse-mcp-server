@@ -6,11 +6,15 @@ import {
   registerAnalysisTools,
   registerSecurityTools,
 } from "./tools/index";
+import { readFileSync } from "fs";
+import { join } from "path";
 
-// Create an MCP server
+// Read version from package.json
+const packageJson = JSON.parse(readFileSync(join(__dirname, "..", "package.json"), "utf-8"));
+
 const server = new McpServer({
   name: "Lighthouse",
-  version: "1.0.0",
+  version: packageJson.version,
 });
 
 // Register all tool categories
