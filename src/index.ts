@@ -1,6 +1,58 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import lighthouse from "lighthouse";
+import * as chromeLauncher from "chrome-launcher";
+
+// Types for Lighthouse results
+interface LighthouseCategory {
+  title: string;
+  score: number;
+  description: string;
+}
+
+interface LighthouseAudit {
+  title: string;
+  numericValue?: number;
+  displayValue?: string;
+  score: number | null;
+}
+
+interface LighthouseResult {
+  lhr: {
+    finalDisplayedUrl: string;
+    fetchTime: string;
+    lighthouseVersion: string;
+    userAgent: string;
+    categories: Record<string, LighthouseCategory>;
+    audits: Record<string, LighthouseAudit>;
+  };
+}
+
+interface LighthouseAuditResult {
+  url: string;
+  fetchTime: string;
+  version: string;
+  userAgent: string;
+  device: string;
+  categories: Record<
+    string,
+    {
+      title: string;
+      score: number;
+      description: string;
+    }
+  >;
+  metrics: Record<
+    string,
+    {
+      title: string;
+      value: number;
+      displayValue: string;
+      score: number | null;
+    }
+  >;
+}
 
 // Create an MCP server
 const server = new McpServer({
@@ -109,19 +161,187 @@ const securityAuditSchema = {
     .describe("Specific security checks to perform"),
 };
 
+// Helper function to run Lighthouse audit
+async function runLighthouseAudit(
+  url: string,
+  categories?: string[],
+  device: "desktop" | "mobile" = "desktop",
+  throttling = false,
+): Promise<LighthouseAuditResult> {
+  const chrome = await chromeLauncher.launch({
+    chromeFlags: ["--headless", "--no-sandbox", "--disable-dev-shm-usage"],
+  });
+
+  try {
+    const options: {
+      logLevel: "info";
+      output: "json";
+      onlyCategories?: string[];
+      port: number;
+      formFactor: "desktop" | "mobile";
+      screenEmulation: {
+        mobile: boolean;
+        width: number;
+        height: number;
+        deviceScaleFactor: number;
+        disabled: boolean;
+      };
+      throttling: {
+        rttMs: number;
+        throughputKbps: number;
+        cpuSlowdownMultiplier: number;
+      };
+    } = {
+      logLevel: "info" as const,
+      output: "json",
+      onlyCategories: categories,
+      port: chrome.port,
+      formFactor: device,
+      screenEmulation: {
+        mobile: device !== "desktop",
+        width: device === "desktop" ? 1350 : 360,
+        height: device === "desktop" ? 940 : 640,
+        deviceScaleFactor: 1,
+        disabled: false,
+      },
+      throttling: throttling
+        ? {
+            rttMs: 150,
+            throughputKbps: 1638.4,
+            cpuSlowdownMultiplier: 4,
+          }
+        : {
+            rttMs: 0,
+            throughputKbps: 10 * 1024,
+            cpuSlowdownMultiplier: 1,
+          },
+    };
+
+    const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
+
+    if (!runnerResult) {
+      throw new Error("Failed to run Lighthouse audit");
+    }
+
+    const { lhr } = runnerResult;
+
+    // Format category scores
+    const auditCategories: Record<
+      string,
+      {
+        title: string;
+        score: number;
+        description: string;
+      }
+    > = {};
+    for (const [key, category] of Object.entries(lhr.categories)) {
+      auditCategories[key] = {
+        title: category.title,
+        score: Math.round((category.score || 0) * 100),
+        description: category.description,
+      };
+    }
+
+    // Extract key metrics
+    const metrics: Record<
+      string,
+      {
+        title: string;
+        value: number;
+        displayValue: string;
+        score: number | null;
+      }
+    > = {};
+    if (lhr.audits) {
+      const keyMetrics = [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "total-blocking-time",
+        "cumulative-layout-shift",
+        "speed-index",
+        "interactive",
+      ];
+
+      for (const metric of keyMetrics) {
+        const audit = lhr.audits[metric];
+        if (audit) {
+          metrics[metric] = {
+            title: audit.title,
+            value: audit.numericValue || 0,
+            displayValue: audit.displayValue || "N/A",
+            score: audit.score !== null ? Math.round((audit.score || 0) * 100) : null,
+          };
+        }
+      }
+    }
+
+    return {
+      url: lhr.finalDisplayedUrl,
+      fetchTime: lhr.fetchTime,
+      version: lhr.lighthouseVersion,
+      userAgent: lhr.userAgent,
+      device,
+      categories: auditCategories,
+      metrics,
+    };
+  } finally {
+    await chrome.kill();
+  }
+}
+
 // Tool implementations
 server.tool(
   "run_audit",
   "Run a comprehensive Lighthouse audit on a website",
   auditParamsSchema,
-  async ({ url, categories, device, throttling }) => ({
-    content: [
-      {
-        type: "text",
-        text: `Auditing ${url} with categories ${categories?.join(", ") || "all"} on ${device} with throttling ${throttling}`,
-      },
-    ],
-  }),
+  async ({ url, categories, device, throttling }) => {
+    try {
+      const result = await runLighthouseAudit(url, categories, device, throttling);
+
+      // Create structured content response
+      const content = [
+        {
+          type: "text" as const,
+          text: `# Lighthouse Audit Results\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}\n**Lighthouse Version:** ${result.version}`,
+        },
+        {
+          type: "text" as const,
+          text: `## Category Scores\n\n${Object.entries(result.categories)
+            .map(([, category]) => `**${category.title}:** ${category.score}/100`)
+            .join("\n")}`,
+        },
+        {
+          type: "text" as const,
+          text: `## Core Web Vitals\n\n${Object.entries(result.metrics)
+            .filter(([key]) =>
+              ["first-contentful-paint", "largest-contentful-paint", "cumulative-layout-shift"].includes(key),
+            )
+            .map(
+              ([, metric]) =>
+                `**${metric.title}:** ${metric.displayValue} ${metric.score !== null ? `(Score: ${metric.score}/100)` : ""}`,
+            )
+            .join("\n")}`,
+        },
+        {
+          type: "text" as const,
+          text: `## Detailed Metrics\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
+        },
+      ];
+
+      return { content };
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return {
+        content: [
+          {
+            type: "text" as const,
+            text: `# Lighthouse Audit Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}\n\nPlease ensure:\n- The URL is accessible\n- Chrome/Chromium is installed\n- You have internet connectivity`,
+          },
+        ],
+        isError: true,
+      };
+    }
+  },
 );
 
 server.tool(
@@ -137,11 +357,11 @@ server.tool(
   "get_core_web_vitals",
   "Get Core Web Vitals metrics for a website",
   coreWebVitalsSchema,
-  async ({ url, device, includeDetails, threshold }) => ({
+  async ({ url, device, includeDetails, threshold: _threshold }) => ({
     content: [
       {
         type: "text",
-        text: `Core Web Vitals for ${url} on ${device}${includeDetails ? " (detailed)" : ""}${threshold ? " with custom thresholds" : ""}`,
+        text: `Core Web Vitals for ${url} on ${device}${includeDetails ? " (detailed)" : ""}${_threshold ? " with custom thresholds" : ""}`,
       },
     ],
   }),
@@ -193,7 +413,7 @@ server.tool(
   "compare_mobile_desktop",
   "Compare website performance between mobile and desktop devices",
   compareDevicesSchema,
-  async ({ url, categories, throttling, includeDetails }) => ({
+  async ({ url, categories, throttling: _throttling, includeDetails }) => ({
     content: [
       {
         type: "text",
