@@ -1,0 +1,52 @@
+# Changelog
+
+## [1.1.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.0.0...lighthouse-mcp-v1.1.0) (2025-06-01)
+
+
+### Features
+
+* add comprehensive Lighthouse audit helper functions and integrate them into MCP server tools ([22df996](https://github.com/danielsogl/lighthouse-mcp-server/commit/22df996a932e57791399e88ece33471816532a3c))
+* add initial audit tool ([5d4cf98](https://github.com/danielsogl/lighthouse-mcp-server/commit/5d4cf9823d4a3a55372fc35b57809330510137f3))
+* add initial mcp server setup ([2016da1](https://github.com/danielsogl/lighthouse-mcp-server/commit/2016da1a355b729f449abe485b1f5ed1d2c3a316))
+* add LICENSE, README, and SECURITY documentation for Lighthouse MCP Server ([788e260](https://github.com/danielsogl/lighthouse-mcp-server/commit/788e260db6de98355c1e65ccbf78f666d851ed65))
+* add test setup ([e8b2513](https://github.com/danielsogl/lighthouse-mcp-server/commit/e8b2513777670274b0609f48ee6973006cbd1121))
+* add unit tests for Lighthouse analysis, categories, performance, and tools ([2da7bf3](https://github.com/danielsogl/lighthouse-mcp-server/commit/2da7bf303dda9acbe34396f5eb4501d0afa854f6))
+* clean-up lighthouse functions ([0942cf3](https://github.com/danielsogl/lighthouse-mcp-server/commit/0942cf3d697f2cd9f2f092766901b3a58b5f68c3))
+* dynamically read version from package.json for server initialization ([2362893](https://github.com/danielsogl/lighthouse-mcp-server/commit/2362893eb7d96e6b7a73e0d2d4003a961391e8df))
+* enhance MCP server with Lighthouse audit tools and schemas ([fb98146](https://github.com/danielsogl/lighthouse-mcp-server/commit/fb98146c004da1672469924e9f9c66644d2604ae))
+* enhance package metadata and README with detailed description, funding information, and additional keywords ([c8410f5](https://github.com/danielsogl/lighthouse-mcp-server/commit/c8410f56a1710a9c6a2b3783daffbeee0b6533d5))
+* enhance URL validation in schemas with security checks for HTTP and HTTPS protocols ([1e160e6](https://github.com/danielsogl/lighthouse-mcp-server/commit/1e160e644706f15b4c4191a5a739fe63069d2d6f))
+* implement screen emulation settings for audits ([66d6cfa](https://github.com/danielsogl/lighthouse-mcp-server/commit/66d6cfa2ca14b8f0a0364e4ce568c18843e7d4ae))
+* implement structured analysis and audit responses for improved readability and recommendations ([ab93ceb](https://github.com/danielsogl/lighthouse-mcp-server/commit/ab93cebc0da64748d58517f38795792c591943d8))
+
+
+### Bug Fixes
+
+* update VS Code MCP installation commands to include the '-y' flag for automatic confirmation ([0b1d572](https://github.com/danielsogl/lighthouse-mcp-server/commit/0b1d572b22fc955d3b874c8c5145a4a73046c160))
+
+
+### Miscellaneous Chores
+
+* add manual trigger for release workflow in GitHub Actions ([8a0b40d](https://github.com/danielsogl/lighthouse-mcp-server/commit/8a0b40dc07af39e2852fd500a15ed1225e7967fc))
+* add pre-push hook to run tests before pushing changes ([1ff6084](https://github.com/danielsogl/lighthouse-mcp-server/commit/1ff60840f8877a18a735a13aad56e9e1ca025912))
+* add Renovate configuration for automated dependency management and updates ([d4afa14](https://github.com/danielsogl/lighthouse-mcp-server/commit/d4afa14d9203a2ad44611144ec002b13ab2c46cb))
+* bump vitest ([30269be](https://github.com/danielsogl/lighthouse-mcp-server/commit/30269bebbfe79327d4f00d13698cdf33ebca37e5))
+* **config:** migrate config renovate.json ([#5](https://github.com/danielsogl/lighthouse-mcp-server/issues/5)) ([589ffe7](https://github.com/danielsogl/lighthouse-mcp-server/commit/589ffe723eb6b58b9c041a0828bb581f543c9a6e))
+* configure semantic release with GitHub Actions and update dependencies ([d22016c](https://github.com/danielsogl/lighthouse-mcp-server/commit/d22016ca030067e2aa11de85ce7e6361d480475c))
+* **deps:** lock file maintenance ([#3](https://github.com/danielsogl/lighthouse-mcp-server/issues/3)) ([5abb107](https://github.com/danielsogl/lighthouse-mcp-server/commit/5abb107e909d53ce4037b56c42324759c18a9083))
+* **deps:** lock file maintenance ([#9](https://github.com/danielsogl/lighthouse-mcp-server/issues/9)) ([56561cb](https://github.com/danielsogl/lighthouse-mcp-server/commit/56561cbb3e35ec4b40c04e3225675a8c38a93def))
+* **deps:** update dependency release-please to v17 ([#8](https://github.com/danielsogl/lighthouse-mcp-server/issues/8)) ([4bf628b](https://github.com/danielsogl/lighthouse-mcp-server/commit/4bf628b61b4fab781c7ab3be99f88693814b7e2d))
+* **deps:** update node.js to &gt;=22.16.0 ([#7](https://github.com/danielsogl/lighthouse-mcp-server/issues/7)) ([7d77708](https://github.com/danielsogl/lighthouse-mcp-server/commit/7d77708678e5d8008d356484b04b9804fbd92720))
+* grant write permissions for issues in release workflow ([9029156](https://github.com/danielsogl/lighthouse-mcp-server/commit/90291565cb9ea8ebbd6163f4143ff442e90ce1e4))
+* improve CI setup to use the latest node version and handle coverage reports ([e4d85ad](https://github.com/danielsogl/lighthouse-mcp-server/commit/e4d85ad7a195c75176aafab5fbe4337836a68706))
+* migrate from semantic-release to release-please for versioning and release management ([37cfd98](https://github.com/danielsogl/lighthouse-mcp-server/commit/37cfd98aa9cd993bbe2469239938b3a7f5ab535e))
+* update ESLint and TypeScript configurations, and refactor import statements for consistency ([93d83b1](https://github.com/danielsogl/lighthouse-mcp-server/commit/93d83b1eada6d8677270564ebe5a2d94467e31fd))
+* update package-lock.json and package.json to include standard-version for versioning and enhance release workflow in GitHub Actions ([45878a6](https://github.com/danielsogl/lighthouse-mcp-server/commit/45878a6b748d19cfed85d588df3d5587b94fdea2))
+* update package.json with new project name, description, author, license, and repository details ([2a29b0c](https://github.com/danielsogl/lighthouse-mcp-server/commit/2a29b0c949f6014271b1a6a6bc612c10e7b064b7))
+* update version in package.json and package-lock.json from 1.0.0 to 0.0.1 ([1cb10b1](https://github.com/danielsogl/lighthouse-mcp-server/commit/1cb10b11d6fea580d387cc1292a20ed541cf87dc))
+* update version to 1.0.0 in release-please manifest and config ([231dcc5](https://github.com/danielsogl/lighthouse-mcp-server/commit/231dcc5862cf9ab1e66ca8456a7297bde09cad6e))
+
+
+### Code Refactoring
+
+* split tools into smaller files ([38782ca](https://github.com/danielsogl/lighthouse-mcp-server/commit/38782caceb951f52ad02815ddc7b409b5b2ee17c))
