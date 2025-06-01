@@ -22,7 +22,13 @@
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "release": "semantic-release",
-    "release:dry-run": "semantic-release --dry-run"
+    "release:dry-run": "semantic-release --dry-run",
+    "release:major": "standard-version --release-as major",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "publish:major": "npm run release:major && git push --follow-tags",
+    "publish:minor": "npm run release:minor && git push --follow-tags",
+    "publish:patch": "npm run release:patch && git push --follow-tags"
   },
   "keywords": [
     "lighthouse",
@@ -103,6 +109,7 @@
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
     "semantic-release": "^24.2.5",
+    "standard-version": "^9.5.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.0",
