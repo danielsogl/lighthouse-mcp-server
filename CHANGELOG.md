@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.1.0...lighthouse-mcp-v1.1.1) (2025-06-01)
+
+
+### Bug Fixes
+
+* add shebang to index.ts for executable script support ([1a1406d](https://github.com/danielsogl/lighthouse-mcp-server/commit/1a1406d0f64f9f3a89601b056de5b3aed41f4759))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#11](https://github.com/danielsogl/lighthouse-mcp-server/issues/11)) ([2e490ae](https://github.com/danielsogl/lighthouse-mcp-server/commit/2e490ae4fc18d3942d029fe79d6fe33bae694f65))
+* downgrade Node.js engine requirement to &gt;=20.0.0 in package.json and package-lock.json ([0e97df0](https://github.com/danielsogl/lighthouse-mcp-server/commit/0e97df0d77c91ac8b5c593937f4a0dece31ba0af))
+
 ## [1.1.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.0.0...lighthouse-mcp-v1.1.0) (2025-06-01)
 
 
