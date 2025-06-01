@@ -1,25 +1,45 @@
 {
-  "name": "lighthouse-mcp-server",
+  "name": "@danielsogl/lighthouse-mcp",
   "version": "1.0.0",
-  "description": "",
+  "description": "Model Context Protocol (MCP) server for Lighthouse web performance auditing and analysis",
   "main": "dist/index.js",
   "bin": {
     "lighthouse-mcp-server": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky",
+    "prepare": "is-ci || husky",
     "prepublishOnly": "npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "lighthouse",
+    "mcp",
+    "model-context-protocol",
+    "performance",
+    "web-performance",
+    "audit",
+    "seo",
+    "accessibility",
+    "core-web-vitals"
+  ],
+  "author": "Daniel Sogl",
+  "license": "MIT",
   "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsogl/lighthouse-mcp-server.git"
+  },
+  "homepage": "https://github.com/danielsogl/lighthouse-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/danielsogl/lighthouse-mcp-server/issues"
+  },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
