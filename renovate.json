@@ -39,16 +39,21 @@
       "groupSlug": "all-major"
     },
     {
-      "matchPackagePatterns": ["^@types/"],
       "groupName": "TypeScript type definitions",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "matchPackageNames": ["/^@types//"]
     },
     {
-      "matchPackagePatterns": ["^eslint", "^prettier", "^husky", "^lint-staged"],
       "groupName": "linting and formatting",
       "automerge": true,
-      "platformAutomerge": true
+      "platformAutomerge": true,
+      "matchPackageNames": [
+        "/^eslint/",
+        "/^prettier/",
+        "/^husky/",
+        "/^lint-staged/"
+      ]
     },
     {
       "matchPackageNames": ["typescript", "ts-node"],
