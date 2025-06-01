@@ -2,6 +2,20 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { resourceAnalysisSchema, unusedJavaScriptSchema } from "../schemas";
 import { findUnusedJavaScript, analyzeResources } from "../lighthouse-analysis";
 
+// Helper function to create structured content that's both AI and human readable
+function createStructuredAnalysis(title: string, data: Record<string, unknown>, summary?: string) {
+  return [
+    {
+      type: "text" as const,
+      text: summary || `${title} completed successfully`,
+    },
+    {
+      type: "text" as const,
+      text: JSON.stringify(data, null, 2),
+    },
+  ];
+}
+
 export function registerAnalysisTools(server: McpServer) {
   server.tool(
     "find_unused_javascript",
@@ -11,48 +25,64 @@ export function registerAnalysisTools(server: McpServer) {
       try {
         const result = await findUnusedJavaScript(url, device, minBytes);
 
-        const content = [
-          {
-            type: "text" as const,
-            text: `# Unused JavaScript Analysis\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Total Unused Bytes:** ${(result.totalUnusedBytes / 1024).toFixed(2)} KB\n**Minimum Threshold:** ${minBytes} bytes\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+        // Create structured, AI-friendly response
+        const analysisData = {
+          url: result.url,
+          device: result.device,
+          timestamp: result.fetchTime,
+          thresholdBytes: minBytes,
+          summary: {
+            totalUnusedKB: Math.round((result.totalUnusedBytes / 1024) * 100) / 100,
+            totalFilesAnalyzed: result.items.length,
+            hasUnusedCode: result.items.length > 0,
           },
-        ];
+          unusedFiles: result.items.map((item) => ({
+            filename: item.url.split("/").pop() || item.url,
+            totalKB: Math.round((item.totalBytes / 1024) * 100) / 100,
+            unusedKB: Math.round((item.wastedBytes / 1024) * 100) / 100,
+            unusedPercent: item.wastedPercent,
+            url: item.url,
+          })),
+          recommendations:
+            result.items.length > 0
+              ? [
+                  "Remove unused JavaScript code",
+                  "Implement code splitting",
+                  "Use tree shaking",
+                  "Add lazy loading for non-critical scripts",
+                ]
+              : ["No optimization needed - minimal unused code detected"],
+        };
 
-        if (result.items.length > 0) {
-          content.push({
-            type: "text" as const,
-            text: `## Unused JavaScript Files\n\n| File | Total Size | Unused Bytes | Unused % |\n|------|------------|--------------|----------|\n${result.items
-              .map(
-                (item) =>
-                  `| ${item.url.split("/").pop() || item.url} | ${(item.totalBytes / 1024).toFixed(2)} KB | ${(item.wastedBytes / 1024).toFixed(2)} KB | ${item.wastedPercent}% |`,
-              )
-              .join("\n")}`,
-          });
+        const summary =
+          result.items.length > 0
+            ? `Found ${result.items.length} files with unused JavaScript (${analysisData.summary.totalUnusedKB}KB total)`
+            : `No significant unused JavaScript found above ${minBytes} byte threshold`;
 
-          content.push({
-            type: "text" as const,
-            text: "## Recommendations\n\n- Remove unused JavaScript code to reduce bundle size\n- Consider code splitting to load only necessary code\n- Use tree shaking to eliminate dead code\n- Implement lazy loading for non-critical JavaScript",
-          });
-        } else {
-          content.push({
-            type: "text" as const,
-            text: `## No unused JavaScript found\n\nGreat! No significant unused JavaScript was detected above the ${minBytes} byte threshold.`,
-          });
-        }
-
-        content.push({
-          type: "text" as const,
-          text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-        });
-
-        return { content };
+        return {
+          content: createStructuredAnalysis("Unused JavaScript Analysis", analysisData, summary),
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# Unused JavaScript Analysis Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: `Analysis failed: ${errorMessage}`,
+            },
+            {
+              type: "text" as const,
+              text: JSON.stringify(
+                {
+                  error: true,
+                  url,
+                  device,
+                  message: errorMessage,
+                  timestamp: new Date().toISOString(),
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,
@@ -69,85 +99,106 @@ export function registerAnalysisTools(server: McpServer) {
       try {
         const result = await analyzeResources(url, device, resourceTypes, minSize);
 
-        const content = [
-          {
-            type: "text" as const,
-            text: `# Resource Analysis\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Total Resources:** ${result.resources.length}\n**Filters:** ${resourceTypes ? `Types: ${resourceTypes.join(", ")}` : "All types"}${minSize ? `, Min size: ${minSize}KB` : ""}\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+        // Create structured, AI-friendly response
+        const analysisData = {
+          url: result.url,
+          device: result.device,
+          timestamp: result.fetchTime,
+          filters: {
+            resourceTypes: resourceTypes || ["all"],
+            minSizeKB: minSize || 0,
           },
-        ];
+          summary: {
+            totalResources: result.resources.length,
+            totalSizeKB:
+              Math.round((Object.values(result.summary).reduce((sum, data) => sum + data.totalSize, 0) / 1024) * 100) /
+              100,
+            resourceCounts: Object.fromEntries(
+              Object.entries(result.summary).map(([type, data]) => [
+                type,
+                {
+                  count: data.count,
+                  sizeKB: Math.round((data.totalSize / 1024) * 100) / 100,
+                },
+              ]),
+            ),
+          },
+          resources: result.resources.slice(0, 50).map((resource) => ({
+            filename: resource.url.split("/").pop() || resource.url,
+            type: resource.resourceType,
+            sizeKB: Math.round(resource.sizeKB * 100) / 100,
+            mimeType: resource.mimeType || "unknown",
+            url: resource.url,
+          })),
+          optimization: {
+            recommendations: [] as string[],
+            priorities: [] as string[],
+          },
+        };
 
-        if (Object.keys(result.summary).length > 0) {
-          content.push({
-            type: "text" as const,
-            text: `## Resource Summary\n\n| Type | Count | Total Size |\n|------|-------|------------|\n${Object.entries(
-              result.summary,
-            )
-              .map(([type, data]) => `| ${type} | ${data.count} | ${(data.totalSize / 1024).toFixed(2)} KB |`)
-              .join("\n")}`,
+        // Add type-specific recommendations
+        if (result.summary.images) {
+          analysisData.optimization.recommendations.push("Convert images to WebP/AVIF formats");
+          analysisData.optimization.recommendations.push("Implement lazy loading for images");
+          analysisData.optimization.priorities.push("images");
+        }
+        if (result.summary.javascript) {
+          analysisData.optimization.recommendations.push("Minify and compress JavaScript files");
+          analysisData.optimization.recommendations.push("Remove unused JavaScript code");
+          analysisData.optimization.priorities.push("javascript");
+        }
+        if (result.summary.css) {
+          analysisData.optimization.recommendations.push("Minify CSS and remove unused styles");
+          analysisData.optimization.priorities.push("css");
+        }
+        if (result.summary.fonts) {
+          analysisData.optimization.recommendations.push("Use font-display: swap for better loading");
+          analysisData.optimization.priorities.push("fonts");
+        }
+
+        if (analysisData.optimization.recommendations.length === 0) {
+          analysisData.optimization.recommendations.push("Resource usage appears optimized");
+        }
+
+        // Add truncation info if needed
+        if (result.resources.length > 50) {
+          analysisData.resources.push({
+            filename: `... and ${result.resources.length - 50} more resources`,
+            type: "truncated",
+            sizeKB: 0,
+            mimeType: "info",
+            url: "",
           });
         }
 
-        if (result.resources.length > 0) {
-          content.push({
-            type: "text" as const,
-            text: `## Resource Details\n\n| File | Type | Size | MIME Type |\n|------|------|------|----------|\n${result.resources
-              .slice(0, 20) // Limit to first 20 resources to avoid overwhelming output
-              .map(
-                (resource) =>
-                  `| ${resource.url.split("/").pop() || resource.url} | ${resource.resourceType} | ${resource.sizeKB.toFixed(2)} KB | ${resource.mimeType || "N/A"} |`,
-              )
-              .join(
-                "\n",
-              )}${result.resources.length > 20 ? `\n\n*Showing first 20 of ${result.resources.length} resources*` : ""}`,
-          });
+        const summary = `Analyzed ${result.resources.length} resources (${analysisData.summary.totalSizeKB}KB total) - ${analysisData.optimization.recommendations.length} optimization opportunities found`;
 
-          // Add optimization recommendations based on resource types
-          const recommendations = [];
-          if (result.summary.images) {
-            recommendations.push(
-              "- **Images**: Consider using modern formats (WebP, AVIF), optimize image sizes, and implement lazy loading",
-            );
-          }
-          if (result.summary.javascript) {
-            recommendations.push(
-              "- **JavaScript**: Minify and compress JS files, remove unused code, implement code splitting",
-            );
-          }
-          if (result.summary.css) {
-            recommendations.push("- **CSS**: Minify CSS, remove unused styles, consider critical CSS inlining");
-          }
-          if (result.summary.fonts) {
-            recommendations.push(
-              "- **Fonts**: Use font-display: swap, preload critical fonts, consider variable fonts",
-            );
-          }
-
-          if (recommendations.length > 0) {
-            content.push({
-              type: "text" as const,
-              text: `## Optimization Recommendations\n\n${recommendations.join("\n")}`,
-            });
-          }
-        } else {
-          content.push({
-            type: "text" as const,
-            text: "## No resources found\n\nNo resources matched the specified criteria.",
-          });
-        }
-
-        content.push({
-          type: "text" as const,
-          text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-        });
-
-        return { content };
+        return {
+          content: createStructuredAnalysis("Resource Analysis", analysisData, summary),
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# Resource Analysis Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: `Analysis failed: ${errorMessage}`,
+            },
+            {
+              type: "text" as const,
+              text: JSON.stringify(
+                {
+                  error: true,
+                  url,
+                  device,
+                  resourceTypes,
+                  minSize,
+                  message: errorMessage,
+                  timestamp: new Date().toISOString(),
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,

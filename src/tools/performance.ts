@@ -14,6 +14,26 @@ import {
   getLcpOpportunities,
 } from "../lighthouse-performance";
 
+interface StructuredResponse {
+  summary: string;
+  data: Record<string, unknown>;
+  recommendations?: string[];
+}
+
+function createStructuredPerformance(
+  type: string,
+  url: string,
+  device: string,
+  data: Record<string, unknown>,
+  recommendations?: string[],
+): StructuredResponse {
+  return {
+    summary: `${type} analysis for ${url} on ${device}`,
+    data,
+    ...(recommendations && { recommendations }),
+  };
+}
+
 export function registerPerformanceTools(server: McpServer) {
   server.tool(
     "get_performance_score",
@@ -23,34 +43,55 @@ export function registerPerformanceTools(server: McpServer) {
       try {
         const result = await getPerformanceScore(url, device);
 
-        const content = [
+        const structuredResult = createStructuredPerformance(
+          "Performance Score",
+          result.url,
+          result.device,
           {
-            type: "text" as const,
-            text: `# Performance Score\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Performance Score:** ${result.performanceScore}/100\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+            performanceScore: result.performanceScore,
+            metrics: Object.fromEntries(
+              Object.entries(result.metrics).map(([key, metric]) => [
+                key,
+                {
+                  title: metric.title,
+                  value: metric.displayValue,
+                  score: metric.score,
+                },
+              ]),
+            ),
+            fetchTime: result.fetchTime,
           },
-          {
-            type: "text" as const,
-            text: `## Core Metrics\n\n${Object.entries(result.metrics)
-              .map(
-                ([, metric]) =>
-                  `**${metric.title}:** ${metric.displayValue} ${metric.score !== null ? `(Score: ${metric.score}/100)` : ""}`,
-              )
-              .join("\n")}`,
-          },
-          {
-            type: "text" as const,
-            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-          },
-        ];
+          [
+            "Focus on Core Web Vitals improvements",
+            "Optimize largest contentful paint for better user experience",
+            "Reduce total blocking time to improve interactivity",
+          ],
+        );
 
-        return { content };
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(structuredResult, null, 2),
+            },
+          ],
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# Performance Score Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: JSON.stringify(
+                {
+                  error: "Performance analysis failed",
+                  url,
+                  device: device || "desktop",
+                  message: errorMessage,
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,
@@ -67,47 +108,56 @@ export function registerPerformanceTools(server: McpServer) {
       try {
         const result = await getCoreWebVitals(url, device, threshold);
 
-        const content = [
+        const structuredResult = createStructuredPerformance(
+          "Core Web Vitals",
+          result.url,
+          result.device,
           {
-            type: "text" as const,
-            text: `# Core Web Vitals\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+            coreWebVitals: Object.fromEntries(
+              Object.entries(result.coreWebVitals).map(([key, metric]) => [
+                key,
+                {
+                  title: metric?.title || key.toUpperCase(),
+                  value: metric?.displayValue || "N/A",
+                  score: metric?.score,
+                },
+              ]),
+            ),
+            thresholdResults: result.thresholdResults || {},
+            fetchTime: result.fetchTime,
+            includeDetails,
           },
-          {
-            type: "text" as const,
-            text: `## Core Web Vitals Metrics\n\n${Object.entries(result.coreWebVitals)
-              .map(
-                ([key, metric]) =>
-                  `**${metric?.title || key.toUpperCase()}:** ${metric?.displayValue || "N/A"} ${metric?.score !== null ? `(Score: ${metric.score}/100)` : ""}`,
-              )
-              .join("\n")}`,
-          },
-        ];
+          [
+            "Optimize Largest Contentful Paint (LCP) < 2.5s",
+            "Minimize First Input Delay (FID) < 100ms",
+            "Reduce Cumulative Layout Shift (CLS) < 0.1",
+          ],
+        );
 
-        if (result.thresholdResults) {
-          content.push({
-            type: "text" as const,
-            text: `## Threshold Results\n\n${Object.entries(result.thresholdResults)
-              .filter(([, passed]) => passed !== null)
-              .map(([key, passed]) => `**${key.toUpperCase()}:** ${passed ? "✅ PASS" : "❌ FAIL"}`)
-              .join("\n")}`,
-          });
-        }
-
-        if (includeDetails) {
-          content.push({
-            type: "text" as const,
-            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-          });
-        }
-
-        return { content };
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(structuredResult, null, 2),
+            },
+          ],
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# Core Web Vitals Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: JSON.stringify(
+                {
+                  error: "Core Web Vitals analysis failed",
+                  url,
+                  device: device || "desktop",
+                  message: errorMessage,
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,
@@ -124,39 +174,54 @@ export function registerPerformanceTools(server: McpServer) {
       try {
         const result = await compareMobileDesktop(url, categories, throttling);
 
-        const content = [
+        const structuredResult = createStructuredPerformance(
+          "Mobile vs Desktop Comparison",
+          result.url,
+          "mobile + desktop",
           {
-            type: "text" as const,
-            text: `# Mobile vs Desktop Comparison\n\n**URL:** ${result.url}`,
+            differences: Object.fromEntries(
+              Object.entries(result.differences).map(([category, diff]) => [
+                category,
+                {
+                  mobile: diff.mobile,
+                  desktop: diff.desktop,
+                  difference: diff.difference,
+                  better: diff.difference > 0 ? "desktop" : "mobile",
+                },
+              ]),
+            ),
+            includeDetails,
           },
-          {
-            type: "text" as const,
-            text: `## Category Scores\n\n| Category | Mobile | Desktop | Difference |\n|----------|--------|---------|------------|\n${Object.entries(
-              result.differences,
-            )
-              .map(
-                ([category, diff]) =>
-                  `| ${category} | ${diff.mobile}/100 | ${diff.desktop}/100 | ${diff.difference > 0 ? "+" : ""}${diff.difference} |`,
-              )
-              .join("\n")}`,
-          },
-        ];
+          [
+            "Mobile performance typically requires more optimization",
+            "Focus on image optimization for mobile devices",
+            "Consider implementing responsive design best practices",
+          ],
+        );
 
-        if (includeDetails) {
-          content.push({
-            type: "text" as const,
-            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-          });
-        }
-
-        return { content };
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(structuredResult, null, 2),
+            },
+          ],
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# Mobile vs Desktop Comparison Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: JSON.stringify(
+                {
+                  error: "Mobile vs Desktop comparison failed",
+                  url,
+                  message: errorMessage,
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,
@@ -173,36 +238,62 @@ export function registerPerformanceTools(server: McpServer) {
       try {
         const result = await checkPerformanceBudget(url, device, budget);
 
-        const content = [
+        const structuredResult = createStructuredPerformance(
+          "Performance Budget Check",
+          result.url,
+          result.device,
           {
-            type: "text" as const,
-            text: `# Performance Budget Check\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Overall Result:** ${result.overallPassed ? "✅ PASSED" : "❌ FAILED"}\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+            overallPassed: result.overallPassed,
+            results: Object.fromEntries(
+              Object.entries(result.results).map(([metric, data]) => [
+                metric,
+                {
+                  actual: data.actual,
+                  budget: data.budget,
+                  unit: data.unit,
+                  passed: data.passed,
+                  difference:
+                    typeof data.actual === "number" && typeof data.budget === "number"
+                      ? data.actual - data.budget
+                      : null,
+                },
+              ]),
+            ),
+            fetchTime: result.fetchTime,
           },
-          {
-            type: "text" as const,
-            text: `## Budget Results\n\n| Metric | Actual | Budget | Status |\n|--------|--------|--------|--------|\n${Object.entries(
-              result.results,
-            )
-              .map(
-                ([metric, data]) =>
-                  `| ${metric} | ${data.actual}${data.unit === "score" ? "/100" : data.unit} | ${data.budget}${data.unit === "score" ? "/100" : data.unit} | ${data.passed ? "✅ PASS" : "❌ FAIL"} |`,
-              )
-              .join("\n")}`,
-          },
-          {
-            type: "text" as const,
-            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-          },
-        ];
+          result.overallPassed
+            ? ["Performance budget requirements met"]
+            : [
+                "Review failing metrics and optimize accordingly",
+                "Consider adjusting budget thresholds if realistic",
+                "Focus on the metrics with largest budget overruns",
+              ],
+        );
 
-        return { content };
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(structuredResult, null, 2),
+            },
+          ],
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# Performance Budget Check Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: JSON.stringify(
+                {
+                  error: "Performance budget check failed",
+                  url,
+                  device: device || "desktop",
+                  message: errorMessage,
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,
@@ -213,51 +304,58 @@ export function registerPerformanceTools(server: McpServer) {
 
   server.tool(
     "get_lcp_opportunities",
-    "Get optimization opportunities to improve Largest Contentful Paint",
+    "Get LCP optimization opportunities for a website",
     lcpOpportunitiesSchema,
     async ({ url, device, threshold, includeDetails }) => {
       try {
         const result = await getLcpOpportunities(url, device, threshold);
 
-        const content = [
+        const structuredResult = createStructuredPerformance(
+          "LCP Optimization Opportunities",
+          result.url,
+          result.device,
           {
-            type: "text" as const,
-            text: `# LCP Optimization Opportunities\n\n**URL:** ${result.url}\n**Device:** ${result.device}\n**Current LCP:** ${result.lcpValue.toFixed(2)}s\n**Threshold:** ${result.threshold}s\n**Needs Improvement:** ${result.needsImprovement ? "❌ YES" : "✅ NO"}\n**Timestamp:** ${new Date(result.fetchTime).toLocaleString()}`,
+            lcpValue: result.lcpValue,
+            threshold: result.threshold,
+            needsImprovement: result.needsImprovement,
+            opportunities: result.opportunities || [],
+            fetchTime: result.fetchTime,
+            includeDetails,
           },
-        ];
+          !result.needsImprovement
+            ? ["LCP performance is within acceptable range"]
+            : [
+                "Optimize image loading and compression",
+                "Implement resource hints (preload, prefetch)",
+                "Reduce server response times",
+                "Minimize render-blocking resources",
+              ],
+        );
 
-        if (result.opportunities.length > 0) {
-          content.push({
-            type: "text" as const,
-            text: `## Optimization Opportunities\n\n${result.opportunities
-              .map(
-                (opp) =>
-                  `### ${opp?.title}\n- **Score:** ${opp?.score ? Math.round(opp.score * 100) : 0}/100\n- **Description:** ${opp?.description}\n- **Potential Savings:** ${opp?.displayValue || "N/A"}`,
-              )
-              .join("\n\n")}`,
-          });
-        } else {
-          content.push({
-            type: "text" as const,
-            text: "## No optimization opportunities found\n\nYour LCP is already well optimized!",
-          });
-        }
-
-        if (includeDetails) {
-          content.push({
-            type: "text" as const,
-            text: `## Detailed Results\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
-          });
-        }
-
-        return { content };
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(structuredResult, null, 2),
+            },
+          ],
+        };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         return {
           content: [
             {
               type: "text" as const,
-              text: `# LCP Opportunities Error\n\n**URL:** ${url}\n**Error:** ${errorMessage}`,
+              text: JSON.stringify(
+                {
+                  error: "LCP opportunities analysis failed",
+                  url,
+                  device: device || "desktop",
+                  message: errorMessage,
+                },
+                null,
+                2,
+              ),
             },
           ],
           isError: true,
