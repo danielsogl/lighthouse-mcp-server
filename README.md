@@ -54,10 +54,10 @@ You can also install the Lighthouse MCP server using the VS Code CLI:
 
 ```bash
 # For VS Code
-code --add-mcp '{"name":"lighthouse","command":"npx","args":["@danielsogl/lighthouse-mcp@latest"]}'
+code --add-mcp '{"name":"lighthouse","command":"npx","args":["-y","@danielsogl/lighthouse-mcp@latest"]}'
 
 # For VS Code Insiders
-code-insiders --add-mcp '{"name":"lighthouse","command":"npx","args":["@danielsogl/lighthouse-mcp@latest"]}'
+code-insiders --add-mcp '{"name":"lighthouse","command":"npx","args":["-y","@danielsogl/lighthouse-mcp@latest"]}'
 ```
 
 After installation, the Lighthouse MCP server will be available for use with your GitHub Copilot agent in VS Code.
