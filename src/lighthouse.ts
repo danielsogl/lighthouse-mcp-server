@@ -203,6 +203,13 @@ export async function getAccessibilityScore(
         onlyCategories: ["accessibility"],
         port: chrome.port,
         formFactor: device,
+        screenEmulation: {
+          mobile: device !== "desktop",
+          width: device === "desktop" ? 1350 : 360,
+          height: device === "desktop" ? 940 : 640,
+          deviceScaleFactor: 1,
+          disabled: false,
+        },
       };
 
       const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
@@ -254,6 +261,13 @@ export async function getSeoAnalysis(url: string, device: "desktop" | "mobile" =
         onlyCategories: ["seo"],
         port: chrome.port,
         formFactor: device,
+        screenEmulation: {
+          mobile: device !== "desktop",
+          width: device === "desktop" ? 1350 : 360,
+          height: device === "desktop" ? 940 : 640,
+          deviceScaleFactor: 1,
+          disabled: false,
+        },
       };
 
       const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
@@ -305,6 +319,13 @@ export async function checkPwaReadiness(url: string, device: "desktop" | "mobile
         onlyCategories: ["pwa"],
         port: chrome.port,
         formFactor: device,
+        screenEmulation: {
+          mobile: device !== "desktop",
+          width: device === "desktop" ? 1350 : 360,
+          height: device === "desktop" ? 940 : 640,
+          deviceScaleFactor: 1,
+          disabled: false,
+        },
       };
 
       const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
@@ -335,10 +356,9 @@ export async function checkPwaReadiness(url: string, device: "desktop" | "mobile
 
 // Helper function to compare mobile vs desktop
 export async function compareMobileDesktop(url: string, categories?: string[], throttling = false) {
-  const [mobileResult, desktopResult] = await Promise.all([
-    runLighthouseAudit(url, categories, "mobile", throttling),
-    runLighthouseAudit(url, categories, "desktop", throttling),
-  ]);
+  // Run audits sequentially to avoid Chrome port conflicts
+  const mobileResult = await runLighthouseAudit(url, categories, "mobile", throttling);
+  const desktopResult = await runLighthouseAudit(url, categories, "desktop", throttling);
 
   const comparison = {
     url: mobileResult.url,
@@ -444,6 +464,13 @@ export async function getLcpOpportunities(url: string, device: "desktop" | "mobi
       onlyCategories: ["performance"],
       port: chrome.port,
       formFactor: device,
+      screenEmulation: {
+        mobile: device !== "desktop",
+        width: device === "desktop" ? 1350 : 360,
+        height: device === "desktop" ? 940 : 640,
+        deviceScaleFactor: 1,
+        disabled: false,
+      },
     };
 
     const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
@@ -508,6 +535,13 @@ export async function findUnusedJavaScript(url: string, device: "desktop" | "mob
       onlyCategories: ["performance"],
       port: chrome.port,
       formFactor: device,
+      screenEmulation: {
+        mobile: device !== "desktop",
+        width: device === "desktop" ? 1350 : 360,
+        height: device === "desktop" ? 940 : 640,
+        deviceScaleFactor: 1,
+        disabled: false,
+      },
     };
 
     const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
@@ -567,6 +601,13 @@ export async function analyzeResources(
       onlyCategories: ["performance"],
       port: chrome.port,
       formFactor: device,
+      screenEmulation: {
+        mobile: device !== "desktop",
+        width: device === "desktop" ? 1350 : 360,
+        height: device === "desktop" ? 940 : 640,
+        deviceScaleFactor: 1,
+        disabled: false,
+      },
     };
 
     const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
@@ -656,6 +697,13 @@ export async function getSecurityAudit(url: string, device: "desktop" | "mobile"
       onlyCategories: ["best-practices"],
       port: chrome.port,
       formFactor: device,
+      screenEmulation: {
+        mobile: device !== "desktop",
+        width: device === "desktop" ? 1350 : 360,
+        height: device === "desktop" ? 940 : 640,
+        deviceScaleFactor: 1,
+        disabled: false,
+      },
     };
 
     const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
