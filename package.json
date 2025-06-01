@@ -98,7 +98,7 @@
     "is-ci": "^4.1.0",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
-    "release-please": "^16.14.4",
+    "release-please": "^17.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.0",
