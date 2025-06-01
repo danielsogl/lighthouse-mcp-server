@@ -48,12 +48,7 @@
       "groupName": "linting and formatting",
       "automerge": true,
       "platformAutomerge": true,
-      "matchPackageNames": [
-        "/^eslint/",
-        "/^prettier/",
-        "/^husky/",
-        "/^lint-staged/"
-      ]
+      "matchPackageNames": ["/^eslint/", "/^prettier/", "/^husky/", "/^lint-staged/"]
     },
     {
       "matchPackageNames": ["typescript", "ts-node"],
@@ -65,6 +60,12 @@
       "groupName": "core dependencies",
       "automerge": false,
       "reviewersFromCodeOwners": true
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["engines"],
+      "enabled": false,
+      "description": "Disable Node.js engine updates"
     }
   ],
   "vulnerabilityAlerts": {
