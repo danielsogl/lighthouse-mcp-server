@@ -1,7 +1,7 @@
 {
   "name": "@danielsogl/lighthouse-mcp",
   "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) server for Lighthouse web performance auditing and analysis",
+  "description": "A comprehensive Model Context Protocol (MCP) server that provides web performance auditing, accessibility testing, SEO analysis, security assessment, and Core Web Vitals monitoring using Google Lighthouse. Enables LLMs and AI agents to perform detailed website analysis with 13+ specialized tools.",
   "main": "dist/index.js",
   "bin": {
     "lighthouse-mcp-server": "./dist/index.js"
@@ -33,9 +33,34 @@
     "audit",
     "seo",
     "accessibility",
-    "core-web-vitals"
+    "core-web-vitals",
+    "security",
+    "wcag",
+    "performance-budget",
+    "resource-analysis",
+    "javascript-optimization",
+    "mobile-performance",
+    "pwa",
+    "progressive-web-app",
+    "lcp",
+    "fid",
+    "cls",
+    "chrome",
+    "ai-agent",
+    "llm-tools",
+    "automation",
+    "web-audit",
+    "performance-monitoring",
+    "vscode-extension",
+    "cursor",
+    "windsurf",
+    "claude-desktop"
   ],
-  "author": "Daniel Sogl",
+  "author": {
+    "name": "Daniel Sogl",
+    "email": "security@codingrules.ai",
+    "url": "https://github.com/danielsogl"
+  },
   "license": "MIT",
   "type": "commonjs",
   "engines": {
@@ -49,6 +74,16 @@
   "bugs": {
     "url": "https://github.com/danielsogl/lighthouse-mcp-server/issues"
   },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/danielsogl"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
   "devDependencies": {
     "@eslint/js": "^9.28.0",
     "@semantic-release/changelog": "^6.0.3",

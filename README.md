@@ -5,6 +5,7 @@
 [![Node Version](https://img.shields.io/node/v/@danielsogl/lighthouse-mcp?style=flat-square)](https://nodejs.org)
 [![CI](https://img.shields.io/github/actions/workflow/status/danielsogl/lighthouse-mcp-server/ci.yml?branch=main&style=flat-square)](https://github.com/danielsogl/lighthouse-mcp-server/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/danielsogl/lighthouse-mcp-server?style=flat-square)](https://codecov.io/gh/danielsogl/lighthouse-mcp-server)
+[![Sponsor](https://img.shields.io/badge/💖_Sponsor-danielsogl-EA4AAA?style=flat-square)](https://github.com/sponsors/danielsogl)
 
 A Model Context Protocol (MCP) server that provides comprehensive web performance auditing and analysis capabilities using Google Lighthouse. This server enables LLMs and AI agents to perform detailed website performance assessments, accessibility audits, SEO analysis, security checks, and Core Web Vitals monitoring.
 
