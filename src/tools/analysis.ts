@@ -1,5 +1,5 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { resourceAnalysisSchema, unusedJavaScriptSchema } from "@/schemas";
+import { resourceAnalysisSchema, unusedJavaScriptSchema } from "../schemas";
 
 export function registerAnalysisTools(server: McpServer) {
   server.tool(

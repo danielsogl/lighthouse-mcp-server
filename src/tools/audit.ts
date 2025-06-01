@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { runLighthouseAudit } from "../lighthouse.js";
-import { auditParamsSchema, detailedAuditSchema } from "../schemas.js";
+import { runLighthouseAudit } from "../lighthouse";
+import { auditParamsSchema, detailedAuditSchema } from "../schemas";
 
 export function registerAuditTools(server: McpServer) {
   server.tool(

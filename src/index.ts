@@ -5,7 +5,7 @@ import {
   registerPerformanceTools,
   registerAnalysisTools,
   registerSecurityTools,
-} from "./tools/index.js";
+} from "./tools/index";
 
 // Create an MCP server
 const server = new McpServer({

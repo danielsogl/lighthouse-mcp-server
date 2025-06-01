@@ -5,7 +5,7 @@ import {
   performanceBudgetSchema,
   compareDevicesSchema,
   lcpOpportunitiesSchema,
-} from "../schemas.js";
+} from "../schemas";
 
 export function registerPerformanceTools(server: McpServer) {
   server.tool(

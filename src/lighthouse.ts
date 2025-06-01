@@ -1,6 +1,6 @@
 import lighthouse from "lighthouse";
 import * as chromeLauncher from "chrome-launcher";
-import { LighthouseResult, LighthouseAuditResult } from "./types.js";
+import { LighthouseResult, LighthouseAuditResult } from "./types";
 
 // Helper function to run Lighthouse audit
 export async function runLighthouseAudit(
