@@ -36,6 +36,9 @@
   "author": "Daniel Sogl",
   "license": "MIT",
   "type": "commonjs",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danielsogl/lighthouse-mcp-server.git"

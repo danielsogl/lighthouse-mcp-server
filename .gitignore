@@ -17,6 +17,7 @@ coverage/
 # Test artifacts
 **/*.test.js
 **/*.test.js.map
+test-results.junit.xml
 
 # IDE files
 .vscode/
