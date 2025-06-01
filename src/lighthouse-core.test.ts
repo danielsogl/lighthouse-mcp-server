@@ -272,5 +272,89 @@ describe("lighthouse-core utilities", () => {
 
       expect(result["first-contentful-paint"].score).toBeNull();
     });
+
+    it("should handle missing numeric values and display values", () => {
+      const mockLhr = {
+        audits: {
+          "first-contentful-paint": {
+            title: "First Contentful Paint",
+            score: 0.5,
+          },
+        },
+      } as any;
+
+      const result = extractKeyMetrics(mockLhr);
+
+      expect(result["first-contentful-paint"]).toEqual({
+        title: "First Contentful Paint",
+        value: 0,
+        displayValue: "N/A",
+        score: 50,
+      });
+    });
+
+    it("should handle null audits object", () => {
+      const mockLhr = {
+        audits: null,
+      } as any;
+
+      const result = extractKeyMetrics(mockLhr);
+
+      expect(result).toEqual({});
+    });
+
+    it("should handle undefined audits object", () => {
+      const mockLhr = {} as any;
+
+      const result = extractKeyMetrics(mockLhr);
+
+      expect(result).toEqual({});
+    });
+  });
+
+  describe("filterAuditsByCategory edge cases", () => {
+    it("should handle category with no auditRefs", () => {
+      const mockLhr = {
+        audits: {
+          "some-audit": {
+            title: "Some Audit",
+            description: "Description",
+            score: 1,
+            scoreDisplayMode: "binary",
+            displayValue: "Passed",
+          },
+        },
+        categories: {
+          performance: {
+            title: "Performance",
+            description: "Performance category",
+            score: 0.9,
+          },
+        },
+      } as any;
+
+      const result = filterAuditsByCategory(mockLhr, "performance");
+
+      expect(result).toEqual([]);
+    });
+
+    it("should handle missing category", () => {
+      const mockLhr = {
+        audits: {
+          "some-audit": {
+            title: "Some Audit",
+            description: "Description",
+            score: 1,
+            scoreDisplayMode: "binary",
+            displayValue: "Passed",
+          },
+        },
+        categories: {},
+      } as any;
+
+      const result = filterAuditsByCategory(mockLhr, "missing-category");
+
+      expect(result).toEqual([]);
+    });
   });
 });
