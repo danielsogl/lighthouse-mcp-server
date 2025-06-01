@@ -1,8 +1,24 @@
 import { z } from "zod";
 
+// Enhanced URL validation with security checks
+const urlValidator = z.string({ description: "URL to audit" }).refine(
+  (url) => {
+    try {
+      const parsed = new URL(url);
+      // Only allow HTTP and HTTPS protocols
+      return ["http:", "https:"].includes(parsed.protocol);
+    } catch {
+      return false;
+    }
+  },
+  {
+    message: "Must be a valid HTTP or HTTPS URL",
+  },
+);
+
 // Reusable base schema components
 export const baseSchemas = {
-  url: z.string({ description: "URL to audit" }),
+  url: urlValidator,
   device: z.enum(["desktop", "mobile"], { description: "Device to emulate (default: desktop)" }).default("desktop"),
   throttling: z.boolean({ description: "Whether to throttle the audit (default: false)" }).default(false),
   categories: z
