@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.1.1...lighthouse-mcp-v1.1.2) (2025-06-02)
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#14](https://github.com/danielsogl/lighthouse-mcp-server/issues/14)) ([c72420b](https://github.com/danielsogl/lighthouse-mcp-server/commit/c72420bad8db944824744870c922d3c221a45530))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#13](https://github.com/danielsogl/lighthouse-mcp-server/issues/13)) ([ffe779a](https://github.com/danielsogl/lighthouse-mcp-server/commit/ffe779ae0a449a6fea8ee9d6a1a901ac6a5afd0c))
+* **deps:** lock file maintenance ([#15](https://github.com/danielsogl/lighthouse-mcp-server/issues/15)) ([4c0b0cb](https://github.com/danielsogl/lighthouse-mcp-server/commit/4c0b0cb4735ef7d9ec36393906540433bf8ca4f9))
+* disable Node.js engine updates in renovate.json ([b64e525](https://github.com/danielsogl/lighthouse-mcp-server/commit/b64e5255a66d0c1130264260ffe3820276d10aec))
+
 ## [1.1.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.1.0...lighthouse-mcp-v1.1.1) (2025-06-01)
 
 
