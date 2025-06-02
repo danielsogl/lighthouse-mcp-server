@@ -19,6 +19,7 @@ A Model Context Protocol (MCP) server that provides comprehensive web performanc
 - **📱 Mobile vs Desktop**: Comparative analysis across devices with throttling options
 - **⚡ Core Web Vitals**: LCP, FID, CLS monitoring with threshold checking
 - **🎯 Performance Budgets**: Custom performance thresholds and budget monitoring
+- **📚 Reference Resources**: Built-in guidelines and best practices for web performance, accessibility, SEO, and security
 
 ## 🛠️ Requirements
 
@@ -177,6 +178,21 @@ The Lighthouse MCP server includes reusable prompts that help LLMs provide struc
 | `optimize-core-web-vitals` | Get Core Web Vitals optimization recommendations | `coreWebVitals`, `framework?`, `constraints?`                   |
 | `optimize-resources`       | Get resource optimization recommendations        | `resourceAnalysis`, `loadingStrategy?`, `criticalUserJourneys?` |
 
+### 📚 Available Resources
+
+The Lighthouse MCP server provides built-in reference resources with essential guidelines and best practices:
+
+| Resource                     | Description                                       | URI                                                   |
+| ---------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| `core-web-vitals-thresholds` | Core Web Vitals performance thresholds            | `lighthouse://performance/core-web-vitals-thresholds` |
+| `optimization-techniques`    | Performance optimization techniques and impact    | `lighthouse://performance/optimization-techniques`    |
+| `wcag-guidelines`            | WCAG 2.1 accessibility guidelines and issues      | `lighthouse://accessibility/wcag-guidelines`          |
+| `seo-best-practices`         | SEO best practices and optimization opportunities | `lighthouse://seo/best-practices`                     |
+| `security-best-practices`    | Web security best practices and vulnerabilities   | `lighthouse://security/best-practices`                |
+| `budget-guidelines`          | Performance budget recommendations by site type   | `lighthouse://performance/budget-guidelines`          |
+| `categories-scoring`         | Lighthouse audit categories and scoring methods   | `lighthouse://audits/categories-scoring`              |
+| `framework-guides`           | Framework-specific optimization guides            | `lighthouse://frameworks/optimization-guides`         |
+
 ### 🎯 Strategy Prompts
 
 | Prompt                      | Description                                         | Parameters                                              |
@@ -277,6 +293,33 @@ The Lighthouse MCP server includes reusable prompts that help LLMs provide struc
     "url": "https://example.com",
     "resourceTypes": ["images", "javascript"],
     "minSize": 1024
+  }
+}
+```
+
+### Using Reference Resources
+
+Access built-in guidelines and best practices:
+
+```javascript
+// Get Core Web Vitals thresholds
+{
+  "resource": {
+    "uri": "lighthouse://performance/core-web-vitals-thresholds"
+  }
+}
+
+// Access WCAG accessibility guidelines
+{
+  "resource": {
+    "uri": "lighthouse://accessibility/wcag-guidelines"
+  }
+}
+
+// Get framework-specific optimization guides
+{
+  "resource": {
+    "uri": "lighthouse://frameworks/optimization-guides"
   }
 }
 ```

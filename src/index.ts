@@ -9,6 +9,7 @@ import {
   registerSecurityTools,
 } from "./tools/index";
 import { registerPrompts } from "./prompts";
+import { registerResources } from "./resources";
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -28,6 +29,9 @@ registerSecurityTools(server);
 
 // Register prompts
 registerPrompts(server);
+
+// Register resources
+registerResources(server);
 
 // Start receiving messages on stdin and sending messages on stdout
 async function main() {
