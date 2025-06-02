@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.1.2...lighthouse-mcp-v1.2.0) (2025-06-02)
+
+
+### Features
+
+* **prompts:** add reusable prompts for structured analysis and recommendations ([3f6519c](https://github.com/danielsogl/lighthouse-mcp-server/commit/3f6519c002f47f05c3ebbec80eedec1a39b7403c))
+* **resources:** add built-in reference resources for web performance, accessibility, SEO, and security guidelines ([8f9cea0](https://github.com/danielsogl/lighthouse-mcp-server/commit/8f9cea002493144e7af348070ccf89ed3cf717cf))
+
 ## [1.1.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.1.1...lighthouse-mcp-v1.1.2) (2025-06-02)
 
 
