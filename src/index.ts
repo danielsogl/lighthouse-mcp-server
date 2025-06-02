@@ -8,6 +8,7 @@ import {
   registerAnalysisTools,
   registerSecurityTools,
 } from "./tools/index";
+import { registerPrompts } from "./prompts";
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -24,6 +25,9 @@ registerAuditTools(server);
 registerPerformanceTools(server);
 registerAnalysisTools(server);
 registerSecurityTools(server);
+
+// Register prompts
+registerPrompts(server);
 
 // Start receiving messages on stdin and sending messages on stdout
 async function main() {

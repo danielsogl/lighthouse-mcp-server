@@ -164,6 +164,44 @@ The Lighthouse MCP server provides the following tools for comprehensive web ana
 | -------------------- | ------------------------------------ | --------------------------- |
 | `get_security_audit` | Perform comprehensive security audit | `url`, `device?`, `checks?` |
 
+## 💬 Available Prompts
+
+The Lighthouse MCP server includes reusable prompts that help LLMs provide structured analysis and recommendations:
+
+### 📊 Analysis Prompts
+
+| Prompt                     | Description                                      | Parameters                                                      |
+| -------------------------- | ------------------------------------------------ | --------------------------------------------------------------- |
+| `analyze-audit-results`    | Analyze Lighthouse audit results                 | `auditResults`, `focusArea?`                                    |
+| `compare-audits`           | Compare before/after audit results               | `beforeAudit`, `afterAudit`, `changesImplemented?`              |
+| `optimize-core-web-vitals` | Get Core Web Vitals optimization recommendations | `coreWebVitals`, `framework?`, `constraints?`                   |
+| `optimize-resources`       | Get resource optimization recommendations        | `resourceAnalysis`, `loadingStrategy?`, `criticalUserJourneys?` |
+
+### 🎯 Strategy Prompts
+
+| Prompt                      | Description                                         | Parameters                                              |
+| --------------------------- | --------------------------------------------------- | ------------------------------------------------------- |
+| `create-performance-plan`   | Generate comprehensive performance improvement plan | `currentMetrics`, `targetGoals?`, `timeframe?`          |
+| `create-performance-budget` | Create custom performance budget recommendations    | `currentMetrics`, `businessGoals?`, `userBase?`         |
+| `seo-recommendations`       | Generate SEO improvement recommendations            | `seoAudit`, `websiteType?`, `targetAudience?`           |
+| `accessibility-guide`       | Create accessibility improvement guide              | `accessibilityAudit`, `complianceLevel?`, `userGroups?` |
+
+### 🔧 Prompt Parameter Details
+
+- **`auditResults`**: JSON audit results from Lighthouse tools
+- **`focusArea`**: Specific category to focus on (`"performance"`, `"accessibility"`, `"seo"`, `"best-practices"`, `"pwa"`)
+- **`beforeAudit`** / **`afterAudit`**: Lighthouse audit results before and after changes
+- **`changesImplemented`**: Description of changes made between audits
+- **`currentMetrics`**: Current performance metrics from audits
+- **`targetGoals`**: Specific performance targets or business goals
+- **`timeframe`**: Timeline for implementing improvements
+- **`framework`**: Frontend framework or technology stack
+- **`constraints`**: Technical or business constraints
+- **`websiteType`**: Type of website (e.g., e-commerce, blog, corporate)
+- **`targetAudience`**: Target audience or market information
+- **`complianceLevel`**: WCAG compliance level (`"AA"` or `"AAA"`)
+- **`userGroups`**: Specific user groups to consider for accessibility
+
 ## 📋 Parameter Details
 
 ### Common Parameters
@@ -239,6 +277,39 @@ The Lighthouse MCP server provides the following tools for comprehensive web ana
     "url": "https://example.com",
     "resourceTypes": ["images", "javascript"],
     "minSize": 1024
+  }
+}
+```
+
+### Using Prompts for Analysis
+
+```javascript
+// Analyze audit results with focused recommendations
+{
+  "prompt": "analyze-audit-results",
+  "arguments": {
+    "auditResults": "{...lighthouse audit json...}",
+    "focusArea": "performance"
+  }
+}
+
+// Create a performance improvement plan
+{
+  "prompt": "create-performance-plan",
+  "arguments": {
+    "currentMetrics": "{...current performance metrics...}",
+    "targetGoals": "Achieve 90+ performance score and sub-2s LCP",
+    "timeframe": "3 months"
+  }
+}
+
+// Compare before/after audit results
+{
+  "prompt": "compare-audits",
+  "arguments": {
+    "beforeAudit": "{...before audit results...}",
+    "afterAudit": "{...after audit results...}",
+    "changesImplemented": "Implemented lazy loading and image optimization"
   }
 }
 ```
