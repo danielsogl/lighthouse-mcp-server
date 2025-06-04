@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.0...lighthouse-mcp-v1.2.1) (2025-06-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency lighthouse to ^12.6.1 ([#17](https://github.com/danielsogl/lighthouse-mcp-server/issues/17)) ([6a5c2eb](https://github.com/danielsogl/lighthouse-mcp-server/commit/6a5c2eb6e9429dad87c085c5600ffa13df26404b))
+* **deps:** update non-major dependencies ([#18](https://github.com/danielsogl/lighthouse-mcp-server/issues/18)) ([7f87edc](https://github.com/danielsogl/lighthouse-mcp-server/commit/7f87edc90bb75b59d01f14a0e934eb2acd690faf))
+
 ## [1.2.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.1.2...lighthouse-mcp-v1.2.0) (2025-06-02)
 
 
