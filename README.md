@@ -67,7 +67,7 @@ After installation, the Lighthouse MCP server will be available for use with you
 
 ### Install in Cursor
 
-[<img src="https://img.shields.io/badge/Cursor-Install_Server-1a1a1a?style=for-the-badge&logo=cursor" alt="Install in Cursor">](cursor://mcp/install?name=lighthouse&command=npx&args=@danielsogl/lighthouse-mcp@latest)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=lighthouse&config=eyJjb21tYW5kIjoibnB4IC15IEBkYW5pZWxzb2dsL2xpZ2h0aG91c2UtbWNwQGxhdGVzdCJ9)
 
 <details>
 <summary><b>Manual Cursor Installation</b></summary>
