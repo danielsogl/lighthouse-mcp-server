@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.1...lighthouse-mcp-v1.2.2) (2025-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#21](https://github.com/danielsogl/lighthouse-mcp-server/issues/21)) ([3ba6c5e](https://github.com/danielsogl/lighthouse-mcp-server/commit/3ba6c5e37af4c286513e89fa1db3e40117e0add0))
+* **docs:** update installation link for MCP server in README ([3d03d68](https://github.com/danielsogl/lighthouse-mcp-server/commit/3d03d68920641f81a7ca85f734a22c16bcdb310c))
+
+
+### Miscellaneous Chores
+
+* **config:** add schema reference to release-please configuration ([3dcf219](https://github.com/danielsogl/lighthouse-mcp-server/commit/3dcf2192e8eae279f0cd647ffa91c3a92d192f4a))
+
 ## [1.2.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.0...lighthouse-mcp-v1.2.1) (2025-06-04)
 
 
