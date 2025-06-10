@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.1...lighthouse-mcp-v1.2.2) (2025-06-10)
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#21](https://github.com/danielsogl/lighthouse-mcp-server/issues/21)) ([3ba6c5e](https://github.com/danielsogl/lighthouse-mcp-server/commit/3ba6c5e37af4c286513e89fa1db3e40117e0add0))
+* **deps:** update non-major dependencies ([#23](https://github.com/danielsogl/lighthouse-mcp-server/issues/23)) ([6c41a63](https://github.com/danielsogl/lighthouse-mcp-server/commit/6c41a63de87a1f7fbcad3c31216ecfa410627f67))
+* **docs:** update installation link for MCP server in README ([3d03d68](https://github.com/danielsogl/lighthouse-mcp-server/commit/3d03d68920641f81a7ca85f734a22c16bcdb310c))
+
+
+### Miscellaneous Chores
+
+* **config:** add schema reference to release-please configuration ([3dcf219](https://github.com/danielsogl/lighthouse-mcp-server/commit/3dcf2192e8eae279f0cd647ffa91c3a92d192f4a))
+* **deps:** lock file maintenance ([#22](https://github.com/danielsogl/lighthouse-mcp-server/issues/22)) ([d2e707a](https://github.com/danielsogl/lighthouse-mcp-server/commit/d2e707ad164e84566b29e5c2e347d133be9dca08))
+* **deps:** lock file maintenance ([#24](https://github.com/danielsogl/lighthouse-mcp-server/issues/24)) ([e6fed90](https://github.com/danielsogl/lighthouse-mcp-server/commit/e6fed9058885ac9979c9e9cfbbe156a72fe02771))
+
 ## [1.2.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.0...lighthouse-mcp-v1.2.1) (2025-06-04)
 
 
