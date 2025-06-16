@@ -9,6 +9,10 @@
 
 A Model Context Protocol (MCP) server that provides comprehensive web performance auditing and analysis capabilities using Google Lighthouse. This server enables LLMs and AI agents to perform detailed website performance assessments, accessibility audits, SEO analysis, security checks, and Core Web Vitals monitoring.
 
+<a href="https://glama.ai/mcp/servers/@danielsogl/lighthouse-mcp-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@danielsogl/lighthouse-mcp-server/badge" alt="Lighthouse MCP server" />
+</a>
+
 ## 🌟 Key Features
 
 - **🚀 Performance Analysis**: Complete Lighthouse audits with Core Web Vitals, performance scores, and optimization recommendations
