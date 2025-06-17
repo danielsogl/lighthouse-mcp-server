@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.4](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.3...lighthouse-mcp-v1.2.4) (2025-06-17)
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#31](https://github.com/danielsogl/lighthouse-mcp-server/issues/31)) ([a651846](https://github.com/danielsogl/lighthouse-mcp-server/commit/a6518463a92f0b685f19f73425b3b066a0ba0009))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency eslint-plugin-prettier to ^5.5.0 ([#32](https://github.com/danielsogl/lighthouse-mcp-server/issues/32)) ([62875a3](https://github.com/danielsogl/lighthouse-mcp-server/commit/62875a36e85edcd5f1e322d8e8d0047362da17ab))
+
 ## [1.2.3](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.2...lighthouse-mcp-v1.2.3) (2025-06-16)
 
 
