@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.8](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.7...lighthouse-mcp-v1.2.8) (2025-06-30)
+
+
+### Miscellaneous Chores
+
+* **deps:** update linting and formatting ([#48](https://github.com/danielsogl/lighthouse-mcp-server/issues/48)) ([bb0c0fd](https://github.com/danielsogl/lighthouse-mcp-server/commit/bb0c0fd0571e1ca3298a4688212c7dad32b55152))
+* **deps:** update non-major dependencies ([#47](https://github.com/danielsogl/lighthouse-mcp-server/issues/47)) ([339e753](https://github.com/danielsogl/lighthouse-mcp-server/commit/339e753d9de723d7163d13d866e04523df5adce0))
+
 ## [1.2.7](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.6...lighthouse-mcp-v1.2.7) (2025-06-30)
 
 
