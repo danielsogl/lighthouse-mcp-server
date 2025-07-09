@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.9](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.8...lighthouse-mcp-v1.2.9) (2025-07-09)
+
+
+### Bug Fixes
+
+* **deps:** update core dependencies ([#53](https://github.com/danielsogl/lighthouse-mcp-server/issues/53)) ([c7e81c8](https://github.com/danielsogl/lighthouse-mcp-server/commit/c7e81c8a85b3f9305c2851ce35ecd545293035ee))
+* **deps:** update non-major dependencies ([#51](https://github.com/danielsogl/lighthouse-mcp-server/issues/51)) ([f76b74c](https://github.com/danielsogl/lighthouse-mcp-server/commit/f76b74c7ca81a99cf9053c81828e912d1313980b))
+* **deps:** update non-major dependencies ([#54](https://github.com/danielsogl/lighthouse-mcp-server/issues/54)) ([f57b58b](https://github.com/danielsogl/lighthouse-mcp-server/commit/f57b58b1735e37fae6fe7dd752d7c200bfb44dfa))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency eslint to ^9.30.1 ([#50](https://github.com/danielsogl/lighthouse-mcp-server/issues/50)) ([b6bed1f](https://github.com/danielsogl/lighthouse-mcp-server/commit/b6bed1f7a5f993891280cf91c34d8d462890bbcf))
+
 ## [1.2.8](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.7...lighthouse-mcp-v1.2.8) (2025-06-30)
 
 
