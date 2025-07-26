@@ -1,6 +1,6 @@
 {
   "name": "@danielsogl/lighthouse-mcp",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "A comprehensive Model Context Protocol (MCP) server that provides web performance auditing, accessibility testing, SEO analysis, security assessment, and Core Web Vitals monitoring using Google Lighthouse. Enables LLMs and AI agents to perform detailed website analysis with 13+ specialized tools.",
   "main": "dist/index.js",
   "bin": {
@@ -90,7 +90,7 @@
     "@typescript-eslint/parser": "^8.38.0",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
-    "eslint": "^9.32.0",
+    "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
     "globals": "^16.3.0",
