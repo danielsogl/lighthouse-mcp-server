@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.13](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.12...lighthouse-mcp-v1.2.13) (2025-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update core dependencies ([#74](https://github.com/danielsogl/lighthouse-mcp-server/issues/74)) ([16f61e8](https://github.com/danielsogl/lighthouse-mcp-server/commit/16f61e8383b0300eaabd36659338ef97716d6013))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#71](https://github.com/danielsogl/lighthouse-mcp-server/issues/71)) ([65605a5](https://github.com/danielsogl/lighthouse-mcp-server/commit/65605a52baefd1924fa09561d2308cc64eed53c7))
+* **deps:** update dependency eslint to ^9.32.0 ([#70](https://github.com/danielsogl/lighthouse-mcp-server/issues/70)) ([7d1d8dc](https://github.com/danielsogl/lighthouse-mcp-server/commit/7d1d8dc0f84d983e4605b50a638fbf7c5dc85770))
+* **deps:** update dependency lint-staged to ^16.1.4 ([#73](https://github.com/danielsogl/lighthouse-mcp-server/issues/73)) ([1547ac4](https://github.com/danielsogl/lighthouse-mcp-server/commit/1547ac4fa74f21c9389f1d403bcf00a9e0835a66))
+
 ## [1.2.12](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.11...lighthouse-mcp-v1.2.12) (2025-07-26)
 
 
