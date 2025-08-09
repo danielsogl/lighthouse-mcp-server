@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.14](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.13...lighthouse-mcp-v1.2.14) (2025-08-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @modelcontextprotocol/sdk to ^1.17.2 ([#75](https://github.com/danielsogl/lighthouse-mcp-server/issues/75)) ([23dd06d](https://github.com/danielsogl/lighthouse-mcp-server/commit/23dd06dca8cb0206061d088ec08854a8293bf34f))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency typescript to ^5.9.2 ([#76](https://github.com/danielsogl/lighthouse-mcp-server/issues/76)) ([9fb2434](https://github.com/danielsogl/lighthouse-mcp-server/commit/9fb2434df5e988b4574439dd392c1daf35589569))
+* **deps:** update linting and formatting ([#77](https://github.com/danielsogl/lighthouse-mcp-server/issues/77)) ([4170a70](https://github.com/danielsogl/lighthouse-mcp-server/commit/4170a7027198e9195b4327fff8f6124d15d2ba6b))
+* **deps:** update non-major dependencies ([#78](https://github.com/danielsogl/lighthouse-mcp-server/issues/78)) ([fd62f39](https://github.com/danielsogl/lighthouse-mcp-server/commit/fd62f3913842e151ef74b6725f3340ffbd0ed493))
+
 ## [1.2.13](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.12...lighthouse-mcp-v1.2.13) (2025-08-05)
 
 
