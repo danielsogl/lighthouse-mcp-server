@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.17](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.16...lighthouse-mcp-v1.2.17) (2025-08-25)
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#89](https://github.com/danielsogl/lighthouse-mcp-server/issues/89)) ([59a2b2a](https://github.com/danielsogl/lighthouse-mcp-server/commit/59a2b2a1898323e22ead81cd9034e674ec4e6068))
+
 ## [1.2.16](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.15...lighthouse-mcp-v1.2.16) (2025-08-24)
 
 
