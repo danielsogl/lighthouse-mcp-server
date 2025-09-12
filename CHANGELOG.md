@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.17](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.16...lighthouse-mcp-v1.2.17) (2025-09-12)
+
+
+### Bug Fixes
+
+* **deps:** update core dependencies ([#91](https://github.com/danielsogl/lighthouse-mcp-server/issues/91)) ([2c6ebb3](https://github.com/danielsogl/lighthouse-mcp-server/commit/2c6ebb3a4a0a949f45502e60c258d0c9fc790f45))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#89](https://github.com/danielsogl/lighthouse-mcp-server/issues/89)) ([59a2b2a](https://github.com/danielsogl/lighthouse-mcp-server/commit/59a2b2a1898323e22ead81cd9034e674ec4e6068))
+* **deps:** lock file maintenance ([#94](https://github.com/danielsogl/lighthouse-mcp-server/issues/94)) ([38fadd5](https://github.com/danielsogl/lighthouse-mcp-server/commit/38fadd5ae0b1d6fdc87191cafb6643317c55c217))
+* **deps:** update linting and formatting ([#92](https://github.com/danielsogl/lighthouse-mcp-server/issues/92)) ([9cff2e4](https://github.com/danielsogl/lighthouse-mcp-server/commit/9cff2e4443c814ef8811d37dc37915aa4d9eae5e))
+* **deps:** update non-major dependencies ([#93](https://github.com/danielsogl/lighthouse-mcp-server/issues/93)) ([0d63161](https://github.com/danielsogl/lighthouse-mcp-server/commit/0d631612af800edd24999982471ca7dd46511b32))
+
 ## [1.2.16](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.15...lighthouse-mcp-v1.2.16) (2025-08-24)
 
 
