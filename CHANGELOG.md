@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.19](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.18...lighthouse-mcp-v1.2.19) (2025-09-29)
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#101](https://github.com/danielsogl/lighthouse-mcp-server/issues/101)) ([5c3f4c0](https://github.com/danielsogl/lighthouse-mcp-server/commit/5c3f4c0550a34a9100987ca5eef5316fccc9500e))
+
 ## [1.2.18](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.17...lighthouse-mcp-v1.2.18) (2025-09-22)
 
 
