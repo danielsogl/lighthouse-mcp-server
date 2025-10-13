@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.20](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.19...lighthouse-mcp-v1.2.20) (2025-10-13)
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency lint-staged to ^16.2.4 ([#105](https://github.com/danielsogl/lighthouse-mcp-server/issues/105)) ([d4449d7](https://github.com/danielsogl/lighthouse-mcp-server/commit/d4449d70d7985c739ce976656efd0a4910c49def))
+* **deps:** update dependency typescript to ^5.9.3 ([#106](https://github.com/danielsogl/lighthouse-mcp-server/issues/106)) ([b0a74de](https://github.com/danielsogl/lighthouse-mcp-server/commit/b0a74deca6e1e99a3972d98c3d8f1f86d7d57d25))
+
 ## [1.2.19](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.18...lighthouse-mcp-v1.2.19) (2025-10-06)
 
 
