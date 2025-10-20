@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.21](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.20...lighthouse-mcp-v1.2.21) (2025-10-20)
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency eslint to ^9.38.0 ([#108](https://github.com/danielsogl/lighthouse-mcp-server/issues/108)) ([7b4ee0b](https://github.com/danielsogl/lighthouse-mcp-server/commit/7b4ee0b8ebad40a3a4dafbaf099349633905cab2))
+* **deps:** update non-major dependencies ([#109](https://github.com/danielsogl/lighthouse-mcp-server/issues/109)) ([4ac8c8b](https://github.com/danielsogl/lighthouse-mcp-server/commit/4ac8c8b7a94adae7372417a63ed35f49c0b72ead))
+
 ## [1.2.20](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.19...lighthouse-mcp-v1.2.20) (2025-10-13)
 
 
