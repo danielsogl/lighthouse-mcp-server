@@ -413,3 +413,10 @@ For security issues, please see our [Security Policy](./SECURITY.md).
 ---
 
 Built with ❤️ by [Daniel Sogl](https://github.com/danielsogl)
+#### AI Agent Marketplace Index And Router | [API Doc](https://www.deepnlp.org/doc/ai_agent_marketplace)
+[![AI Agent Marketplace and Router Badge](https://www.deepnlp.org/api/ai_agent_marketplace/svg?name=danielsogl/lighthouse-mcp-server&badge_type=review)](https://www.deepnlp.org/store/ai-agent/recommendation-agent/pub-danielsogl/lighthouse-mcp-server)
+
+```
+curl 'https://www.deepnlp.org/api/ai_agent_marketplace/v2?id=danielsogl/lighthouse-mcp-server'
+```
+    
