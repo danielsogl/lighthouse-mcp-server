@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.21](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.20...lighthouse-mcp-v1.2.21) (2025-11-10)
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency eslint to ^9.38.0 ([#108](https://github.com/danielsogl/lighthouse-mcp-server/issues/108)) ([7b4ee0b](https://github.com/danielsogl/lighthouse-mcp-server/commit/7b4ee0b8ebad40a3a4dafbaf099349633905cab2))
+* **deps:** update dependency eslint to ^9.39.0 ([#114](https://github.com/danielsogl/lighthouse-mcp-server/issues/114)) ([3125072](https://github.com/danielsogl/lighthouse-mcp-server/commit/3125072cb2bb08c213644c29b2d4c2f986b26e44))
+* **deps:** update dependency eslint to ^9.39.1 ([#116](https://github.com/danielsogl/lighthouse-mcp-server/issues/116)) ([099a8cd](https://github.com/danielsogl/lighthouse-mcp-server/commit/099a8cde3769f8766468b97cb8691bbf26e60bcd))
+* **deps:** update dependency lint-staged to ^16.2.6 ([#111](https://github.com/danielsogl/lighthouse-mcp-server/issues/111)) ([2c5561a](https://github.com/danielsogl/lighthouse-mcp-server/commit/2c5561a9df7b1172aeb197d32f98bffd3d9617c3))
+* **deps:** update non-major dependencies ([#109](https://github.com/danielsogl/lighthouse-mcp-server/issues/109)) ([4ac8c8b](https://github.com/danielsogl/lighthouse-mcp-server/commit/4ac8c8b7a94adae7372417a63ed35f49c0b72ead))
+* **deps:** update non-major dependencies ([#115](https://github.com/danielsogl/lighthouse-mcp-server/issues/115)) ([5353ec8](https://github.com/danielsogl/lighthouse-mcp-server/commit/5353ec82eeab2e103511d48c847e752701200577))
+* **deps:** update non-major dependencies ([#117](https://github.com/danielsogl/lighthouse-mcp-server/issues/117)) ([2f2927c](https://github.com/danielsogl/lighthouse-mcp-server/commit/2f2927c3b01beee65ddb5bc1e8a33a2b032fc805))
+* **deps:** update non-major dependencies to ^8.46.2 ([#112](https://github.com/danielsogl/lighthouse-mcp-server/issues/112)) ([2b9ff2b](https://github.com/danielsogl/lighthouse-mcp-server/commit/2b9ff2b042bda0edcf8e6f4a1369fa5e0e77a069))
+
 ## [1.2.20](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.19...lighthouse-mcp-v1.2.20) (2025-10-13)
 
 
