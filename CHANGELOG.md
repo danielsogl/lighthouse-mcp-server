@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.2.21](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.20...lighthouse-mcp-v1.2.21) (2025-12-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @modelcontextprotocol/sdk to ^1.22.0 ([#119](https://github.com/danielsogl/lighthouse-mcp-server/issues/119)) ([b2e966e](https://github.com/danielsogl/lighthouse-mcp-server/commit/b2e966ed132b2768cbe3774b45fd00d4448584c0))
+* **deps:** update dependency lighthouse to v13 ([#120](https://github.com/danielsogl/lighthouse-mcp-server/issues/120)) ([117f0f8](https://github.com/danielsogl/lighthouse-mcp-server/commit/117f0f884f2b481e877da7755749ddffd7441f60))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#124](https://github.com/danielsogl/lighthouse-mcp-server/issues/124)) ([dd4834d](https://github.com/danielsogl/lighthouse-mcp-server/commit/dd4834d78579718ffa60c7e74b2eee07ca8ed508))
+* **deps:** update dependency eslint to ^9.38.0 ([#108](https://github.com/danielsogl/lighthouse-mcp-server/issues/108)) ([7b4ee0b](https://github.com/danielsogl/lighthouse-mcp-server/commit/7b4ee0b8ebad40a3a4dafbaf099349633905cab2))
+* **deps:** update dependency eslint to ^9.39.0 ([#114](https://github.com/danielsogl/lighthouse-mcp-server/issues/114)) ([3125072](https://github.com/danielsogl/lighthouse-mcp-server/commit/3125072cb2bb08c213644c29b2d4c2f986b26e44))
+* **deps:** update dependency eslint to ^9.39.1 ([#116](https://github.com/danielsogl/lighthouse-mcp-server/issues/116)) ([099a8cd](https://github.com/danielsogl/lighthouse-mcp-server/commit/099a8cde3769f8766468b97cb8691bbf26e60bcd))
+* **deps:** update dependency lint-staged to ^16.2.6 ([#111](https://github.com/danielsogl/lighthouse-mcp-server/issues/111)) ([2c5561a](https://github.com/danielsogl/lighthouse-mcp-server/commit/2c5561a9df7b1172aeb197d32f98bffd3d9617c3))
+* **deps:** update dependency lint-staged to ^16.2.7 ([#122](https://github.com/danielsogl/lighthouse-mcp-server/issues/122)) ([96df349](https://github.com/danielsogl/lighthouse-mcp-server/commit/96df3498dd721cfbfb3d78fe22f4b1c7bf8dc8db))
+* **deps:** update dependency prettier to ^3.7.3 ([#125](https://github.com/danielsogl/lighthouse-mcp-server/issues/125)) ([23740ca](https://github.com/danielsogl/lighthouse-mcp-server/commit/23740ca79fbb617d9071c046f27a69f5a86b2346))
+* **deps:** update non-major dependencies ([#109](https://github.com/danielsogl/lighthouse-mcp-server/issues/109)) ([4ac8c8b](https://github.com/danielsogl/lighthouse-mcp-server/commit/4ac8c8b7a94adae7372417a63ed35f49c0b72ead))
+* **deps:** update non-major dependencies ([#115](https://github.com/danielsogl/lighthouse-mcp-server/issues/115)) ([5353ec8](https://github.com/danielsogl/lighthouse-mcp-server/commit/5353ec82eeab2e103511d48c847e752701200577))
+* **deps:** update non-major dependencies ([#117](https://github.com/danielsogl/lighthouse-mcp-server/issues/117)) ([2f2927c](https://github.com/danielsogl/lighthouse-mcp-server/commit/2f2927c3b01beee65ddb5bc1e8a33a2b032fc805))
+* **deps:** update non-major dependencies to ^8.46.2 ([#112](https://github.com/danielsogl/lighthouse-mcp-server/issues/112)) ([2b9ff2b](https://github.com/danielsogl/lighthouse-mcp-server/commit/2b9ff2b042bda0edcf8e6f4a1369fa5e0e77a069))
+* **deps:** update non-major dependencies to ^8.46.4 ([#118](https://github.com/danielsogl/lighthouse-mcp-server/issues/118)) ([cdfc1eb](https://github.com/danielsogl/lighthouse-mcp-server/commit/cdfc1eb4c9e211eb53f3c7161cfc3ab20de7a582))
+* **deps:** update non-major dependencies to ^8.47.0 ([#123](https://github.com/danielsogl/lighthouse-mcp-server/issues/123)) ([6fa47e0](https://github.com/danielsogl/lighthouse-mcp-server/commit/6fa47e01803fcc5e0698f6c756e5a9670645537e))
+* **deps:** update non-major dependencies to ^8.48.0 ([#126](https://github.com/danielsogl/lighthouse-mcp-server/issues/126)) ([2090812](https://github.com/danielsogl/lighthouse-mcp-server/commit/209081227aca219c36c70b0e53a19ac9d5fbd10a))
+
 ## [1.2.20](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.19...lighthouse-mcp-v1.2.20) (2025-10-13)
 
 
