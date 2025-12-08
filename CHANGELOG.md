@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.22](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.21...lighthouse-mcp-v1.2.22) (2025-12-08)
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency prettier to ^3.7.4 ([#127](https://github.com/danielsogl/lighthouse-mcp-server/issues/127)) ([51edf5d](https://github.com/danielsogl/lighthouse-mcp-server/commit/51edf5d5e741e1fbdfae0b152be63d25b5444e99))
+* **deps:** update non-major dependencies to ^8.48.1 ([#128](https://github.com/danielsogl/lighthouse-mcp-server/issues/128)) ([36ed743](https://github.com/danielsogl/lighthouse-mcp-server/commit/36ed7437d2b3278242b10815a230593c3a7f8a3e))
+
 ## [1.2.21](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.20...lighthouse-mcp-v1.2.21) (2025-12-01)
 
 
