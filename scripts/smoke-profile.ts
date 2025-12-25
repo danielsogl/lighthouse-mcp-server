@@ -101,4 +101,5 @@ Optional flags:
   console.error("Note: if --user-data-dir points to a missing directory, it will be created as a fresh profile.");
 }
 
-void main();
+// Top-level await isn't available under the repo's CommonJS ts-node setup.
+void main(); // NOSONAR
