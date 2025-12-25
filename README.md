@@ -102,10 +102,12 @@ npm run smoke:profile -- --url https://example.com \
 Start Chrome with remote debugging enabled:
 
 ```bash
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+/path/to/GoogleChromeExecutable \
   --remote-debugging-port=9222 \
   --user-data-dir /path/to/chrome-profile
 ```
+
+Replace `/path/to/GoogleChromeExecutable` with your platform's Chrome/Chromium binary path.
 
 Then attach Lighthouse to that instance:
 

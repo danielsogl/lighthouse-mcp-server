@@ -4,16 +4,17 @@ import { parseCliArgs } from "./cli";
 
 describe("parseCliArgs", () => {
   it("parses chrome profile and headless settings", () => {
+    const userDataDir = join("/", "Users", "example", "Chrome", "ProfileData");
     const config = parseCliArgs([
       "--user-data-dir",
-      "/tmp/chrome-profile",
+      userDataDir,
       "--profile-directory=Custom Profile",
       "--chrome-flag",
       "--disable-gpu",
       "--no-headless",
     ]);
 
-    expect(config.userDataDir).toBe("/tmp/chrome-profile");
+    expect(config.userDataDir).toBe(userDataDir);
     expect(config.profileDirectory).toBe("Custom Profile");
     expect(config.extraChromeFlags).toEqual(["--disable-gpu"]);
     expect(config.headless).toBe(false);
@@ -32,7 +33,7 @@ describe("parseCliArgs", () => {
   });
 
   it("parses profile path into user data dir and profile directory", () => {
-    const profilePath = join("tmp", "chrome-profile", "Custom Profile");
+    const profilePath = join("/", "Users", "example", "Chrome", "Custom Profile");
     const config = parseCliArgs(["--profile-path", profilePath]);
 
     expect(config.userDataDir).toBe(dirname(profilePath));

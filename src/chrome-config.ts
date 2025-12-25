@@ -91,17 +91,7 @@ export function isProfileConfig(config: ChromeLaunchConfig) {
 }
 
 function dedupeFlags(flags: string[]) {
-  const seen = new Set<string>();
-  const deduped: string[] = [];
-
-  for (const flag of flags) {
-    if (!seen.has(flag)) {
-      seen.add(flag);
-      deduped.push(flag);
-    }
-  }
-
-  return deduped;
+  return [...new Set(flags)];
 }
 
 function ensureDirectory(path: string) {

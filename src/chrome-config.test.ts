@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { join } from "path";
 import { buildChromeFlags, isProfileConfig } from "./chrome-config";
 import { CHROME_FLAGS } from "./lighthouse-constants";
 
@@ -47,7 +48,9 @@ describe("chrome-config", () => {
 
   describe("isProfileConfig", () => {
     it("returns true when userDataDir is set", () => {
-      expect(isProfileConfig({ userDataDir: "/tmp/profile" })).toBe(true);
+      const userDataDir = join("/", "Users", "example", "Chrome", "ProfileData");
+
+      expect(isProfileConfig({ userDataDir })).toBe(true);
     });
 
     it("returns true when profileDirectory is set", () => {
@@ -59,7 +62,9 @@ describe("chrome-config", () => {
     });
 
     it("returns true when extra flags include profile settings", () => {
-      expect(isProfileConfig({ extraChromeFlags: ["--user-data-dir=/tmp/profile"] })).toBe(true);
+      const userDataDir = join("/", "Users", "example", "Chrome", "ProfileData");
+
+      expect(isProfileConfig({ extraChromeFlags: [`--user-data-dir=${userDataDir}`] })).toBe(true);
       expect(isProfileConfig({ extraChromeFlags: ["--profile-directory=Custom Profile"] })).toBe(true);
     });
 

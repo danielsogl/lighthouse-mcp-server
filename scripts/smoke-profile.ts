@@ -1,3 +1,4 @@
+import { parseArgs } from "node:util";
 import { parseCliArgs } from "../src/cli";
 import { setChromeLaunchConfig } from "../src/chrome-config";
 import { runLighthouseAudit } from "../src/lighthouse-core";
@@ -35,69 +36,43 @@ async function main() {
 }
 
 function parseSmokeArgs(argv: string[]): SmokeOptions {
+  const { values } = parseArgs({
+    args: argv,
+    allowPositionals: true,
+    strict: false,
+    options: {
+      url: { type: "string" },
+      device: { type: "string" },
+      categories: { type: "string" },
+      throttling: { type: "boolean" },
+      "no-throttling": { type: "boolean" },
+    },
+  });
+
   const options: SmokeOptions = {};
 
-  for (let i = 0; i < argv.length; i += 1) {
-    const arg = argv[i];
+  if (typeof values.url === "string") {
+    options.url = values.url;
+  }
 
-    if (arg.startsWith("--url")) {
-      const parsed = readArgValue(argv, i);
-      if (parsed.value) {
-        options.url = parsed.value;
-      }
-      i += parsed.offset;
-      continue;
-    }
+  if (values.device === "desktop" || values.device === "mobile") {
+    options.device = values.device;
+  }
 
-    if (arg.startsWith("--device")) {
-      const parsed = readArgValue(argv, i);
-      if (parsed.value === "desktop" || parsed.value === "mobile") {
-        options.device = parsed.value;
-      }
-      i += parsed.offset;
-      continue;
-    }
+  if (typeof values.categories === "string") {
+    options.categories = values.categories
+      .split(",")
+      .map((category) => category.trim())
+      .filter(Boolean);
+  }
 
-    if (arg.startsWith("--categories")) {
-      const parsed = readArgValue(argv, i);
-      if (parsed.value) {
-        options.categories = parsed.value
-          .split(",")
-          .map((category) => category.trim())
-          .filter(Boolean);
-      }
-      i += parsed.offset;
-      continue;
-    }
-
-    if (arg === "--throttling") {
-      options.throttling = true;
-      continue;
-    }
-
-    if (arg === "--no-throttling") {
-      options.throttling = false;
-      continue;
-    }
+  if (values["no-throttling"]) {
+    options.throttling = false;
+  } else if (typeof values.throttling === "boolean") {
+    options.throttling = values.throttling;
   }
 
   return options;
-}
-
-function readArgValue(argv: string[], index: number) {
-  const arg = argv[index];
-  const equalsIndex = arg.indexOf("=");
-
-  if (equalsIndex !== -1) {
-    return { value: arg.slice(equalsIndex + 1), offset: 0 };
-  }
-
-  const nextValue = argv[index + 1];
-  if (!nextValue || nextValue.startsWith("--")) {
-    return { offset: 0 };
-  }
-
-  return { value: nextValue, offset: 1 };
 }
 
 function printUsage() {
