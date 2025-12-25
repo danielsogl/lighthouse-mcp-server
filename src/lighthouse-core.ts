@@ -1,13 +1,31 @@
 import lighthouse from "lighthouse";
 import * as chromeLauncher from "chrome-launcher";
 import { LighthouseResult, LighthouseAuditResult } from "./types";
-import { CHROME_FLAGS, SCREEN_DIMENSIONS, THROTTLING_CONFIG, KEY_METRICS } from "./lighthouse-constants";
+import { SCREEN_DIMENSIONS, THROTTLING_CONFIG, KEY_METRICS } from "./lighthouse-constants";
+import { getChromeLaunchConfig, getChromeLaunchOptions, isProfileConfig } from "./chrome-config";
+
+let remoteAuditLock: Promise<void> = Promise.resolve();
+
+async function withRemoteDebuggingLock<T>(runAudit: () => Promise<T>): Promise<T> {
+  const previous = remoteAuditLock.catch(() => undefined);
+  let release: (() => void) | undefined;
+  const current = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+
+  remoteAuditLock = previous.then(() => current);
+  await previous;
+
+  try {
+    return await runAudit();
+  } finally {
+    release?.();
+  }
+}
 
 // Helper function to launch Chrome with standard configuration
 export async function launchChrome() {
-  return chromeLauncher.launch({
-    chromeFlags: CHROME_FLAGS,
-  });
+  return chromeLauncher.launch(getChromeLaunchOptions());
 }
 
 // Helper function to get screen emulation settings
@@ -28,6 +46,7 @@ export function buildLighthouseOptions(
   device: "desktop" | "mobile",
   categories?: string[],
   throttling = false,
+  disableStorageReset = false,
 ) {
   return {
     logLevel: "info" as const,
@@ -37,6 +56,7 @@ export function buildLighthouseOptions(
     formFactor: device,
     screenEmulation: getScreenEmulation(device),
     throttling: throttling ? THROTTLING_CONFIG.enabled : THROTTLING_CONFIG.disabled,
+    ...(disableStorageReset ? { disableStorageReset: true } : {}),
   };
 }
 
@@ -47,20 +67,39 @@ export async function runRawLighthouseAudit(
   device: "desktop" | "mobile" = "desktop",
   throttling = false,
 ): Promise<LighthouseResult> {
-  const chrome = await launchChrome();
+  const chromeConfig = getChromeLaunchConfig();
+  const { remoteDebuggingPort } = chromeConfig;
+  const disableStorageReset = isProfileConfig(chromeConfig);
 
-  try {
-    const options = buildLighthouseOptions(chrome.port, device, categories, throttling);
-    const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
+  const runAudit = async () => {
+    const chrome = remoteDebuggingPort ? null : await launchChrome();
+    const port = remoteDebuggingPort ?? chrome?.port;
 
-    if (!runnerResult) {
-      throw new Error("Failed to run Lighthouse audit");
+    try {
+      if (!port) {
+        throw new Error("Failed to resolve Chrome debugging port");
+      }
+
+      const options = buildLighthouseOptions(port, device, categories, throttling, disableStorageReset);
+      const runnerResult = (await lighthouse(url, options)) as LighthouseResult;
+
+      if (!runnerResult) {
+        throw new Error("Failed to run Lighthouse audit");
+      }
+
+      return runnerResult;
+    } finally {
+      if (chrome) {
+        await chrome.kill();
+      }
     }
+  };
 
-    return runnerResult;
-  } finally {
-    await chrome.kill();
+  if (remoteDebuggingPort) {
+    return withRemoteDebuggingLock(runAudit);
   }
+
+  return runAudit();
 }
 
 // Helper function to filter audits by category

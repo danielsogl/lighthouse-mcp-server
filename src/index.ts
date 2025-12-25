@@ -12,9 +12,14 @@ import { registerPrompts } from "./prompts";
 import { registerResources } from "./resources";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { parseCliArgs } from "./cli";
+import { setChromeLaunchConfig } from "./chrome-config";
 
 // Read version from package.json
 const packageJson = JSON.parse(readFileSync(join(__dirname, "..", "package.json"), "utf-8"));
+
+const cliConfig = parseCliArgs(process.argv.slice(2));
+setChromeLaunchConfig(cliConfig);
 
 const server = new McpServer({
   name: "Lighthouse",

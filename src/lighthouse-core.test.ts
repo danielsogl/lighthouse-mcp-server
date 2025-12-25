@@ -92,6 +92,12 @@ describe("lighthouse-core utilities", () => {
         cpuSlowdownMultiplier: 1,
       });
     });
+
+    it("should set disableStorageReset when enabled", () => {
+      const options = buildLighthouseOptions(9222, "desktop", undefined, false, true);
+
+      expect(options.disableStorageReset).toBe(true);
+    });
   });
 
   describe("filterAuditsByCategory", () => {
