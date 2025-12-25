@@ -13,26 +13,32 @@ type SmokeOptions = {
 };
 
 async function main() {
-  const argv = process.argv.slice(2);
-  const chromeConfig = parseCliArgs(argv);
-  const smokeOptions = parseSmokeArgs(argv);
+  try {
+    const argv = process.argv.slice(2);
+    const chromeConfig = parseCliArgs(argv);
+    const smokeOptions = parseSmokeArgs(argv);
 
-  setChromeLaunchConfig(chromeConfig);
+    setChromeLaunchConfig(chromeConfig);
 
-  if (!smokeOptions.url) {
-    printUsage();
+    if (!smokeOptions.url) {
+      printUsage();
+      process.exit(1);
+    }
+
+    const result = await runLighthouseAudit(
+      smokeOptions.url,
+      smokeOptions.categories,
+      smokeOptions.device ?? "desktop",
+      smokeOptions.throttling ?? false,
+    );
+
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Smoke audit failed:", error);
     process.exit(1);
   }
-
-  const result = await runLighthouseAudit(
-    smokeOptions.url,
-    smokeOptions.categories,
-    smokeOptions.device ?? "desktop",
-    smokeOptions.throttling ?? false,
-  );
-
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(result, null, 2));
 }
 
 function parseSmokeArgs(argv: string[]): SmokeOptions {
@@ -77,9 +83,9 @@ function parseSmokeArgs(argv: string[]): SmokeOptions {
 
 function printUsage() {
   // eslint-disable-next-line no-console
-  console.error(`Usage:
-  npm run smoke:profile -- --url https://example.com \\
-    --profile-path "<profile-path>" \\
+  console.error(String.raw`Usage:
+  npm run smoke:profile -- --url https://example.com \
+    --profile-path "<profile-path>" \
     --no-headless
 
   npm run smoke:profile -- --url https://example.com --chrome-port 9222
@@ -95,8 +101,4 @@ Optional flags:
   console.error("Note: if --user-data-dir points to a missing directory, it will be created as a fresh profile.");
 }
 
-main().catch((error) => {
-  // eslint-disable-next-line no-console
-  console.error("Smoke audit failed:", error);
-  process.exit(1);
-});
+void main();

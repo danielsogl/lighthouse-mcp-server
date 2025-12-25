@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { basename, dirname, join } from "path";
+import { basename, dirname, join } from "node:path";
 import { parseCliArgs } from "./cli";
 
 describe("parseCliArgs", () => {

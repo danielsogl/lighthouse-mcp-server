@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { CHROME_FLAGS } from "./lighthouse-constants";
 
 export type ChromeLaunchConfig = {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { join } from "path";
+import { join } from "node:path";
 import { buildChromeFlags, isProfileConfig } from "./chrome-config";
 import { CHROME_FLAGS } from "./lighthouse-constants";
 
