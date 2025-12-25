@@ -46,6 +46,83 @@ Install the Lighthouse MCP server with your preferred client using one of the co
 }
 ```
 
+### Persistent Chrome Profiles (Login Sessions)
+
+If you need authenticated sessions, launch with a persistent Chrome profile and run headed:
+
+```json
+{
+  "mcpServers": {
+    "lighthouse": {
+      "command": "npx",
+      "args": [
+        "@danielsogl/lighthouse-mcp@latest",
+        "--profile-path",
+        "<profile-path>",
+        "--no-headless"
+      ]
+    }
+  }
+}
+```
+
+You can pass extra Chrome flags with `--chrome-flag`, for example `--chrome-flag=--disable-gpu`.
+If the flag value starts with `--` and matches a known option name, prefer `--chrome-flag=...` to avoid parsing it as a top-level option.
+Profile mode disables Lighthouse's storage reset so cookies and local storage persist between runs.
+If `--user-data-dir` points to a missing directory, it will be created and treated as a fresh profile.
+Set `--profile-path` to the Profile Path shown in `chrome://version` (e.g. `.../Default`).
+Note: Chrome's remote debugging requires a non-default user data directory, so reuse a dedicated profile directory instead of the system default.
+You can also pass `--user-data-dir` + `--profile-directory` separately if you prefer.
+Attaching with `--chrome-port` alone does not preserve storage; include a profile flag to keep sessions.
+
+### CLI Options
+
+Supported runtime flags for the MCP server:
+
+- `--profile-path <path>`: use the Profile Path from `chrome://version` (auto-derives user data dir + profile name)
+- `--user-data-dir <path>`: reuse a Chrome profile directory for persistent sessions
+- `--profile-directory <name>`: select a profile within the user data dir
+- `--chrome-flag <flag>` or `--chrome-flag=<flag>`: pass through extra Chrome flags (repeatable)
+- `--chrome-port <port>` or `--remote-debugging-port <port>`: attach to an existing Chrome instance launched with remote debugging enabled
+- `--headless`: force headless mode
+- `--no-headless`: force headed mode
+
+### E2E Smoke Test (Profile)
+
+Run a real audit with a persistent profile (use an existing profile directory and log in once if needed):
+
+```bash
+npm run smoke:profile -- --url https://example.com \
+  --profile-path "<profile-path>" \
+  --no-headless
+```
+
+### E2E Smoke Test (Attach to Existing Chrome)
+
+Start Chrome with remote debugging enabled:
+
+```bash
+/path/to/GoogleChromeExecutable \
+  --remote-debugging-port=9222 \
+  --user-data-dir /path/to/chrome-profile
+```
+
+Replace `/path/to/GoogleChromeExecutable` with your platform's Chrome/Chromium binary path.
+
+Then attach Lighthouse to that instance:
+
+```bash
+npm run smoke:profile -- --url https://example.com --chrome-port 9222
+```
+
+To preserve storage when attaching, pass the profile path so Lighthouse keeps cookies/local storage:
+
+```bash
+npm run smoke:profile -- --url https://example.com \
+  --chrome-port 9222 \
+  --profile-path "<profile-path>"
+```
+
 ### Install in VS Code
 
 [<img src="https://img.shields.io/badge/VS_Code-Install_Server-0078d4?style=for-the-badge&logo=visual-studio-code" alt="Install in VS Code">](https://code.visualstudio.com/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522lighthouse%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522%2540danielsogl%252Flighthouse-mcp%2540latest%2522%255D%257D)
