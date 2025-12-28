@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.3.1...lighthouse-mcp-v1.3.2) (2025-12-28)
+
+
+### Miscellaneous Chores
+
+* update release workflow permissions to include id-token write access ([2d2f9d2](https://github.com/danielsogl/lighthouse-mcp-server/commit/2d2f9d275f3d5e7b8de2c80752908f14c49f1ffa))
+
 ## [1.3.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.3.0...lighthouse-mcp-v1.3.1) (2025-12-28)
 
 
