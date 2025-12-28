@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.3](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.3.2...lighthouse-mcp-v1.3.3) (2025-12-28)
+
+
+### Miscellaneous Chores
+
+* bump vitest ([53fdc95](https://github.com/danielsogl/lighthouse-mcp-server/commit/53fdc956a63bba687f951d7b9fa404792d374f38))
+* update NPM publish command to include provenance and public access ([4b55aa7](https://github.com/danielsogl/lighthouse-mcp-server/commit/4b55aa725ab0af8f1ff7646c67378169831d7675))
+
 ## [1.3.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.3.1...lighthouse-mcp-v1.3.2) (2025-12-28)
 
 
