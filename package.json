@@ -21,6 +21,7 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
+    "smoke:profile": "ts-node scripts/smoke-profile.ts",
     "release-please": "release-please release-pr --repo-url=https://github.com/danielsogl/lighthouse-mcp-server --package-name=@danielsogl/lighthouse-mcp",
     "release-please:release": "release-please github-release --repo-url=https://github.com/danielsogl/lighthouse-mcp-server --package-name=@danielsogl/lighthouse-mcp"
   },
