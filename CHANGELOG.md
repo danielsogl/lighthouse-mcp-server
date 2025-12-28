@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.3.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.21...lighthouse-mcp-v1.3.0) (2025-12-28)
+
+
+### Features
+
+* add Chrome profile support for authenticated Lighthouse runs ([#134](https://github.com/danielsogl/lighthouse-mcp-server/issues/134)) ([20c3e90](https://github.com/danielsogl/lighthouse-mcp-server/commit/20c3e90a8d955d48ad8bbcb560dc2df1a72394af))
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency eslint to ^9.39.2 ([#130](https://github.com/danielsogl/lighthouse-mcp-server/issues/130)) ([aa37e15](https://github.com/danielsogl/lighthouse-mcp-server/commit/aa37e157a16720d0e899a6e907442a35631873d3))
+* **deps:** update dependency prettier to ^3.7.4 ([#127](https://github.com/danielsogl/lighthouse-mcp-server/issues/127)) ([51edf5d](https://github.com/danielsogl/lighthouse-mcp-server/commit/51edf5d5e741e1fbdfae0b152be63d25b5444e99))
+* **deps:** update non-major dependencies ([#131](https://github.com/danielsogl/lighthouse-mcp-server/issues/131)) ([4905220](https://github.com/danielsogl/lighthouse-mcp-server/commit/4905220a6064105668801163ed6b53f9194f4bf2))
+* **deps:** update non-major dependencies to ^8.48.1 ([#128](https://github.com/danielsogl/lighthouse-mcp-server/issues/128)) ([36ed743](https://github.com/danielsogl/lighthouse-mcp-server/commit/36ed7437d2b3278242b10815a230593c3a7f8a3e))
+* **deps:** update non-major dependencies to ^8.50.0 ([#132](https://github.com/danielsogl/lighthouse-mcp-server/issues/132)) ([7f3e8a0](https://github.com/danielsogl/lighthouse-mcp-server/commit/7f3e8a09c98ebfcc1ad449635033915fa7a93677))
+
 ## [1.2.21](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.2.20...lighthouse-mcp-v1.2.21) (2025-12-01)
 
 
