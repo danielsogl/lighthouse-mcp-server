@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.4.0...lighthouse-mcp-v1.4.1) (2026-01-12)
+
+
+### Miscellaneous Chores
+
+* **deps:** update non-major dependencies to ^8.50.1 ([#140](https://github.com/danielsogl/lighthouse-mcp-server/issues/140)) ([d3d7b18](https://github.com/danielsogl/lighthouse-mcp-server/commit/d3d7b187938a006a436fcfdc6a6730ab3f5d61f9))
+* **deps:** update non-major dependencies to ^8.51.0 ([#143](https://github.com/danielsogl/lighthouse-mcp-server/issues/143)) ([eea35c2](https://github.com/danielsogl/lighthouse-mcp-server/commit/eea35c2f56cc6e92721ff7bd9029f7e3b648bc8e))
+* **deps:** update non-major dependencies to ^8.52.0 ([#144](https://github.com/danielsogl/lighthouse-mcp-server/issues/144)) ([b1a81ae](https://github.com/danielsogl/lighthouse-mcp-server/commit/b1a81aee3bece41f721527a8566dc4d9af3526f0))
+
 ## [1.4.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.3.3...lighthouse-mcp-v1.4.0) (2025-12-28)
 
 
