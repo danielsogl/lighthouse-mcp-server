@@ -87,8 +87,8 @@
   ],
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
     "@vitest/coverage-v8": "^4.0.18",
     "@vitest/ui": "^4.0.18",
     "eslint": "^9.39.2",
@@ -99,10 +99,10 @@
     "is-ci": "^4.1.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
-    "release-please": "^17.2.0",
+    "release-please": "^17.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0",
+    "typescript-eslint": "^8.55.0",
     "vitest": "^4.0.18"
   },
   "lint-staged": {
