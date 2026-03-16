@@ -97,7 +97,7 @@
     "globals": "^16.5.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
-    "lint-staged": "^16.3.2",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "release-please": "^17.3.0",
     "ts-node": "^10.9.2",
