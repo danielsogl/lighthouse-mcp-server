@@ -101,7 +101,7 @@
     "prettier": "^3.8.1",
     "release-please": "^17.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.2",
     "vitest": "^4.1.2"
   },
