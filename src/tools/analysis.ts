@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { resourceAnalysisSchema, unusedJavaScriptSchema } from "../schemas";
-import { findUnusedJavaScript, analyzeResources } from "../lighthouse-analysis";
+import { resourceAnalysisSchema, unusedJavaScriptSchema } from "../schemas.js";
+import { findUnusedJavaScript, analyzeResources } from "../lighthouse-analysis.js";
 
 // Helper function to create structured content that's both AI and human readable
 function createStructuredAnalysis(title: string, data: Record<string, unknown>, summary?: string) {
@@ -17,10 +17,12 @@ function createStructuredAnalysis(title: string, data: Record<string, unknown>, 
 }
 
 export function registerAnalysisTools(server: McpServer) {
-  server.tool(
+  server.registerTool(
     "find_unused_javascript",
-    "Find unused JavaScript code to reduce bundle size",
-    unusedJavaScriptSchema,
+    {
+      description: "Find unused JavaScript code to reduce bundle size",
+      inputSchema: unusedJavaScriptSchema,
+    },
     async ({ url, device, minBytes }) => {
       try {
         const result = await findUnusedJavaScript(url, device, minBytes);
@@ -91,10 +93,12 @@ export function registerAnalysisTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "analyze_resources",
-    "Analyze website resources (images, JS, CSS, fonts) for optimization opportunities",
-    resourceAnalysisSchema,
+    {
+      description: "Analyze website resources (images, JS, CSS, fonts) for optimization opportunities",
+      inputSchema: resourceAnalysisSchema,
+    },
     async ({ url, device, resourceTypes, minSize }) => {
       try {
         const result = await analyzeResources(url, device, resourceTypes, minSize);

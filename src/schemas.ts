@@ -32,26 +32,26 @@ export const baseSchemas = {
   threshold: z.number({ description: "Score threshold (0-100)" }).min(0).max(100).optional(),
 };
 
-// Composed schemas for each tool
-export const auditParamsSchema = {
+// Composed schemas for each tool (wrapped in z.object() for proper type inference)
+export const auditParamsSchema = z.object({
   url: baseSchemas.url,
   categories: baseSchemas.categories,
   device: baseSchemas.device,
   throttling: baseSchemas.throttling,
-};
+});
 
-export const basicAuditSchema = {
+export const basicAuditSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
-};
+});
 
-export const detailedAuditSchema = {
+export const detailedAuditSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   includeDetails: baseSchemas.includeDetails,
-};
+});
 
-export const coreWebVitalsSchema = {
+export const coreWebVitalsSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   includeDetails: baseSchemas.includeDetails,
@@ -62,9 +62,9 @@ export const coreWebVitalsSchema = {
       cls: z.number().min(0).optional().describe("Cumulative Layout Shift threshold"),
     })
     .optional(),
-};
+});
 
-export const performanceBudgetSchema = {
+export const performanceBudgetSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   budget: z.object({
@@ -75,16 +75,16 @@ export const performanceBudgetSchema = {
     cumulativeLayoutShift: z.number().min(0).optional().describe("CLS budget"),
     speedIndex: z.number().min(0).optional().describe("Speed Index budget in milliseconds"),
   }),
-};
+});
 
-export const compareDevicesSchema = {
+export const compareDevicesSchema = z.object({
   url: baseSchemas.url,
   categories: baseSchemas.categories,
   throttling: baseSchemas.throttling,
   includeDetails: baseSchemas.includeDetails,
-};
+});
 
-export const resourceAnalysisSchema = {
+export const resourceAnalysisSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   resourceTypes: z
@@ -92,26 +92,26 @@ export const resourceAnalysisSchema = {
     .optional()
     .describe("Types of resources to analyze"),
   minSize: z.number().min(0).optional().describe("Minimum resource size in KB to include"),
-};
+});
 
-export const lcpOpportunitiesSchema = {
+export const lcpOpportunitiesSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   includeDetails: baseSchemas.includeDetails,
   threshold: z.number().min(0).optional().describe("LCP threshold in seconds (default: 2.5)"),
-};
+});
 
-export const unusedJavaScriptSchema = {
+export const unusedJavaScriptSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   minBytes: z.number().min(0).default(2048).describe("Minimum unused bytes to report (default: 2048)"),
-};
+});
 
-export const securityAuditSchema = {
+export const securityAuditSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   checks: z
     .array(z.enum(["https", "mixed-content", "csp", "hsts", "vulnerabilities"]))
     .optional()
     .describe("Specific security checks to perform"),
-};
+});

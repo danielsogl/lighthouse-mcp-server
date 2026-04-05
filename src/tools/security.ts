@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { securityAuditSchema } from "../schemas";
-import { getSecurityAudit } from "../lighthouse-analysis";
+import { securityAuditSchema } from "../schemas.js";
+import { getSecurityAudit } from "../lighthouse-analysis.js";
 
 interface StructuredResponse {
   summary: string;
@@ -23,10 +23,12 @@ function createStructuredSecurity(
 }
 
 export function registerSecurityTools(server: McpServer) {
-  server.tool(
+  server.registerTool(
     "get_security_audit",
-    "Perform security audit checking HTTPS, CSP, and other security measures",
-    securityAuditSchema,
+    {
+      description: "Perform security audit checking HTTPS, CSP, and other security measures",
+      inputSchema: securityAuditSchema,
+    },
     async ({ url, device, checks }) => {
       try {
         const result = await getSecurityAudit(url, device, checks);

@@ -1,5 +1,5 @@
-import { runRawLighthouseAudit } from "./lighthouse-core";
-import { SECURITY_AUDITS, DEFAULTS } from "./lighthouse-constants";
+import { runRawLighthouseAudit } from "./lighthouse-core.js";
+import { SECURITY_AUDITS, DEFAULTS } from "./lighthouse-constants.js";
 
 // Helper function to find unused JavaScript
 export async function findUnusedJavaScript(

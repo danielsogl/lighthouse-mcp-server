@@ -1,6 +1,6 @@
 import { parseArgs } from "node:util";
 import { basename, dirname } from "node:path";
-import { ChromeLaunchConfig } from "./chrome-config";
+import { ChromeLaunchConfig } from "./chrome-config.js";
 
 export function parseCliArgs(argv: string[]): ChromeLaunchConfig {
   const { values } = parseArgs({

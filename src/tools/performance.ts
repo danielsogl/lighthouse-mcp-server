@@ -5,14 +5,14 @@ import {
   compareDevicesSchema,
   performanceBudgetSchema,
   lcpOpportunitiesSchema,
-} from "../schemas";
+} from "../schemas.js";
 import {
   getPerformanceScore,
   getCoreWebVitals,
   compareMobileDesktop,
   checkPerformanceBudget,
   getLcpOpportunities,
-} from "../lighthouse-performance";
+} from "../lighthouse-performance.js";
 
 interface StructuredResponse {
   summary: string;
@@ -35,10 +35,12 @@ function createStructuredPerformance(
 }
 
 export function registerPerformanceTools(server: McpServer) {
-  server.tool(
+  server.registerTool(
     "get_performance_score",
-    "Get the performance score for a website",
-    basicAuditSchema,
+    {
+      description: "Get the performance score for a website",
+      inputSchema: basicAuditSchema,
+    },
     async ({ url, device }) => {
       try {
         const result = await getPerformanceScore(url, device);
@@ -100,10 +102,12 @@ export function registerPerformanceTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "get_core_web_vitals",
-    "Get Core Web Vitals metrics for a website",
-    coreWebVitalsSchema,
+    {
+      description: "Get Core Web Vitals metrics for a website",
+      inputSchema: coreWebVitalsSchema,
+    },
     async ({ url, device, includeDetails, threshold }) => {
       try {
         const result = await getCoreWebVitals(url, device, threshold);
@@ -166,10 +170,12 @@ export function registerPerformanceTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "compare_mobile_desktop",
-    "Compare website performance between mobile and desktop devices",
-    compareDevicesSchema,
+    {
+      description: "Compare website performance between mobile and desktop devices",
+      inputSchema: compareDevicesSchema,
+    },
     async ({ url, categories, throttling, includeDetails }) => {
       try {
         const result = await compareMobileDesktop(url, categories, throttling);
@@ -230,10 +236,12 @@ export function registerPerformanceTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "check_performance_budget",
-    "Check if website performance meets specified budget thresholds",
-    performanceBudgetSchema,
+    {
+      description: "Check if website performance meets specified budget thresholds",
+      inputSchema: performanceBudgetSchema,
+    },
     async ({ url, device, budget }) => {
       try {
         const result = await checkPerformanceBudget(url, device, budget);
@@ -302,10 +310,12 @@ export function registerPerformanceTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "get_lcp_opportunities",
-    "Get LCP optimization opportunities for a website",
-    lcpOpportunitiesSchema,
+    {
+      description: "Get LCP optimization opportunities for a website",
+      inputSchema: lcpOpportunitiesSchema,
+    },
     async ({ url, device, threshold, includeDetails }) => {
       try {
         const result = await getLcpOpportunities(url, device, threshold);

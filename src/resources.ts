@@ -6,169 +6,179 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
  */
 export function registerResources(server: McpServer) {
   // Performance thresholds and guidelines
-  server.resource("core-web-vitals-thresholds", "lighthouse://performance/core-web-vitals-thresholds", async (uri) => ({
-    contents: [
-      {
-        uri: uri.href,
-        mimeType: "application/json",
-        text: JSON.stringify(
-          {
-            lcp: {
-              good: { max: 2.5, unit: "seconds" },
-              needsImprovement: { min: 2.5, max: 4.0, unit: "seconds" },
-              poor: { min: 4.0, unit: "seconds" },
+  server.registerResource(
+    "core-web-vitals-thresholds",
+    "lighthouse://performance/core-web-vitals-thresholds",
+    {},
+    async (uri) => ({
+      contents: [
+        {
+          uri: uri.href,
+          mimeType: "application/json",
+          text: JSON.stringify(
+            {
+              lcp: {
+                good: { max: 2.5, unit: "seconds" },
+                needsImprovement: { min: 2.5, max: 4.0, unit: "seconds" },
+                poor: { min: 4.0, unit: "seconds" },
+              },
+              fid: {
+                good: { max: 100, unit: "milliseconds" },
+                needsImprovement: { min: 100, max: 300, unit: "milliseconds" },
+                poor: { min: 300, unit: "milliseconds" },
+              },
+              cls: {
+                good: { max: 0.1, unit: "score" },
+                needsImprovement: { min: 0.1, max: 0.25, unit: "score" },
+                poor: { min: 0.25, unit: "score" },
+              },
+              fcp: {
+                good: { max: 1.8, unit: "seconds" },
+                needsImprovement: { min: 1.8, max: 3.0, unit: "seconds" },
+                poor: { min: 3.0, unit: "seconds" },
+              },
+              tbt: {
+                good: { max: 200, unit: "milliseconds" },
+                needsImprovement: { min: 200, max: 600, unit: "milliseconds" },
+                poor: { min: 600, unit: "milliseconds" },
+              },
+              speedIndex: {
+                good: { max: 3.4, unit: "seconds" },
+                needsImprovement: { min: 3.4, max: 5.8, unit: "seconds" },
+                poor: { min: 5.8, unit: "seconds" },
+              },
             },
-            fid: {
-              good: { max: 100, unit: "milliseconds" },
-              needsImprovement: { min: 100, max: 300, unit: "milliseconds" },
-              poor: { min: 300, unit: "milliseconds" },
-            },
-            cls: {
-              good: { max: 0.1, unit: "score" },
-              needsImprovement: { min: 0.1, max: 0.25, unit: "score" },
-              poor: { min: 0.25, unit: "score" },
-            },
-            fcp: {
-              good: { max: 1.8, unit: "seconds" },
-              needsImprovement: { min: 1.8, max: 3.0, unit: "seconds" },
-              poor: { min: 3.0, unit: "seconds" },
-            },
-            tbt: {
-              good: { max: 200, unit: "milliseconds" },
-              needsImprovement: { min: 200, max: 600, unit: "milliseconds" },
-              poor: { min: 600, unit: "milliseconds" },
-            },
-            speedIndex: {
-              good: { max: 3.4, unit: "seconds" },
-              needsImprovement: { min: 3.4, max: 5.8, unit: "seconds" },
-              poor: { min: 5.8, unit: "seconds" },
-            },
-          },
-          null,
-          2,
-        ),
-      },
-    ],
-  }));
+            null,
+            2,
+          ),
+        },
+      ],
+    }),
+  );
 
   // Performance optimization techniques
-  server.resource("optimization-techniques", "lighthouse://performance/optimization-techniques", async (uri) => ({
-    contents: [
-      {
-        uri: uri.href,
-        mimeType: "application/json",
-        text: JSON.stringify(
-          {
-            images: {
-              techniques: [
-                {
-                  name: "Use modern image formats (WebP, AVIF)",
-                  impact: "high",
-                  savings: "25-50% file size reduction",
-                  difficulty: "medium",
-                },
-                {
-                  name: "Implement lazy loading",
-                  impact: "high",
-                  savings: "Faster initial page load",
-                  difficulty: "easy",
-                },
-                {
-                  name: "Optimize image dimensions",
-                  impact: "medium",
-                  savings: "10-30% file size reduction",
-                  difficulty: "easy",
-                },
-                {
-                  name: "Use responsive images with srcset",
-                  impact: "medium",
-                  savings: "Improved mobile performance",
-                  difficulty: "medium",
-                },
-              ],
+  server.registerResource(
+    "optimization-techniques",
+    "lighthouse://performance/optimization-techniques",
+    {},
+    async (uri) => ({
+      contents: [
+        {
+          uri: uri.href,
+          mimeType: "application/json",
+          text: JSON.stringify(
+            {
+              images: {
+                techniques: [
+                  {
+                    name: "Use modern image formats (WebP, AVIF)",
+                    impact: "high",
+                    savings: "25-50% file size reduction",
+                    difficulty: "medium",
+                  },
+                  {
+                    name: "Implement lazy loading",
+                    impact: "high",
+                    savings: "Faster initial page load",
+                    difficulty: "easy",
+                  },
+                  {
+                    name: "Optimize image dimensions",
+                    impact: "medium",
+                    savings: "10-30% file size reduction",
+                    difficulty: "easy",
+                  },
+                  {
+                    name: "Use responsive images with srcset",
+                    impact: "medium",
+                    savings: "Improved mobile performance",
+                    difficulty: "medium",
+                  },
+                ],
+              },
+              javascript: {
+                techniques: [
+                  {
+                    name: "Code splitting and lazy loading",
+                    impact: "high",
+                    savings: "Reduced initial bundle size",
+                    difficulty: "medium",
+                  },
+                  {
+                    name: "Tree shaking unused code",
+                    impact: "medium",
+                    savings: "10-40% bundle size reduction",
+                    difficulty: "easy",
+                  },
+                  {
+                    name: "Minification and compression",
+                    impact: "medium",
+                    savings: "20-30% file size reduction",
+                    difficulty: "easy",
+                  },
+                  {
+                    name: "Use modern bundling tools",
+                    impact: "medium",
+                    savings: "Better optimization",
+                    difficulty: "medium",
+                  },
+                ],
+              },
+              css: {
+                techniques: [
+                  {
+                    name: "Remove unused CSS",
+                    impact: "medium",
+                    savings: "20-50% file size reduction",
+                    difficulty: "medium",
+                  },
+                  {
+                    name: "Critical CSS inlining",
+                    impact: "high",
+                    savings: "Faster first paint",
+                    difficulty: "hard",
+                  },
+                  {
+                    name: "CSS minification",
+                    impact: "low",
+                    savings: "10-20% file size reduction",
+                    difficulty: "easy",
+                  },
+                ],
+              },
+              caching: {
+                techniques: [
+                  {
+                    name: "Implement proper cache headers",
+                    impact: "high",
+                    savings: "Eliminated repeat downloads",
+                    difficulty: "medium",
+                  },
+                  {
+                    name: "Use CDN for static assets",
+                    impact: "high",
+                    savings: "Reduced latency",
+                    difficulty: "medium",
+                  },
+                  {
+                    name: "Service worker caching",
+                    impact: "high",
+                    savings: "Offline capability",
+                    difficulty: "hard",
+                  },
+                ],
+              },
             },
-            javascript: {
-              techniques: [
-                {
-                  name: "Code splitting and lazy loading",
-                  impact: "high",
-                  savings: "Reduced initial bundle size",
-                  difficulty: "medium",
-                },
-                {
-                  name: "Tree shaking unused code",
-                  impact: "medium",
-                  savings: "10-40% bundle size reduction",
-                  difficulty: "easy",
-                },
-                {
-                  name: "Minification and compression",
-                  impact: "medium",
-                  savings: "20-30% file size reduction",
-                  difficulty: "easy",
-                },
-                {
-                  name: "Use modern bundling tools",
-                  impact: "medium",
-                  savings: "Better optimization",
-                  difficulty: "medium",
-                },
-              ],
-            },
-            css: {
-              techniques: [
-                {
-                  name: "Remove unused CSS",
-                  impact: "medium",
-                  savings: "20-50% file size reduction",
-                  difficulty: "medium",
-                },
-                {
-                  name: "Critical CSS inlining",
-                  impact: "high",
-                  savings: "Faster first paint",
-                  difficulty: "hard",
-                },
-                {
-                  name: "CSS minification",
-                  impact: "low",
-                  savings: "10-20% file size reduction",
-                  difficulty: "easy",
-                },
-              ],
-            },
-            caching: {
-              techniques: [
-                {
-                  name: "Implement proper cache headers",
-                  impact: "high",
-                  savings: "Eliminated repeat downloads",
-                  difficulty: "medium",
-                },
-                {
-                  name: "Use CDN for static assets",
-                  impact: "high",
-                  savings: "Reduced latency",
-                  difficulty: "medium",
-                },
-                {
-                  name: "Service worker caching",
-                  impact: "high",
-                  savings: "Offline capability",
-                  difficulty: "hard",
-                },
-              ],
-            },
-          },
-          null,
-          2,
-        ),
-      },
-    ],
-  }));
+            null,
+            2,
+          ),
+        },
+      ],
+    }),
+  );
 
   // Accessibility guidelines and WCAG compliance
-  server.resource("wcag-guidelines", "lighthouse://accessibility/wcag-guidelines", async (uri) => ({
+  server.registerResource("wcag-guidelines", "lighthouse://accessibility/wcag-guidelines", {}, async (uri) => ({
     contents: [
       {
         uri: uri.href,
@@ -246,7 +256,7 @@ export function registerResources(server: McpServer) {
   }));
 
   // SEO best practices and guidelines
-  server.resource("seo-best-practices", "lighthouse://seo/best-practices", async (uri) => ({
+  server.registerResource("seo-best-practices", "lighthouse://seo/best-practices", {}, async (uri) => ({
     contents: [
       {
         uri: uri.href,
@@ -334,7 +344,7 @@ export function registerResources(server: McpServer) {
   }));
 
   // Security best practices and common vulnerabilities
-  server.resource("security-best-practices", "lighthouse://security/best-practices", async (uri) => ({
+  server.registerResource("security-best-practices", "lighthouse://security/best-practices", {}, async (uri) => ({
     contents: [
       {
         uri: uri.href,
@@ -404,7 +414,7 @@ export function registerResources(server: McpServer) {
   }));
 
   // Performance budgets and monitoring guidelines
-  server.resource("budget-guidelines", "lighthouse://performance/budget-guidelines", async (uri) => ({
+  server.registerResource("budget-guidelines", "lighthouse://performance/budget-guidelines", {}, async (uri) => ({
     contents: [
       {
         uri: uri.href,
@@ -464,7 +474,7 @@ export function registerResources(server: McpServer) {
   }));
 
   // Lighthouse audit categories and scoring
-  server.resource("categories-scoring", "lighthouse://audits/categories-scoring", async (uri) => ({
+  server.registerResource("categories-scoring", "lighthouse://audits/categories-scoring", {}, async (uri) => ({
     contents: [
       {
         uri: uri.href,
@@ -551,7 +561,7 @@ export function registerResources(server: McpServer) {
   }));
 
   // Common web technologies and frameworks optimization
-  server.resource("framework-guides", "lighthouse://frameworks/optimization-guides", async (uri) => ({
+  server.registerResource("framework-guides", "lighthouse://frameworks/optimization-guides", {}, async (uri) => ({
     contents: [
       {
         uri: uri.href,

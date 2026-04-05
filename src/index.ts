@@ -7,13 +7,16 @@ import {
   registerPerformanceTools,
   registerAnalysisTools,
   registerSecurityTools,
-} from "./tools/index";
-import { registerPrompts } from "./prompts";
-import { registerResources } from "./resources";
+} from "./tools/index.js";
+import { registerPrompts } from "./prompts.js";
+import { registerResources } from "./resources.js";
 import { readFileSync } from "fs";
-import { join } from "path";
-import { parseCliArgs } from "./cli";
-import { setChromeLaunchConfig } from "./chrome-config";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import { parseCliArgs } from "./cli.js";
+import { setChromeLaunchConfig } from "./chrome-config.js";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Read version from package.json
 const packageJson = JSON.parse(readFileSync(join(__dirname, "..", "package.json"), "utf-8"));

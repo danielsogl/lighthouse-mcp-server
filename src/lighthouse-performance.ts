@@ -1,5 +1,5 @@
-import { runLighthouseAudit, runRawLighthouseAudit } from "./lighthouse-core";
-import { BUDGET_METRIC_MAPPINGS, LCP_OPPORTUNITIES, DEFAULTS } from "./lighthouse-constants";
+import { runLighthouseAudit, runRawLighthouseAudit } from "./lighthouse-core.js";
+import { BUDGET_METRIC_MAPPINGS, LCP_OPPORTUNITIES, DEFAULTS } from "./lighthouse-constants.js";
 
 // Helper function to get performance score only
 export async function getPerformanceScore(url: string, device: "desktop" | "mobile" = "desktop") {

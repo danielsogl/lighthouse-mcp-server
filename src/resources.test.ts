@@ -4,7 +4,7 @@ import { registerResources } from "./resources";
 
 // Mock the MCP server
 const mockServer = {
-  resource: vi.fn(),
+  registerResource: vi.fn(),
 };
 
 describe("resources", () => {
@@ -14,10 +14,10 @@ describe("resources", () => {
     }).not.toThrow();
 
     // Verify that resources were registered
-    expect(mockServer.resource).toHaveBeenCalledTimes(8);
+    expect(mockServer.registerResource).toHaveBeenCalledTimes(8);
 
     // Verify resource names
-    const resourceCalls = mockServer.resource.mock.calls;
+    const resourceCalls = mockServer.registerResource.mock.calls;
     expect(resourceCalls[0][0]).toBe("core-web-vitals-thresholds");
     expect(resourceCalls[1][0]).toBe("optimization-techniques");
     expect(resourceCalls[2][0]).toBe("wcag-guidelines");
@@ -29,7 +29,7 @@ describe("resources", () => {
   });
 
   it("should register resources with correct URIs", () => {
-    const resourceCalls = mockServer.resource.mock.calls;
+    const resourceCalls = mockServer.registerResource.mock.calls;
 
     expect(resourceCalls[0][1]).toBe("lighthouse://performance/core-web-vitals-thresholds");
     expect(resourceCalls[1][1]).toBe("lighthouse://performance/optimization-techniques");
@@ -42,8 +42,8 @@ describe("resources", () => {
   });
 
   it("should provide valid JSON content for core web vitals thresholds", async () => {
-    const resourceCalls = mockServer.resource.mock.calls;
-    const coreWebVitalsCallback = resourceCalls[0][2];
+    const resourceCalls = mockServer.registerResource.mock.calls;
+    const coreWebVitalsCallback = resourceCalls[0][3];
 
     const mockUri = { href: "lighthouse://performance/core-web-vitals-thresholds" };
     const result = await coreWebVitalsCallback(mockUri);
@@ -63,8 +63,8 @@ describe("resources", () => {
   });
 
   it("should provide valid JSON content for optimization techniques", async () => {
-    const resourceCalls = mockServer.resource.mock.calls;
-    const optimizationCallback = resourceCalls[1][2];
+    const resourceCalls = mockServer.registerResource.mock.calls;
+    const optimizationCallback = resourceCalls[1][3];
 
     const mockUri = { href: "lighthouse://performance/optimization-techniques" };
     const result = await optimizationCallback(mockUri);
@@ -84,8 +84,8 @@ describe("resources", () => {
   });
 
   it("should provide valid JSON content for WCAG guidelines", async () => {
-    const resourceCalls = mockServer.resource.mock.calls;
-    const wcagCallback = resourceCalls[2][2];
+    const resourceCalls = mockServer.registerResource.mock.calls;
+    const wcagCallback = resourceCalls[2][3];
 
     const mockUri = { href: "lighthouse://accessibility/wcag-guidelines" };
     const result = await wcagCallback(mockUri);
@@ -105,8 +105,8 @@ describe("resources", () => {
   });
 
   it("should provide valid JSON content for framework guides", async () => {
-    const resourceCalls = mockServer.resource.mock.calls;
-    const frameworkCallback = resourceCalls[7][2];
+    const resourceCalls = mockServer.registerResource.mock.calls;
+    const frameworkCallback = resourceCalls[7][3];
 
     const mockUri = { href: "lighthouse://frameworks/optimization-guides" };
     const result = await frameworkCallback(mockUri);

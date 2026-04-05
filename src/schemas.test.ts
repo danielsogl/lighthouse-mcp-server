@@ -102,12 +102,12 @@ describe("coreWebVitalsSchema", () => {
       },
     };
 
-    const result = coreWebVitalsSchema.url.safeParse(validConfig.url);
+    const result = coreWebVitalsSchema.shape.url.safeParse(validConfig.url);
     expect(result.success).toBe(true);
   });
 
   it("should validate threshold object correctly", () => {
-    const thresholdSchema = coreWebVitalsSchema.threshold;
+    const thresholdSchema = coreWebVitalsSchema.shape.threshold;
 
     const validThreshold = {
       lcp: 2.5,
@@ -120,7 +120,7 @@ describe("coreWebVitalsSchema", () => {
   });
 
   it("should reject negative threshold values", () => {
-    const thresholdSchema = coreWebVitalsSchema.threshold;
+    const thresholdSchema = coreWebVitalsSchema.shape.threshold;
 
     const invalidThreshold = {
       lcp: -1,
@@ -146,10 +146,10 @@ describe("performanceBudgetSchema", () => {
       },
     };
 
-    const urlResult = performanceBudgetSchema.url.safeParse(validBudget.url);
+    const urlResult = performanceBudgetSchema.shape.url.safeParse(validBudget.url);
     expect(urlResult.success).toBe(true);
 
-    const budgetResult = performanceBudgetSchema.budget.safeParse(validBudget.budget);
+    const budgetResult = performanceBudgetSchema.shape.budget.safeParse(validBudget.budget);
     expect(budgetResult.success).toBe(true);
   });
 
@@ -158,7 +158,7 @@ describe("performanceBudgetSchema", () => {
       performanceScore: 150,
     };
 
-    const result = performanceBudgetSchema.budget.safeParse(invalidBudget);
+    const result = performanceBudgetSchema.shape.budget.safeParse(invalidBudget);
     expect(result.success).toBe(false);
   });
 
@@ -168,7 +168,7 @@ describe("performanceBudgetSchema", () => {
       firstContentfulPaint: -100,
     };
 
-    const result = performanceBudgetSchema.budget.safeParse(invalidBudget);
+    const result = performanceBudgetSchema.shape.budget.safeParse(invalidBudget);
     expect(result.success).toBe(false);
   });
 });

@@ -1,4 +1,4 @@
-import { runLighthouseAudit, getDetailedAuditResults } from "./lighthouse-core";
+import { runLighthouseAudit, getDetailedAuditResults } from "./lighthouse-core.js";
 
 // Helper function to get accessibility score and details
 export async function getAccessibilityScore(

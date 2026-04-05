@@ -4,7 +4,7 @@ import { registerAnalysisTools } from "./analysis";
 
 // Mock the MCP server
 const mockServer = {
-  tool: vi.fn(),
+  registerTool: vi.fn(),
 };
 
 describe("tools/analysis", () => {
@@ -14,10 +14,10 @@ describe("tools/analysis", () => {
     }).not.toThrow();
 
     // Verify that tools were registered
-    expect(mockServer.tool).toHaveBeenCalledTimes(2); // find_unused_javascript, analyze_resources
+    expect(mockServer.registerTool).toHaveBeenCalledTimes(2); // find_unused_javascript, analyze_resources
 
     // Verify tool names
-    const toolCalls = mockServer.tool.mock.calls;
+    const toolCalls = mockServer.registerTool.mock.calls;
     expect(toolCalls[0][0]).toBe("find_unused_javascript");
     expect(toolCalls[1][0]).toBe("analyze_resources");
   });

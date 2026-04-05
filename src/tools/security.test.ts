@@ -4,7 +4,7 @@ import { registerSecurityTools } from "./security";
 
 // Mock the MCP server
 const mockServer = {
-  tool: vi.fn(),
+  registerTool: vi.fn(),
 };
 
 describe("tools/security", () => {
@@ -14,10 +14,10 @@ describe("tools/security", () => {
     }).not.toThrow();
 
     // Verify that tools were registered
-    expect(mockServer.tool).toHaveBeenCalledTimes(1); // get_security_audit
+    expect(mockServer.registerTool).toHaveBeenCalledTimes(1); // get_security_audit
 
     // Verify tool names
-    const toolCalls = mockServer.tool.mock.calls;
+    const toolCalls = mockServer.registerTool.mock.calls;
     expect(toolCalls[0][0]).toBe("get_security_audit");
   });
 });

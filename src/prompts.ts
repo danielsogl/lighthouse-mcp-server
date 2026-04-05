@@ -3,14 +3,16 @@ import { z } from "zod";
 
 export function registerPrompts(server: McpServer) {
   // Analyze audit results prompt
-  server.prompt(
+  server.registerPrompt(
     "analyze-audit-results",
     {
-      auditResults: z.string().describe("JSON audit results from Lighthouse"),
-      focusArea: z
-        .enum(["performance", "accessibility", "seo", "best-practices", "pwa"])
-        .optional()
-        .describe("Specific area to focus the analysis on"),
+      argsSchema: {
+        auditResults: z.string().describe("JSON audit results from Lighthouse"),
+        focusArea: z
+          .enum(["performance", "accessibility", "seo", "best-practices", "pwa"])
+          .optional()
+          .describe("Specific area to focus the analysis on"),
+      },
     },
     ({ auditResults, focusArea }) => ({
       messages: [
@@ -34,12 +36,14 @@ Please provide:
   );
 
   // Generate performance improvement plan
-  server.prompt(
+  server.registerPrompt(
     "create-performance-plan",
     {
-      currentMetrics: z.string().describe("Current performance metrics from Lighthouse"),
-      targetGoals: z.string().optional().describe("Specific performance goals or targets"),
-      timeframe: z.string().optional().describe("Timeline for implementing improvements"),
+      argsSchema: {
+        currentMetrics: z.string().describe("Current performance metrics from Lighthouse"),
+        targetGoals: z.string().optional().describe("Specific performance goals or targets"),
+        timeframe: z.string().optional().describe("Timeline for implementing improvements"),
+      },
     },
     ({ currentMetrics, targetGoals, timeframe }) => ({
       messages: [
@@ -68,12 +72,14 @@ Please provide:
   );
 
   // Compare audit results
-  server.prompt(
+  server.registerPrompt(
     "compare-audits",
     {
-      beforeAudit: z.string().describe("Lighthouse audit results before changes"),
-      afterAudit: z.string().describe("Lighthouse audit results after changes"),
-      changesImplemented: z.string().optional().describe("Description of changes that were implemented"),
+      argsSchema: {
+        beforeAudit: z.string().describe("Lighthouse audit results before changes"),
+        afterAudit: z.string().describe("Lighthouse audit results after changes"),
+        changesImplemented: z.string().optional().describe("Description of changes that were implemented"),
+      },
     },
     ({ beforeAudit, afterAudit, changesImplemented }) => ({
       messages: [
@@ -103,12 +109,14 @@ Please provide:
   );
 
   // Generate SEO recommendations
-  server.prompt(
+  server.registerPrompt(
     "seo-recommendations",
     {
-      seoAudit: z.string().describe("SEO audit results from Lighthouse"),
-      websiteType: z.string().optional().describe("Type of website (e.g., e-commerce, blog, corporate)"),
-      targetAudience: z.string().optional().describe("Target audience or market"),
+      argsSchema: {
+        seoAudit: z.string().describe("SEO audit results from Lighthouse"),
+        websiteType: z.string().optional().describe("Type of website (e.g., e-commerce, blog, corporate)"),
+        targetAudience: z.string().optional().describe("Target audience or market"),
+      },
     },
     ({ seoAudit, websiteType, targetAudience }) => ({
       messages: [
@@ -136,15 +144,17 @@ Please provide:
   );
 
   // Accessibility improvement guide
-  server.prompt(
+  server.registerPrompt(
     "accessibility-guide",
     {
-      accessibilityAudit: z.string().describe("Accessibility audit results from Lighthouse"),
-      complianceLevel: z.enum(["AA", "AAA"]).optional().describe("WCAG compliance level to target"),
-      userGroups: z
-        .string()
-        .optional()
-        .describe("Specific user groups to consider (e.g., visually impaired, motor disabilities)"),
+      argsSchema: {
+        accessibilityAudit: z.string().describe("Accessibility audit results from Lighthouse"),
+        complianceLevel: z.enum(["AA", "AAA"]).optional().describe("WCAG compliance level to target"),
+        userGroups: z
+          .string()
+          .optional()
+          .describe("Specific user groups to consider (e.g., visually impaired, motor disabilities)"),
+      },
     },
     ({ accessibilityAudit, complianceLevel, userGroups }) => ({
       messages: [
@@ -172,12 +182,17 @@ Please provide:
   );
 
   // Performance budget recommendations
-  server.prompt(
+  server.registerPrompt(
     "create-performance-budget",
     {
-      currentMetrics: z.string().describe("Current performance metrics"),
-      businessGoals: z.string().optional().describe("Business goals and requirements"),
-      userBase: z.string().optional().describe("Information about the user base and their typical devices/connections"),
+      argsSchema: {
+        currentMetrics: z.string().describe("Current performance metrics"),
+        businessGoals: z.string().optional().describe("Business goals and requirements"),
+        userBase: z
+          .string()
+          .optional()
+          .describe("Information about the user base and their typical devices/connections"),
+      },
     },
     ({ currentMetrics, businessGoals, userBase }) => ({
       messages: [
@@ -205,12 +220,14 @@ Please provide:
   );
 
   // Core Web Vitals optimization
-  server.prompt(
+  server.registerPrompt(
     "optimize-core-web-vitals",
     {
-      coreWebVitals: z.string().describe("Core Web Vitals metrics and detailed breakdown"),
-      framework: z.string().optional().describe("Frontend framework or technology stack"),
-      constraints: z.string().optional().describe("Any technical or business constraints"),
+      argsSchema: {
+        coreWebVitals: z.string().describe("Core Web Vitals metrics and detailed breakdown"),
+        framework: z.string().optional().describe("Frontend framework or technology stack"),
+        constraints: z.string().optional().describe("Any technical or business constraints"),
+      },
     },
     ({ coreWebVitals, framework, constraints }) => ({
       messages: [
@@ -238,12 +255,14 @@ Please provide:
   );
 
   // Resource optimization recommendations
-  server.prompt(
+  server.registerPrompt(
     "optimize-resources",
     {
-      resourceAnalysis: z.string().describe("Resource analysis results from Lighthouse"),
-      loadingStrategy: z.string().optional().describe("Current loading strategy (e.g., SPA, SSR, SSG)"),
-      criticalUserJourneys: z.string().optional().describe("Critical user journeys that need optimal performance"),
+      argsSchema: {
+        resourceAnalysis: z.string().describe("Resource analysis results from Lighthouse"),
+        loadingStrategy: z.string().optional().describe("Current loading strategy (e.g., SPA, SSR, SSG)"),
+        criticalUserJourneys: z.string().optional().describe("Critical user journeys that need optimal performance"),
+      },
     },
     ({ resourceAnalysis, loadingStrategy, criticalUserJourneys }) => ({
       messages: [

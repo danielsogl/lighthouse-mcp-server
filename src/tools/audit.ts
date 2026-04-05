@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { runLighthouseAudit } from "../lighthouse-core";
-import { getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "../lighthouse-categories";
-import { auditParamsSchema, detailedAuditSchema } from "../schemas";
+import { runLighthouseAudit } from "../lighthouse-core.js";
+import { getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "../lighthouse-categories.js";
+import { auditParamsSchema, detailedAuditSchema } from "../schemas.js";
 
 interface StructuredResponse {
   summary: string;
@@ -24,10 +24,12 @@ function createStructuredAudit(
 }
 
 export function registerAuditTools(server: McpServer) {
-  server.tool(
+  server.registerTool(
     "run_audit",
-    "Run a comprehensive Lighthouse audit on a website",
-    auditParamsSchema,
+    {
+      description: "Run a comprehensive Lighthouse audit on a website",
+      inputSchema: auditParamsSchema,
+    },
     async ({ url, categories, device, throttling }) => {
       try {
         const result = await runLighthouseAudit(url, categories, device, throttling);
@@ -104,10 +106,12 @@ export function registerAuditTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "get_accessibility_score",
-    "Get the accessibility score and recommendations for a website",
-    detailedAuditSchema,
+    {
+      description: "Get the accessibility score and recommendations for a website",
+      inputSchema: detailedAuditSchema,
+    },
     async ({ url, device, includeDetails }) => {
       try {
         const result = await getAccessibilityScore(url, device, includeDetails);
@@ -167,10 +171,12 @@ export function registerAuditTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "get_seo_analysis",
-    "Get SEO analysis and recommendations for a website",
-    detailedAuditSchema,
+    {
+      description: "Get SEO analysis and recommendations for a website",
+      inputSchema: detailedAuditSchema,
+    },
     async ({ url, device, includeDetails }) => {
       try {
         const result = await getSeoAnalysis(url, device, includeDetails);
@@ -230,10 +236,12 @@ export function registerAuditTools(server: McpServer) {
     },
   );
 
-  server.tool(
+  server.registerTool(
     "check_pwa_readiness",
-    "Check Progressive Web App readiness and requirements",
-    detailedAuditSchema,
+    {
+      description: "Check Progressive Web App readiness and requirements",
+      inputSchema: detailedAuditSchema,
+    },
     async ({ url, device, includeDetails }) => {
       try {
         const result = await checkPwaReadiness(url, device, includeDetails);

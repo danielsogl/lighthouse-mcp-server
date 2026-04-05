@@ -4,7 +4,7 @@ import { registerPrompts } from "./prompts";
 
 // Mock the MCP server
 const mockServer = {
-  prompt: vi.fn(),
+  registerPrompt: vi.fn(),
 };
 
 describe("Prompts Registration", () => {
@@ -14,10 +14,10 @@ describe("Prompts Registration", () => {
     }).not.toThrow();
 
     // Verify that prompts were registered
-    expect(mockServer.prompt).toHaveBeenCalledTimes(8);
+    expect(mockServer.registerPrompt).toHaveBeenCalledTimes(8);
 
     // Verify prompt names
-    const promptCalls = mockServer.prompt.mock.calls;
+    const promptCalls = mockServer.registerPrompt.mock.calls;
     expect(promptCalls[0][0]).toBe("analyze-audit-results");
     expect(promptCalls[1][0]).toBe("create-performance-plan");
     expect(promptCalls[2][0]).toBe("compare-audits");

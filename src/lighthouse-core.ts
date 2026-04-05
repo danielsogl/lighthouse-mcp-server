@@ -1,8 +1,8 @@
 import lighthouse from "lighthouse";
 import * as chromeLauncher from "chrome-launcher";
-import { LighthouseResult, LighthouseAuditResult } from "./types";
-import { SCREEN_DIMENSIONS, THROTTLING_CONFIG, KEY_METRICS } from "./lighthouse-constants";
-import { getChromeLaunchConfig, getChromeLaunchOptions, isProfileConfig } from "./chrome-config";
+import { LighthouseResult, LighthouseAuditResult } from "./types.js";
+import { SCREEN_DIMENSIONS, THROTTLING_CONFIG, KEY_METRICS } from "./lighthouse-constants.js";
+import { getChromeLaunchConfig, getChromeLaunchOptions, isProfileConfig } from "./chrome-config.js";
 
 let remoteAuditLock: Promise<void> = Promise.resolve();
 
