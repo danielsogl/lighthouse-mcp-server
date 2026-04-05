@@ -13,6 +13,7 @@ export function parseCliArgs(argv: string[]): ChromeLaunchConfig {
       "user-data-dir": { type: "string" },
       "profile-directory": { type: "string" },
       "profile-path": { type: "string" },
+      "chrome-path": { type: "string" },
       "chrome-port": { type: "string" },
       "remote-debugging-port": { type: "string" },
       "chrome-flag": { type: "string", multiple: true },
@@ -42,6 +43,10 @@ export function parseCliArgs(argv: string[]): ChromeLaunchConfig {
   if (typeof values["profile-path"] === "string") {
     config.userDataDir = dirname(values["profile-path"]);
     config.profileDirectory = basename(values["profile-path"]);
+  }
+
+  if (typeof values["chrome-path"] === "string") {
+    config.chromePath = values["chrome-path"];
   }
 
   const chromePort = parsePort(values["chrome-port"]);

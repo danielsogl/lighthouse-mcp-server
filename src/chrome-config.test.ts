@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { join } from "node:path";
-import { buildChromeFlags, isProfileConfig } from "./chrome-config";
+import { buildChromeFlags, buildChromeLaunchOptions, isProfileConfig } from "./chrome-config";
 import { CHROME_FLAGS } from "./lighthouse-constants";
 
 describe("chrome-config", () => {
@@ -70,6 +70,24 @@ describe("chrome-config", () => {
 
     it("returns false when no profile settings are present", () => {
       expect(isProfileConfig({})).toBe(false);
+    });
+  });
+
+  describe("buildChromeLaunchOptions", () => {
+    afterEach(() => {
+      vi.unstubAllEnvs();
+    });
+
+    it("includes chromePath when set in config", () => {
+      const options = buildChromeLaunchOptions({ chromePath: "/usr/bin/google-chrome" });
+
+      expect(options.chromePath).toBe("/usr/bin/google-chrome");
+    });
+
+    it("does not include chromePath when not set", () => {
+      const options = buildChromeLaunchOptions({});
+
+      expect(options.chromePath).toBeUndefined();
     });
   });
 });

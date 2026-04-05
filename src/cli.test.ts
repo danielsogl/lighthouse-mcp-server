@@ -39,4 +39,16 @@ describe("parseCliArgs", () => {
     expect(config.userDataDir).toBe(dirname(profilePath));
     expect(config.profileDirectory).toBe(basename(profilePath));
   });
+
+  it("parses --chrome-path flag", () => {
+    const config = parseCliArgs(["--chrome-path", "/usr/bin/google-chrome"]);
+
+    expect(config.chromePath).toBe("/usr/bin/google-chrome");
+  });
+
+  it("parses --chrome-path with equals syntax", () => {
+    const config = parseCliArgs(["--chrome-path=/usr/bin/chromium-browser"]);
+
+    expect(config.chromePath).toBe("/usr/bin/chromium-browser");
+  });
 });

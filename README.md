@@ -82,10 +82,36 @@ Supported runtime flags for the MCP server:
 - `--profile-path <path>`: use the Profile Path from `chrome://version` (auto-derives user data dir + profile name)
 - `--user-data-dir <path>`: reuse a Chrome profile directory for persistent sessions
 - `--profile-directory <name>`: select a profile within the user data dir
+- `--chrome-path <path>`: explicit path to the Chrome/Chromium executable (overrides auto-detection; also respects the `CHROME_PATH` environment variable)
 - `--chrome-flag <flag>` or `--chrome-flag=<flag>`: pass through extra Chrome flags (repeatable)
 - `--chrome-port <port>` or `--remote-debugging-port <port>`: attach to an existing Chrome instance launched with remote debugging enabled
 - `--headless`: force headless mode
 - `--no-headless`: force headed mode
+
+#### WSL2 / Custom Chrome Path
+
+If the wrong Chrome binary is picked up (e.g. Windows Chrome instead of the Linux binary on WSL2), set the path explicitly:
+
+```bash
+# Via CLI flag
+npx @danielsogl/lighthouse-mcp@latest --chrome-path /usr/bin/google-chrome
+
+# Via environment variable
+CHROME_PATH=/usr/bin/google-chrome npx @danielsogl/lighthouse-mcp@latest
+```
+
+In your MCP config:
+
+```json
+{
+  "mcpServers": {
+    "lighthouse": {
+      "command": "npx",
+      "args": ["@danielsogl/lighthouse-mcp@latest", "--chrome-path", "/usr/bin/google-chrome"]
+    }
+  }
+}
+```
 
 ### E2E Smoke Test (Profile)
 

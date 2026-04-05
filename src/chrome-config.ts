@@ -7,6 +7,7 @@ export type ChromeLaunchConfig = {
   profileDirectory?: string;
   remoteDebuggingPort?: number;
   extraChromeFlags?: string[];
+  chromePath?: string;
 };
 
 const DEFAULT_CONFIG: Required<Pick<ChromeLaunchConfig, "headless" | "extraChromeFlags">> = {
@@ -59,12 +60,16 @@ export function buildChromeFlags(config: ChromeLaunchConfig): string[] {
 }
 
 export function buildChromeLaunchOptions(config: ChromeLaunchConfig) {
-  const launchOptions: { chromeFlags: string[]; userDataDir?: string } = {
+  const launchOptions: { chromeFlags: string[]; userDataDir?: string; chromePath?: string } = {
     chromeFlags: buildChromeFlags(config),
   };
 
   if (config.userDataDir) {
     launchOptions.userDataDir = config.userDataDir;
+  }
+
+  if (config.chromePath) {
+    launchOptions.chromePath = config.chromePath;
   }
 
   return launchOptions;
@@ -75,6 +80,10 @@ export function getChromeLaunchOptions() {
 
   if (config.userDataDir) {
     ensureDirectory(config.userDataDir);
+  }
+
+  if (!config.chromePath && process.env.CHROME_PATH) {
+    config.chromePath = process.env.CHROME_PATH;
   }
 
   return buildChromeLaunchOptions(config);
