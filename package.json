@@ -63,7 +63,7 @@
     "url": "https://github.com/danielsogl"
   },
   "license": "MIT",
-  "type": "commonjs",
+  "type": "module",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -87,11 +87,11 @@
   ],
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@typescript-eslint/eslint-plugin": "^8.57.2",
-    "@typescript-eslint/parser": "^8.57.2",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
     "@vitest/coverage-v8": "^4.1.2",
     "@vitest/ui": "^4.1.2",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^16.5.0",
@@ -101,8 +101,8 @@
     "prettier": "^3.8.1",
     "release-please": "^17.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.2",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.0",
     "vitest": "^4.1.2"
   },
   "lint-staged": {
@@ -113,7 +113,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "chrome-launcher": "^1.2.1",
-    "lighthouse": "^13.0.1",
+    "lighthouse": "^13.0.3",
     "zod": "^3.25.76"
   }
 }
