@@ -1,35 +1,34 @@
 import { z } from "zod";
 
 // Enhanced URL validation with security checks
-const urlValidator = z.string({ description: "URL to audit" }).refine(
-  (url) => {
-    try {
-      const parsed = new URL(url);
-      // Only allow HTTP and HTTPS protocols
-      return ["http:", "https:"].includes(parsed.protocol);
-    } catch {
-      return false;
-    }
-  },
-  {
-    message: "Must be a valid HTTP or HTTPS URL",
-  },
-);
+const urlValidator = z
+  .string()
+  .describe("URL to audit")
+  .refine(
+    (url) => {
+      try {
+        const parsed = new URL(url);
+        // Only allow HTTP and HTTPS protocols
+        return ["http:", "https:"].includes(parsed.protocol);
+      } catch {
+        return false;
+      }
+    },
+    {
+      message: "Must be a valid HTTP or HTTPS URL",
+    },
+  );
 
 // Reusable base schema components
 export const baseSchemas = {
   url: urlValidator,
-  device: z.enum(["desktop", "mobile"], { description: "Device to emulate (default: desktop)" }).default("desktop"),
-  throttling: z.boolean({ description: "Whether to throttle the audit (default: false)" }).default(false),
+  device: z.enum(["desktop", "mobile"]).describe("Device to emulate (default: desktop)").default("desktop"),
+  throttling: z.boolean().describe("Whether to throttle the audit (default: false)").default(false),
   categories: z
-    .array(
-      z.enum(["performance", "accessibility", "best-practices", "seo", "pwa"], {
-        description: "Categories to audit",
-      }),
-    )
+    .array(z.enum(["performance", "accessibility", "best-practices", "seo", "pwa"]).describe("Categories to audit"))
     .optional(),
-  includeDetails: z.boolean({ description: "Include detailed metrics and recommendations" }).default(false),
-  threshold: z.number({ description: "Score threshold (0-100)" }).min(0).max(100).optional(),
+  includeDetails: z.boolean().describe("Include detailed metrics and recommendations").default(false),
+  threshold: z.number().describe("Score threshold (0-100)").min(0).max(100).optional(),
 };
 
 // Composed schemas for each tool (wrapped in z.object() for proper type inference)
