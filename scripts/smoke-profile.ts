@@ -1,7 +1,7 @@
 import { parseArgs } from "node:util";
-import { parseCliArgs } from "../src/cli";
-import { setChromeLaunchConfig } from "../src/chrome-config";
-import { runLighthouseAudit } from "../src/lighthouse-core";
+import { parseCliArgs } from "../src/cli.js";
+import { setChromeLaunchConfig } from "../src/chrome-config.js";
+import { runLighthouseAudit } from "../src/lighthouse-core.js";
 
 type Device = "desktop" | "mobile";
 
@@ -101,5 +101,4 @@ Optional flags:
   console.error("Note: if --user-data-dir points to a missing directory, it will be created as a fresh profile.");
 }
 
-// Top-level await isn't available under the repo's CommonJS ts-node setup.
-void main(); // NOSONAR
+void main();

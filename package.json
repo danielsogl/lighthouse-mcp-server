@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
+    "dev": "tsx src/index.ts",
     "prepare": "is-ci || husky",
     "prepublishOnly": "npm run build",
     "lint": "eslint .",
@@ -21,7 +21,7 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "smoke:profile": "ts-node scripts/smoke-profile.ts",
+    "smoke:profile": "tsx scripts/smoke-profile.ts",
     "release-please": "release-please release-pr --repo-url=https://github.com/danielsogl/lighthouse-mcp-server --package-name=@danielsogl/lighthouse-mcp",
     "release-please:release": "release-please github-release --repo-url=https://github.com/danielsogl/lighthouse-mcp-server --package-name=@danielsogl/lighthouse-mcp"
   },
@@ -100,7 +100,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "release-please": "^17.3.0",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.0",
     "vitest": "^4.1.2"
