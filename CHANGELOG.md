@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.5.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.5.0...lighthouse-mcp-v1.5.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#172](https://github.com/danielsogl/lighthouse-mcp-server/issues/172)) ([50726f2](https://github.com/danielsogl/lighthouse-mcp-server/commit/50726f20fb464e86b188d5d4dd229340e93ae6a5))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#163](https://github.com/danielsogl/lighthouse-mcp-server/issues/163)) ([f5082b0](https://github.com/danielsogl/lighthouse-mcp-server/commit/f5082b0d43ecff7183cbba5153350ae5d4221510))
+* **deps:** update dependency eslint to ^10.3.0 ([#173](https://github.com/danielsogl/lighthouse-mcp-server/issues/173)) ([90ae224](https://github.com/danielsogl/lighthouse-mcp-server/commit/90ae224a748e174b4e29bd50dec669d9d66065e0))
+* **deps:** update dependency prettier to ^3.8.2 ([#165](https://github.com/danielsogl/lighthouse-mcp-server/issues/165)) ([9d85eff](https://github.com/danielsogl/lighthouse-mcp-server/commit/9d85eff3f50f6f679d3e7ead8a1e0f842161caac))
+* **deps:** update linting and formatting ([#169](https://github.com/danielsogl/lighthouse-mcp-server/issues/169)) ([d351016](https://github.com/danielsogl/lighthouse-mcp-server/commit/d3510160b71db94953fee3d9f9ac5bc33aefd2f7))
+* **deps:** update non-major dependencies ([#166](https://github.com/danielsogl/lighthouse-mcp-server/issues/166)) ([7dc6d1f](https://github.com/danielsogl/lighthouse-mcp-server/commit/7dc6d1f48b95791b6e7eff709aea1b4e797078a3))
+* **deps:** update non-major dependencies ([#170](https://github.com/danielsogl/lighthouse-mcp-server/issues/170)) ([3ce7176](https://github.com/danielsogl/lighthouse-mcp-server/commit/3ce7176e269ae70a12e9902a6657d592b5801e26))
+
 ## [1.5.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.4.0...lighthouse-mcp-v1.5.0) (2026-04-05)
 
 
