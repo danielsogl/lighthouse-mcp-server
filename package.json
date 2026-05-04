@@ -87,14 +87,14 @@
   ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.59.0",
-    "@typescript-eslint/parser": "^8.59.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.1",
     "@vitest/coverage-v8": "^4.1.5",
     "@vitest/ui": "^4.1.5",
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "globals": "^17.5.0",
+    "globals": "^17.6.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
     "lint-staged": "^16.4.0",
@@ -102,7 +102,7 @@
     "release-please": "^17.6.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.59.0",
+    "typescript-eslint": "^8.59.1",
     "vitest": "^4.1.5"
   },
   "lint-staged": {
@@ -114,6 +114,6 @@
     "@modelcontextprotocol/sdk": "^1.29.0",
     "chrome-launcher": "^1.2.1",
     "lighthouse": "^13.0.3",
-    "zod": "^4.3.6"
+    "zod": "^4.4.2"
   }
 }
