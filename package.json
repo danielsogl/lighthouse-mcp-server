@@ -101,7 +101,7 @@
     "prettier": "^3.9.1",
     "release-please": "^17.10.1",
     "tsx": "^4.22.4",
-    "typescript": "^6.0.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1",
     "vitest": "^4.1.9"
   },
