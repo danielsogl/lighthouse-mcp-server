@@ -111,9 +111,9 @@
     ]
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "chrome-launcher": "^1.2.1",
-    "lighthouse": "^13.0.3",
+    "lighthouse": "^13.4.1",
     "zod": "^4.4.3"
   }
 }
