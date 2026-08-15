@@ -20,8 +20,10 @@ export function registerAnalysisTools(server: McpServer) {
   server.registerTool(
     "find_unused_javascript",
     {
+      title: "Find Unused JavaScript",
       description: "Find unused JavaScript code to reduce bundle size",
       inputSchema: unusedJavaScriptSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, minBytes }) => {
       try {
@@ -96,8 +98,10 @@ export function registerAnalysisTools(server: McpServer) {
   server.registerTool(
     "analyze_resources",
     {
+      title: "Analyze Page Resources",
       description: "Analyze website resources (images, JS, CSS, fonts) for optimization opportunities",
       inputSchema: resourceAnalysisSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, resourceTypes, minSize }) => {
       try {

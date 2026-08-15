@@ -26,8 +26,10 @@ export function registerSecurityTools(server: McpServer) {
   server.registerTool(
     "get_security_audit",
     {
+      title: "Get Security Audit",
       description: "Perform security audit checking HTTPS, CSP, and other security measures",
       inputSchema: securityAuditSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, checks }) => {
       try {

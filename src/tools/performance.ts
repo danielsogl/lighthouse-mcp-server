@@ -38,8 +38,10 @@ export function registerPerformanceTools(server: McpServer) {
   server.registerTool(
     "get_performance_score",
     {
+      title: "Get Performance Score",
       description: "Get the performance score for a website",
       inputSchema: basicAuditSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device }) => {
       try {
@@ -105,8 +107,10 @@ export function registerPerformanceTools(server: McpServer) {
   server.registerTool(
     "get_core_web_vitals",
     {
+      title: "Get Core Web Vitals",
       description: "Get Core Web Vitals metrics for a website",
       inputSchema: coreWebVitalsSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, includeDetails, threshold }) => {
       try {
@@ -173,8 +177,10 @@ export function registerPerformanceTools(server: McpServer) {
   server.registerTool(
     "compare_mobile_desktop",
     {
+      title: "Compare Mobile vs Desktop",
       description: "Compare website performance between mobile and desktop devices",
       inputSchema: compareDevicesSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, categories, throttling, includeDetails }) => {
       try {
@@ -239,8 +245,10 @@ export function registerPerformanceTools(server: McpServer) {
   server.registerTool(
     "check_performance_budget",
     {
+      title: "Check Performance Budget",
       description: "Check if website performance meets specified budget thresholds",
       inputSchema: performanceBudgetSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, budget }) => {
       try {
@@ -313,8 +321,10 @@ export function registerPerformanceTools(server: McpServer) {
   server.registerTool(
     "get_lcp_opportunities",
     {
+      title: "Get LCP Opportunities",
       description: "Get LCP optimization opportunities for a website",
       inputSchema: lcpOpportunitiesSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, threshold, includeDetails }) => {
       try {

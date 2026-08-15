@@ -27,8 +27,10 @@ export function registerAuditTools(server: McpServer) {
   server.registerTool(
     "run_audit",
     {
+      title: "Run Lighthouse Audit",
       description: "Run a comprehensive Lighthouse audit on a website",
       inputSchema: auditParamsSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, categories, device, throttling }) => {
       try {
@@ -109,8 +111,10 @@ export function registerAuditTools(server: McpServer) {
   server.registerTool(
     "get_accessibility_score",
     {
+      title: "Get Accessibility Score",
       description: "Get the accessibility score and recommendations for a website",
       inputSchema: detailedAuditSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, includeDetails }) => {
       try {
@@ -174,8 +178,10 @@ export function registerAuditTools(server: McpServer) {
   server.registerTool(
     "get_seo_analysis",
     {
+      title: "Get SEO Analysis",
       description: "Get SEO analysis and recommendations for a website",
       inputSchema: detailedAuditSchema,
+      annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, includeDetails }) => {
       try {
