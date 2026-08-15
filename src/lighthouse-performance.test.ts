@@ -374,8 +374,8 @@ describe("lighthouse-performance", () => {
         "largest-contentful-paint": {
           numericValue: 3000,
         },
-        "render-blocking-resources": {
-          title: "Render Blocking Resources",
+        "render-blocking-insight": {
+          title: "Render blocking requests",
           description: "Remove render-blocking resources",
           score: 1, // Perfect score - should be filtered out
           displayValue: "0ms potential savings",
