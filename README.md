@@ -23,6 +23,7 @@ A Model Context Protocol (MCP) server that provides comprehensive web performanc
 - **📱 Mobile vs Desktop**: Comparative analysis across devices with throttling options
 - **⚡ Core Web Vitals**: LCP, INP, CLS monitoring with threshold checking
 - **🎯 Performance Budgets**: Custom performance thresholds and budget monitoring
+- **🤖 Agentic Browsing**: Lighthouse 13 audits for how well a page serves AI agents (WebMCP tools, agent accessibility tree, llms.txt)
 - **📚 Reference Resources**: Built-in guidelines and best practices for web performance, accessibility, SEO, and security
 
 ## 🛠️ Requirements
@@ -311,7 +312,7 @@ The Lighthouse MCP server provides built-in reference resources with essential g
 ### 🔧 Prompt Parameter Details
 
 - **`auditResults`**: JSON audit results from Lighthouse tools
-- **`focusArea`**: Specific category to focus on (`"performance"`, `"accessibility"`, `"seo"`, `"best-practices"`)
+- **`focusArea`**: Specific category to focus on (`"performance"`, `"accessibility"`, `"seo"`, `"best-practices"`, `"agentic-browsing"`)
 - **`beforeAudit`** / **`afterAudit`**: Lighthouse audit results before and after changes
 - **`changesImplemented`**: Description of changes made between audits
 - **`currentMetrics`**: Current performance metrics from audits
@@ -335,12 +336,12 @@ The Lighthouse MCP server provides built-in reference resources with essential g
 
 ### Specific Parameters
 
-- **`categories`**: Lighthouse categories to audit (`["performance", "accessibility", "best-practices", "seo"]`)
+- **`categories`**: Lighthouse categories to audit (`["performance", "accessibility", "best-practices", "seo", "agentic-browsing"]`)
 - **`threshold`**: Custom thresholds for metrics (e.g., `{"lcp": 2.5, "inp": 200, "cls": 0.1}`)
 - **`budget`**: Performance budget limits (e.g., `{"performanceScore": 90, "largestContentfulPaint": 2500}`)
 - **`resourceTypes`**: Resource types to analyze (`["images", "javascript", "css", "fonts", "other"]`)
 - **`minBytes`**: Minimum file size threshold for analysis (default: `2048`)
-- **`checks`**: Security checks to perform (`["https", "mixed-content", "csp", "hsts", "vulnerabilities"]`)
+- **`checks`**: Security checks to perform (`["https", "csp", "hsts", "origin-isolation", "clickjacking", "trusted-types", "third-party-cookies", "deprecations"]`)
 
 ## 💡 Usage Examples
 
