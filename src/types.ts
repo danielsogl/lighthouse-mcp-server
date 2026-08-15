@@ -27,6 +27,7 @@ export interface LighthouseResult {
     userAgent: string;
     categories: Record<string, LighthouseCategory>;
     audits: Record<string, LighthouseAudit>;
+    runtimeError?: { code: string; message: string };
   };
 }
 

@@ -87,6 +87,14 @@ export async function runRawLighthouseAudit(
         throw new Error("Failed to run Lighthouse audit");
       }
 
+      // Lighthouse resolves rather than rejecting when the page itself fails to load; it
+      // reports the failure via runtimeError and leaves every score null. Without this
+      // guard a dead URL is indistinguishable from a site that genuinely scored zero.
+      const { runtimeError } = runnerResult.lhr;
+      if (runtimeError && runtimeError.code !== "NO_ERROR") {
+        throw new Error(`Lighthouse could not audit ${url}: ${runtimeError.message} (${runtimeError.code})`);
+      }
+
       return runnerResult;
     } finally {
       if (chrome) {
