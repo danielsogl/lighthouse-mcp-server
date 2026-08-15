@@ -66,11 +66,11 @@ export function registerSecurityTools(server: McpServer) {
             fetchTime: result.fetchTime,
           },
           [
-            "Ensure all resources are served over HTTPS",
+            "Ensure all resources are served over HTTPS and redirect HTTP to HTTPS",
             "Implement Content Security Policy (CSP) headers to prevent XSS attacks",
-            "Keep all dependencies and libraries up to date",
-            "Use rel=noopener for external links to prevent window.opener attacks",
             "Enable HTTP Strict Transport Security (HSTS) headers",
+            "Set X-Frame-Options or CSP frame-ancestors to mitigate clickjacking",
+            "Enable cross-origin isolation (COOP/COEP) and adopt Trusted Types",
           ],
         );
 

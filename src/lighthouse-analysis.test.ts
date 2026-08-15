@@ -400,8 +400,7 @@ describe("lighthouse-analysis", () => {
       const result = await getSecurityAudit(mockUrl);
 
       expect(result.audits).toEqual([]);
-      // When no audits, the division by zero results in NaN, which becomes 0 when rounded
-      expect(Number.isNaN(result.overallScore) || result.overallScore === 0).toBe(true);
+      expect(result.overallScore).toBe(0);
     });
 
     it("should calculate overall score correctly", async () => {
@@ -413,9 +412,9 @@ describe("lighthouse-analysis", () => {
           scoreDisplayMode: "binary",
           displayValue: "Passed",
         },
-        "uses-http2": {
-          title: "HTTP/2",
-          description: "Uses HTTP/2",
+        "has-hsts": {
+          title: "HSTS",
+          description: "Uses HTTP Strict Transport Security",
           score: 0,
           scoreDisplayMode: "binary",
           displayValue: "Failed",

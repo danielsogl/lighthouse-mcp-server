@@ -110,7 +110,18 @@ export const securityAuditSchema = z.object({
   url: baseSchemas.url,
   device: baseSchemas.device,
   checks: z
-    .array(z.enum(["https", "mixed-content", "csp", "hsts", "vulnerabilities"]))
+    .array(
+      z.enum([
+        "https",
+        "csp",
+        "hsts",
+        "origin-isolation",
+        "clickjacking",
+        "trusted-types",
+        "third-party-cookies",
+        "deprecations",
+      ]),
+    )
     .optional()
     .describe("Specific security checks to perform"),
 });

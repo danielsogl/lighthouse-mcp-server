@@ -9,6 +9,15 @@ import {
   BUDGET_METRIC_MAPPINGS,
   DEFAULTS,
 } from "./lighthouse-constants";
+import defaultConfig from "lighthouse/core/config/default-config.js";
+
+// The audit IDs the installed Lighthouse actually knows about. Asserting against these
+// catches audits Lighthouse renames or removes (as it did in v12/v13) instead of letting
+// our constants silently point at audits that no longer exist.
+const categories = defaultConfig.categories ?? {};
+const auditIdsIn = (category: string) => categories[category].auditRefs.map((ref) => ref.id);
+const defaultConfigAuditIds = Object.keys(categories).flatMap(auditIdsIn);
+const bestPracticesAuditIds = auditIdsIn("best-practices");
 
 describe("lighthouse-constants", () => {
   describe("CHROME_FLAGS", () => {
@@ -85,40 +94,33 @@ describe("lighthouse-constants", () => {
     it("should be a readonly array", () => {
       expect(Array.isArray(KEY_METRICS)).toBe(true);
     });
+
+    it("should only reference audits that exist in the installed Lighthouse", () => {
+      for (const metric of KEY_METRICS) {
+        expect(defaultConfigAuditIds).toContain(metric);
+      }
+    });
   });
 
   describe("LCP_OPPORTUNITIES", () => {
-    it("should contain expected LCP optimization opportunities", () => {
-      const expectedOpportunities = [
-        "render-blocking-resources",
-        "unused-css-rules",
-        "unused-javascript",
-        "modern-image-formats",
-        "uses-optimized-images",
-        "efficient-animated-content",
-        "preload-lcp-image",
-        "uses-text-compression",
-      ];
-
-      expectedOpportunities.forEach((opportunity) => {
-        expect(LCP_OPPORTUNITIES).toContain(opportunity);
-      });
+    it("should only reference audits that exist in the installed Lighthouse", () => {
+      for (const auditId of LCP_OPPORTUNITIES) {
+        expect(defaultConfigAuditIds).toContain(auditId);
+      }
     });
   });
 
   describe("SECURITY_AUDITS", () => {
-    it("should contain expected security audit IDs", () => {
-      const expectedAudits = [
-        "is-on-https",
-        "uses-http2",
-        "no-vulnerable-libraries",
-        "csp-xss",
-        "external-anchors-use-rel-noopener",
-      ];
+    it("should only reference audits that exist in the installed Lighthouse", () => {
+      for (const auditId of SECURITY_AUDITS) {
+        expect(defaultConfigAuditIds).toContain(auditId);
+      }
+    });
 
-      expectedAudits.forEach((audit) => {
-        expect(SECURITY_AUDITS).toContain(audit);
-      });
+    it("should only reference audits from the best-practices category", () => {
+      for (const auditId of SECURITY_AUDITS) {
+        expect(bestPracticesAuditIds).toContain(auditId);
+      }
     });
   });
 
@@ -141,6 +143,12 @@ describe("lighthouse-constants", () => {
       expect(keys).toContain("totalBlockingTime");
       expect(keys).toContain("cumulativeLayoutShift");
       expect(keys).toContain("speedIndex");
+    });
+
+    it("should only map to audits that exist in the installed Lighthouse", () => {
+      for (const { metric } of BUDGET_METRIC_MAPPINGS) {
+        expect(defaultConfigAuditIds).toContain(metric);
+      }
     });
   });
 

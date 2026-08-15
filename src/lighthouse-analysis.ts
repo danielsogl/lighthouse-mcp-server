@@ -148,9 +148,11 @@ export async function getSecurityAudit(url: string, device: "desktop" | "mobile"
     return null;
   }).filter(Boolean);
 
-  const overallScore =
-    auditResults.reduce((sum, audit: { score: number | null } | null) => sum + (audit?.score || 0), 0) /
-    auditResults.length;
+  // Guard against an empty result set (e.g. a `checks` filter matching no audit) producing NaN
+  const overallScore = auditResults.length
+    ? auditResults.reduce((sum, audit: { score: number | null } | null) => sum + (audit?.score || 0), 0) /
+      auditResults.length
+    : 0;
 
   return {
     url: lhr.finalDisplayedUrl,

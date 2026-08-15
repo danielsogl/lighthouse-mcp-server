@@ -31,25 +31,36 @@ export const KEY_METRICS = [
   "interactive",
 ] as const;
 
-// LCP optimization opportunities
+// LCP optimization opportunities.
+// Lighthouse 13 replaced the legacy "opportunity" audits (render-blocking-resources,
+// modern-image-formats, preload-lcp-image, uses-text-compression, ...) with insight audits.
 export const LCP_OPPORTUNITIES = [
-  "render-blocking-resources",
+  "lcp-breakdown-insight",
+  "lcp-discovery-insight",
+  "render-blocking-insight",
+  "image-delivery-insight",
+  "document-latency-insight",
+  "network-dependency-tree-insight",
+  "cache-insight",
+  "font-display-insight",
   "unused-css-rules",
   "unused-javascript",
-  "modern-image-formats",
-  "uses-optimized-images",
-  "efficient-animated-content",
-  "preload-lcp-image",
-  "uses-text-compression",
 ] as const;
 
-// Security audit IDs
+// Security audit IDs (best-practices category).
+// uses-http2, no-vulnerable-libraries and external-anchors-use-rel-noopener were
+// removed from Lighthouse; has-hsts/origin-isolation/clickjacking-mitigation/
+// trusted-types-xss replace them.
 export const SECURITY_AUDITS = [
   "is-on-https",
-  "uses-http2",
-  "no-vulnerable-libraries",
+  "redirects-http",
   "csp-xss",
-  "external-anchors-use-rel-noopener",
+  "has-hsts",
+  "origin-isolation",
+  "clickjacking-mitigation",
+  "trusted-types-xss",
+  "third-party-cookies",
+  "deprecations",
 ] as const;
 
 // Performance budget metric mappings
