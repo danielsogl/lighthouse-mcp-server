@@ -247,7 +247,6 @@ The Lighthouse MCP server provides the following tools for comprehensive web ana
 | `run_audit`               | Run a comprehensive Lighthouse audit        | `url`, `categories?`, `device?`, `throttling?` |
 | `get_accessibility_score` | Get accessibility score and recommendations | `url`, `device?`, `includeDetails?`            |
 | `get_seo_analysis`        | Get SEO analysis and recommendations        | `url`, `device?`, `includeDetails?`            |
-| `check_pwa_readiness`     | Check Progressive Web App readiness         | `url`, `device?`, `includeDetails?`            |
 
 ### ⚡ Performance Tools
 
@@ -312,7 +311,7 @@ The Lighthouse MCP server provides built-in reference resources with essential g
 ### 🔧 Prompt Parameter Details
 
 - **`auditResults`**: JSON audit results from Lighthouse tools
-- **`focusArea`**: Specific category to focus on (`"performance"`, `"accessibility"`, `"seo"`, `"best-practices"`, `"pwa"`)
+- **`focusArea`**: Specific category to focus on (`"performance"`, `"accessibility"`, `"seo"`, `"best-practices"`)
 - **`beforeAudit`** / **`afterAudit`**: Lighthouse audit results before and after changes
 - **`changesImplemented`**: Description of changes made between audits
 - **`currentMetrics`**: Current performance metrics from audits
@@ -336,7 +335,7 @@ The Lighthouse MCP server provides built-in reference resources with essential g
 
 ### Specific Parameters
 
-- **`categories`**: Lighthouse categories to audit (`["performance", "accessibility", "best-practices", "seo", "pwa"]`)
+- **`categories`**: Lighthouse categories to audit (`["performance", "accessibility", "best-practices", "seo"]`)
 - **`threshold`**: Custom thresholds for metrics (e.g., `{"lcp": 2.5, "fid": 100, "cls": 0.1}`)
 - **`budget`**: Performance budget limits (e.g., `{"performanceScore": 90, "largestContentfulPaint": 2500}`)
 - **`resourceTypes`**: Resource types to analyze (`["images", "javascript", "css", "fonts", "other"]`)

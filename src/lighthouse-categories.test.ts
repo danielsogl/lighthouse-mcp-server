@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "./lighthouse-categories";
+import { getAccessibilityScore, getSeoAnalysis } from "./lighthouse-categories";
 import * as lighthouseCore from "./lighthouse-core";
 
 // Mock the lighthouse-core module
@@ -22,7 +22,6 @@ describe("lighthouse-categories", () => {
     categories: {
       accessibility: { title: "Accessibility", score: 85, description: "Accessibility category" },
       seo: { title: "SEO", score: 92, description: "SEO category" },
-      pwa: { title: "PWA", score: 67, description: "PWA category" },
     },
     metrics: {},
   };
@@ -145,55 +144,6 @@ describe("lighthouse-categories", () => {
       const result = await getSeoAnalysis(mockUrl);
 
       expect(result.seoScore).toBe(0);
-    });
-  });
-
-  describe("checkPwaReadiness", () => {
-    it("should return PWA score without details", async () => {
-      vi.mocked(lighthouseCore.runLighthouseAudit).mockResolvedValue(mockLighthouseResult);
-
-      const result = await checkPwaReadiness(mockUrl);
-
-      expect(lighthouseCore.runLighthouseAudit).toHaveBeenCalledWith(mockUrl, ["pwa"], "desktop");
-      expect(result).toEqual({
-        url: mockUrl,
-        device: "desktop",
-        pwaScore: 67,
-        fetchTime: mockFetchTime,
-      });
-    });
-
-    it("should return PWA score with details when requested", async () => {
-      const mobileResult = { ...mockLighthouseResult, device: "mobile" as const };
-      vi.mocked(lighthouseCore.runLighthouseAudit).mockResolvedValue(mobileResult);
-      vi.mocked(lighthouseCore.getDetailedAuditResults).mockResolvedValue({
-        lhr: {} as any,
-        audits: mockDetailedAudits,
-      });
-
-      const result = await checkPwaReadiness(mockUrl, "mobile", true);
-
-      expect(lighthouseCore.runLighthouseAudit).toHaveBeenCalledWith(mockUrl, ["pwa"], "mobile");
-      expect(lighthouseCore.getDetailedAuditResults).toHaveBeenCalledWith(mockUrl, "pwa", "mobile");
-      expect(result).toEqual({
-        url: mockUrl,
-        device: "mobile",
-        pwaScore: 67,
-        fetchTime: mockFetchTime,
-        audits: mockDetailedAudits,
-      });
-    });
-
-    it("should handle missing PWA category", async () => {
-      const resultWithoutPwa = {
-        ...mockLighthouseResult,
-        categories: {},
-      };
-      vi.mocked(lighthouseCore.runLighthouseAudit).mockResolvedValue(resultWithoutPwa);
-
-      const result = await checkPwaReadiness(mockUrl);
-
-      expect(result.pwaScore).toBe(0);
     });
   });
 });

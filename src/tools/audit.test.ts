@@ -14,13 +14,12 @@ describe("tools/audit", () => {
     }).not.toThrow();
 
     // Verify that tools were registered
-    expect(mockServer.registerTool).toHaveBeenCalledTimes(4); // run_audit, get_accessibility_score, get_seo_analysis, check_pwa_readiness
+    expect(mockServer.registerTool).toHaveBeenCalledTimes(3); // run_audit, get_accessibility_score, get_seo_analysis
 
     // Verify tool names
     const toolCalls = mockServer.registerTool.mock.calls;
     expect(toolCalls[0][0]).toBe("run_audit");
     expect(toolCalls[1][0]).toBe("get_accessibility_score");
     expect(toolCalls[2][0]).toBe("get_seo_analysis");
-    expect(toolCalls[3][0]).toBe("check_pwa_readiness");
   });
 });

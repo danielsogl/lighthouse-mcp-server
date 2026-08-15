@@ -25,7 +25,7 @@ export const baseSchemas = {
   device: z.enum(["desktop", "mobile"]).describe("Device to emulate (default: desktop)").default("desktop"),
   throttling: z.boolean().describe("Whether to throttle the audit (default: false)").default(false),
   categories: z
-    .array(z.enum(["performance", "accessibility", "best-practices", "seo", "pwa"]).describe("Categories to audit"))
+    .array(z.enum(["performance", "accessibility", "best-practices", "seo"]).describe("Categories to audit"))
     .optional(),
   includeDetails: z.boolean().describe("Include detailed metrics and recommendations").default(false),
   threshold: z.number().describe("Score threshold (0-100)").min(0).max(100).optional(),

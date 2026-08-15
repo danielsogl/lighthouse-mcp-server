@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { runLighthouseAudit } from "../lighthouse-core.js";
-import { getAccessibilityScore, getSeoAnalysis, checkPwaReadiness } from "../lighthouse-categories.js";
+import { getAccessibilityScore, getSeoAnalysis } from "../lighthouse-categories.js";
 import { auditParamsSchema, detailedAuditSchema } from "../schemas.js";
 
 interface StructuredResponse {
@@ -65,7 +65,7 @@ export function registerAuditTools(server: McpServer) {
             "Focus on Core Web Vitals for performance improvements",
             "Ensure accessibility standards compliance (WCAG 2.1)",
             "Implement SEO best practices for better search visibility",
-            "Consider Progressive Web App features for enhanced user experience",
+            "Review the Lighthouse insight audits for prioritized optimizations",
           ],
         );
 
@@ -221,71 +221,6 @@ export function registerAuditTools(server: McpServer) {
               text: JSON.stringify(
                 {
                   error: "SEO analysis failed",
-                  url,
-                  device: device || "desktop",
-                  message: errorMessage,
-                },
-                null,
-                2,
-              ),
-            },
-          ],
-          isError: true,
-        };
-      }
-    },
-  );
-
-  server.registerTool(
-    "check_pwa_readiness",
-    {
-      description: "Check Progressive Web App readiness and requirements",
-      inputSchema: detailedAuditSchema,
-    },
-    async ({ url, device, includeDetails }) => {
-      try {
-        const result = await checkPwaReadiness(url, device, includeDetails);
-
-        const data: Record<string, unknown> = {
-          pwaScore: result.pwaScore,
-          fetchTime: result.fetchTime,
-          includeDetails,
-        };
-
-        if (includeDetails && "audits" in result) {
-          data.audits = result.audits.map((audit) => ({
-            title: audit.title,
-            score: audit.score !== null ? Math.round((audit.score || 0) * 100) : null,
-            description: audit.description,
-            displayValue: audit.displayValue || "N/A",
-          }));
-        }
-
-        const structuredResult = createStructuredAudit("PWA Readiness Check", result.url, result.device, data, [
-          "Create a web app manifest file",
-          "Implement service worker for offline functionality",
-          "Ensure HTTPS deployment",
-          "Add app icons for different platforms",
-          "Configure viewport meta tag for mobile",
-        ]);
-
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: JSON.stringify(structuredResult, null, 2),
-            },
-          ],
-        };
-      } catch (error: unknown) {
-        const errorMessage = error instanceof Error ? error.message : String(error);
-        return {
-          content: [
-            {
-              type: "text" as const,
-              text: JSON.stringify(
-                {
-                  error: "PWA readiness check failed",
                   url,
                   device: device || "desktop",
                   message: errorMessage,

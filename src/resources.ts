@@ -527,17 +527,6 @@ export function registerResources(server: McpServer) {
                   "Development practices",
                 ],
               },
-              pwa: {
-                description: "Progressive Web App capabilities",
-                weight: "Enhanced user experience",
-                keyAreas: [
-                  "Service worker implementation",
-                  "Offline functionality",
-                  "App manifest",
-                  "Installability",
-                  "Mobile app-like experience",
-                ],
-              },
             },
             scoring: {
               methodology: "Lighthouse uses a weighted scoring system",
