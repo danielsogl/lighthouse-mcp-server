@@ -18,22 +18,39 @@
   "rangeStrategy": "bump",
   "semanticCommits": "enabled",
   "timezone": "Europe/Berlin",
-  "schedule": ["before 6am on monday"],
-  "labels": ["dependencies"],
-  "assignees": ["danielsogl"],
-  "reviewers": ["danielsogl"],
+  "schedule": [
+    "before 6am on monday"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "assignees": [
+    "danielsogl"
+  ],
+  "reviewers": [
+    "danielsogl"
+  ],
   "packageRules": [
     {
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["patch", "minor"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
       "automerge": true,
       "platformAutomerge": true,
       "groupName": "non-major dependencies",
       "groupSlug": "all-minor-patch"
     },
     {
-      "matchManagers": ["npm"],
-      "matchUpdateTypes": ["major"],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "automerge": false,
       "groupName": "major dependencies",
       "groupSlug": "all-major"
@@ -42,28 +59,71 @@
       "groupName": "TypeScript type definitions",
       "automerge": true,
       "platformAutomerge": true,
-      "matchPackageNames": ["/^@types//"]
+      "matchPackageNames": [
+        "/^@types//"
+      ]
     },
     {
       "groupName": "linting and formatting",
       "automerge": true,
       "platformAutomerge": true,
-      "matchPackageNames": ["/^eslint/", "/^prettier/", "/^husky/", "/^lint-staged/"]
+      "matchPackageNames": [
+        "/^eslint/",
+        "/^prettier/",
+        "/^husky/",
+        "/^lint-staged/"
+      ]
     },
     {
-      "matchPackageNames": ["typescript", "ts-node"],
+      "matchPackageNames": [
+        "typescript",
+        "ts-node"
+      ],
       "groupName": "TypeScript core",
       "automerge": false
     },
     {
-      "matchPackageNames": ["lighthouse", "@modelcontextprotocol/sdk"],
+      "matchPackageNames": [
+        "lighthouse",
+        "@modelcontextprotocol/sdk"
+      ],
       "groupName": "core dependencies",
       "automerge": false,
       "reviewersFromCodeOwners": true
     },
     {
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["engines"],
+      "description": "Group GitHub Actions patch and minor updates and merge them automatically",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "groupName": "github actions",
+      "groupSlug": "github-actions-minor-patch",
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Review GitHub Actions majors by hand; they usually carry a runner runtime bump",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "github actions major",
+      "groupSlug": "github-actions-major",
+      "automerge": false
+    },
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "engines"
+      ],
       "enabled": false,
       "description": "Disable Node.js engine updates"
     }
@@ -71,18 +131,29 @@
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true,
-    "schedule": ["at any time"]
+    "schedule": [
+      "at any time"
+    ]
   },
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
-    "schedule": ["before 6am on monday"]
+    "schedule": [
+      "before 6am on monday"
+    ]
   },
   "prCreation": "immediate",
   "prHourlyLimit": 2,
   "prConcurrentLimit": 5,
   "updatePinnedDependencies": false,
-  "enabledManagers": ["npm"],
+  "enabledManagers": [
+    "npm",
+    "github-actions"
+  ],
   "ignoreDeps": [],
-  "ignorePaths": ["**/node_modules/**", "**/dist/**", "**/coverage/**"]
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/coverage/**"
+  ]
 }
