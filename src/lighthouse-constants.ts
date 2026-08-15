@@ -21,7 +21,9 @@ export const THROTTLING_CONFIG = {
   },
 } as const;
 
-// Key performance metrics
+// Key performance metrics: the five scored Lighthouse 13 metrics plus INP.
+// Time to Interactive is deliberately absent — Lighthouse keeps it only as a hidden,
+// zero-weight audit and no longer scores it.
 export const KEY_METRICS = [
   "first-contentful-paint",
   "largest-contentful-paint",
@@ -29,7 +31,6 @@ export const KEY_METRICS = [
   "cumulative-layout-shift",
   "speed-index",
   "interaction-to-next-paint",
-  "interactive",
 ] as const;
 
 // LCP optimization opportunities.

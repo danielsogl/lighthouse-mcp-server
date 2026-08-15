@@ -83,7 +83,7 @@ describe("lighthouse-constants", () => {
         "total-blocking-time",
         "cumulative-layout-shift",
         "speed-index",
-        "interactive",
+        "interaction-to-next-paint",
       ];
 
       expectedMetrics.forEach((metric) => {
