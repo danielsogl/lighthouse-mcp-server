@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lighthouse MCP end-to-end fixture</title>
+    <meta name="description" content="A tiny static page used to exercise the Lighthouse MCP server end to end." />
+  </head>
+  <body>
+    <h1>Lighthouse MCP fixture</h1>
+    <p>This page exists so the end-to-end tests can run a real Lighthouse audit without hitting the network.</p>
+    <img src="pixel.png" alt="A one pixel test image" width="1" height="1" />
+    <!-- Deliberately unused CSS and JS so the unused-css-rules / unused-javascript audits have something to report. -->
+    <style>
+      .used {
+        color: #111;
+      }
+      .never-used-anywhere {
+        color: #222;
+      }
+    </style>
+    <script>
+      function neverCalled() {
+        return "this function is never invoked, so it shows up as unused javascript";
+      }
+      document.querySelector("h1").classList.add("used");
+    </script>
+  </body>
+</html>

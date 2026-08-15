@@ -483,6 +483,18 @@ The server is built using:
 - **TypeScript**: For type safety and better developer experience
 - **Zod**: For runtime schema validation
 
+## 🧪 Testing
+
+```bash
+npm run test:run      # unit tests
+npm run test:coverage # unit tests with coverage
+npm run test:e2e      # end-to-end tests
+```
+
+The end-to-end suite builds the server, launches it over stdio with a real MCP client, and
+runs actual Lighthouse audits against a fixture page served on loopback. It requires Chrome
+to be installed; set `CHROME_PATH` if it lives somewhere non-standard.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) for details on:
