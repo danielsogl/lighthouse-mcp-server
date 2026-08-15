@@ -55,7 +55,7 @@ describe("resources", () => {
     // Verify the JSON is valid and contains expected structure
     const data = JSON.parse(result.contents[0].text);
     expect(data).toHaveProperty("lcp");
-    expect(data).toHaveProperty("fid");
+    expect(data).toHaveProperty("inp");
     expect(data).toHaveProperty("cls");
     expect(data.lcp).toHaveProperty("good");
     expect(data.lcp).toHaveProperty("needsImprovement");

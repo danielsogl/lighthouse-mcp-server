@@ -21,7 +21,7 @@ A Model Context Protocol (MCP) server that provides comprehensive web performanc
 - **🔒 Security Assessment**: HTTPS, CSP, and security vulnerability scanning
 - **📊 Resource Analysis**: JavaScript, CSS, image, and font optimization opportunities
 - **📱 Mobile vs Desktop**: Comparative analysis across devices with throttling options
-- **⚡ Core Web Vitals**: LCP, FID, CLS monitoring with threshold checking
+- **⚡ Core Web Vitals**: LCP, INP, CLS monitoring with threshold checking
 - **🎯 Performance Budgets**: Custom performance thresholds and budget monitoring
 - **📚 Reference Resources**: Built-in guidelines and best practices for web performance, accessibility, SEO, and security
 
@@ -336,7 +336,7 @@ The Lighthouse MCP server provides built-in reference resources with essential g
 ### Specific Parameters
 
 - **`categories`**: Lighthouse categories to audit (`["performance", "accessibility", "best-practices", "seo"]`)
-- **`threshold`**: Custom thresholds for metrics (e.g., `{"lcp": 2.5, "fid": 100, "cls": 0.1}`)
+- **`threshold`**: Custom thresholds for metrics (e.g., `{"lcp": 2.5, "inp": 200, "cls": 0.1}`)
 - **`budget`**: Performance budget limits (e.g., `{"performanceScore": 90, "largestContentfulPaint": 2500}`)
 - **`resourceTypes`**: Resource types to analyze (`["images", "javascript", "css", "fonts", "other"]`)
 - **`minBytes`**: Minimum file size threshold for analysis (default: `2048`)
@@ -369,7 +369,7 @@ The Lighthouse MCP server provides built-in reference resources with essential g
     "includeDetails": true,
     "threshold": {
       "lcp": 2.5,
-      "fid": 100,
+      "inp": 200,
       "cls": 0.1
     }
   }

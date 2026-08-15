@@ -57,7 +57,11 @@ export const coreWebVitalsSchema = z.object({
   threshold: z
     .object({
       lcp: z.number().min(0).optional().describe("Largest Contentful Paint threshold in seconds"),
-      fid: z.number().min(0).optional().describe("First Input Delay threshold in milliseconds"),
+      inp: z
+        .number()
+        .min(0)
+        .optional()
+        .describe("Interaction to Next Paint threshold in milliseconds (compared against TBT in lab runs)"),
       cls: z.number().min(0).optional().describe("Cumulative Layout Shift threshold"),
     })
     .optional(),

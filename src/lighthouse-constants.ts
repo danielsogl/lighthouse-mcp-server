@@ -28,6 +28,7 @@ export const KEY_METRICS = [
   "total-blocking-time",
   "cumulative-layout-shift",
   "speed-index",
+  "interaction-to-next-paint",
   "interactive",
 ] as const;
 

@@ -17,7 +17,7 @@ export async function getPerformanceScore(url: string, device: "desktop" | "mobi
 export async function getCoreWebVitals(
   url: string,
   device: "desktop" | "mobile" = "desktop",
-  threshold?: { lcp?: number; fid?: number; cls?: number },
+  threshold?: { lcp?: number; inp?: number; cls?: number },
 ) {
   const result = await runLighthouseAudit(url, ["performance"], device);
 
@@ -25,14 +25,17 @@ export async function getCoreWebVitals(
     lcp: result.metrics["largest-contentful-paint"],
     fcp: result.metrics["first-contentful-paint"],
     cls: result.metrics["cumulative-layout-shift"],
-    tbt: result.metrics["total-blocking-time"], // TBT is used as FID proxy in lab tests
+    // INP replaced FID as a Core Web Vital in March 2024. A cold lab load has no user
+    // interaction, so INP is usually absent and TBT stays the lab proxy for responsiveness.
+    inp: result.metrics["interaction-to-next-paint"],
+    tbt: result.metrics["total-blocking-time"],
   };
 
   // Check against thresholds if provided
   const thresholdResults = threshold
     ? {
         lcp: threshold.lcp ? (coreWebVitals.lcp?.value || 0) / 1000 <= threshold.lcp : null,
-        fid: threshold.fid ? (coreWebVitals.tbt?.value || 0) <= threshold.fid : null,
+        inp: threshold.inp ? (coreWebVitals.inp?.value ?? coreWebVitals.tbt?.value ?? 0) <= threshold.inp : null,
         cls: threshold.cls ? (coreWebVitals.cls?.value || 0) <= threshold.cls : null,
       }
     : null;

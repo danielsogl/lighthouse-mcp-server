@@ -131,7 +131,7 @@ describe("lighthouse-performance", () => {
 
       const thresholds = {
         lcp: 3.0, // Pass: 2.5s <= 3.0s
-        fid: 100, // Fail: 150ms > 100ms (using TBT as proxy)
+        inp: 100, // Fail: 150ms > 100ms (falls back to TBT when INP is absent)
         cls: 0.1, // Pass: 0.05 <= 0.1
       };
 
@@ -139,7 +139,7 @@ describe("lighthouse-performance", () => {
 
       expect(result.thresholdResults).toEqual({
         lcp: true, // 2.5s <= 3.0s
-        fid: false, // 150ms > 100ms
+        inp: false, // 150ms > 100ms
         cls: true, // 0.05 <= 0.1
       });
     });

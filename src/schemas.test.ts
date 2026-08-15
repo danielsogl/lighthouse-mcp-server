@@ -97,7 +97,7 @@ describe("coreWebVitalsSchema", () => {
       includeDetails: true,
       threshold: {
         lcp: 2.5,
-        fid: 100,
+        inp: 200,
         cls: 0.1,
       },
     };
@@ -111,7 +111,7 @@ describe("coreWebVitalsSchema", () => {
 
     const validThreshold = {
       lcp: 2.5,
-      fid: 100,
+      inp: 200,
       cls: 0.1,
     };
 

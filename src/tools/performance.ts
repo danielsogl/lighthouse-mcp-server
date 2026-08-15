@@ -133,7 +133,7 @@ export function registerPerformanceTools(server: McpServer) {
           },
           [
             "Optimize Largest Contentful Paint (LCP) < 2.5s",
-            "Minimize First Input Delay (FID) < 100ms",
+            "Minimize Interaction to Next Paint (INP) < 200ms",
             "Reduce Cumulative Layout Shift (CLS) < 0.1",
           ],
         );
