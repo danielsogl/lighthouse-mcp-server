@@ -51,11 +51,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
+      # Node 24 for the publish job specifically: trusted publishing needs npm >= 11.5.1
+      # and Node 22 still bundles npm 10.x. Dependency caching is deliberately off, as npm
+      # recommends for release builds.
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: "22.x"
-          cache: "npm"
+          node-version: "24.x"
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
 
       - name: Install dependencies
         run: npm ci
@@ -72,5 +76,9 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # Authenticates via OIDC against the trusted publisher configured for this package on
+      # npmjs.com, so no NPM_TOKEN is involved. Provenance is generated automatically for
+      # trusted publishing, and publishConfig.access in package.json already marks the
+      # scoped package public.
       - name: Publish to NPM
-        run: npm publish --provenance --access public
+        run: npm publish
