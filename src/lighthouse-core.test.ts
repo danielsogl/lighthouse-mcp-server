@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 import {
   getScreenEmulation,
   buildLighthouseOptions,
   filterAuditsByCategory,
   formatCategoryScores,
   extractKeyMetrics,
+  getLogLevel,
 } from "./lighthouse-core";
 import { SCREEN_DIMENSIONS } from "./lighthouse-constants";
 
@@ -44,7 +45,7 @@ describe("lighthouse-core utilities", () => {
       const options = buildLighthouseOptions(port, device);
 
       expect(options).toMatchObject({
-        logLevel: "info",
+        logLevel: "error",
         output: "json",
         port: 9222,
         formFactor: "desktop",
@@ -362,5 +363,29 @@ describe("lighthouse-core utilities", () => {
 
       expect(result).toEqual([]);
     });
+  });
+});
+
+describe("getLogLevel", () => {
+  const original = process.env.LIGHTHOUSE_LOG_LEVEL;
+
+  afterEach(() => {
+    if (original === undefined) delete process.env.LIGHTHOUSE_LOG_LEVEL;
+    else process.env.LIGHTHOUSE_LOG_LEVEL = original;
+  });
+
+  it("defaults to error so a stdio server does not flood stderr", () => {
+    delete process.env.LIGHTHOUSE_LOG_LEVEL;
+    expect(getLogLevel()).toBe("error");
+  });
+
+  it("honours a supported override", () => {
+    process.env.LIGHTHOUSE_LOG_LEVEL = "verbose";
+    expect(getLogLevel()).toBe("verbose");
+  });
+
+  it("falls back to error for an unsupported value", () => {
+    process.env.LIGHTHOUSE_LOG_LEVEL = "chatty";
+    expect(getLogLevel()).toBe("error");
   });
 });

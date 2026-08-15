@@ -90,6 +90,16 @@ Supported runtime flags for the MCP server:
 - `--headless`: force headless mode
 - `--no-headless`: force headed mode
 
+#### Logging
+
+Lighthouse logs to stderr. The server keeps this at `error` so it does not flood your MCP
+client's logs; set `LIGHTHOUSE_LOG_LEVEL` to `silent`, `info` or `verbose` when debugging
+(for example when Chrome fails to launch).
+
+```bash
+LIGHTHOUSE_LOG_LEVEL=verbose npx @danielsogl/lighthouse-mcp@latest
+```
+
 #### WSL2 / Custom Chrome Path
 
 If the wrong Chrome binary is picked up (e.g. Windows Chrome instead of the Linux binary on WSL2), set the path explicitly:

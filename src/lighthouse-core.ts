@@ -40,6 +40,19 @@ export function getScreenEmulation(device: "desktop" | "mobile") {
   };
 }
 
+const LOG_LEVELS = ["silent", "error", "info", "verbose"] as const;
+type LogLevel = (typeof LOG_LEVELS)[number];
+
+/**
+ * Lighthouse logs to stderr, which for a stdio MCP server is the user's log output. At
+ * "info" a single audit emits hundreds of lines, so default to errors only and let
+ * LIGHTHOUSE_LOG_LEVEL turn the detail back on when debugging a failing launch.
+ */
+export function getLogLevel(): LogLevel {
+  const configured = process.env.LIGHTHOUSE_LOG_LEVEL;
+  return LOG_LEVELS.includes(configured as LogLevel) ? (configured as LogLevel) : "error";
+}
+
 // Helper function to build Lighthouse options
 export function buildLighthouseOptions(
   port: number,
@@ -49,7 +62,7 @@ export function buildLighthouseOptions(
   disableStorageReset = false,
 ) {
   return {
-    logLevel: "info" as const,
+    logLevel: getLogLevel(),
     output: "json" as const,
     onlyCategories: categories,
     port,
