@@ -1,5 +1,81 @@
 # Changelog
 
+## [2.0.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.5.0...lighthouse-mcp-v2.0.0) (2026-08-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* the `interactive` entry is no longer present in the metrics returned by run_audit and get_performance_score.
+* **mcp:** tool results now include a `structuredContent` field and advertise an `outputSchema`. The existing text content is unchanged.
+* the `threshold.fid` parameter of get_core_web_vitals is replaced by `threshold.inp`, and the response reports `inp` alongside `tbt`.
+* the `check_pwa_readiness` tool is removed, and "pwa" is no longer accepted in the `categories` and `focusArea` enums.
+
+### Features
+
+* **lighthouse:** support the new agentic-browsing category ([ce5702b](https://github.com/danielsogl/lighthouse-mcp-server/commit/ce5702b83b7cb721c76683b6c12244d8c1970887))
+* **mcp:** add tool titles and behaviour annotations ([0d36c2b](https://github.com/danielsogl/lighthouse-mcp-server/commit/0d36c2ba34da773c02a1e6b4f2e1eac573b34aa5))
+* **mcp:** return validated structured output from every tool ([9471e07](https://github.com/danielsogl/lighthouse-mcp-server/commit/9471e075df8395ea261d3d433b6ab619865e1c1e))
+* remove PWA category support ([ba6f225](https://github.com/danielsogl/lighthouse-mcp-server/commit/ba6f225e131abc4d7ea3559aba1c476fd1ef2ebf))
+* report INP instead of the retired FID metric ([e184b36](https://github.com/danielsogl/lighthouse-mcp-server/commit/e184b364aa4f8bfbe45d367ff166c2c9e5bca002))
+* stop reporting the deprecated Time to Interactive metric ([a7c6a02](https://github.com/danielsogl/lighthouse-mcp-server/commit/a7c6a02ba08f892f449c7c46ebdd23460f7f932a))
+
+
+### Bug Fixes
+
+* **deps:** update non-major dependencies ([#172](https://github.com/danielsogl/lighthouse-mcp-server/issues/172)) ([50726f2](https://github.com/danielsogl/lighthouse-mcp-server/commit/50726f20fb464e86b188d5d4dd229340e93ae6a5))
+* **deps:** update non-major dependencies ([#174](https://github.com/danielsogl/lighthouse-mcp-server/issues/174)) ([6a5a1d1](https://github.com/danielsogl/lighthouse-mcp-server/commit/6a5a1d11aef06c3a5209315d2801b658f0641bd5))
+* **lighthouse:** fail loudly when a page cannot be loaded ([498d30b](https://github.com/danielsogl/lighthouse-mcp-server/commit/498d30b8e43d774f6c490a9fae6a3247f6532464))
+* **lighthouse:** replace audit IDs removed in Lighthouse 12/13 ([a9257d9](https://github.com/danielsogl/lighthouse-mcp-server/commit/a9257d94856cb69d81db3fe873a1db55e1d884bb))
+* quieten Lighthouse logging by default ([8951236](https://github.com/danielsogl/lighthouse-mcp-server/commit/895123625199724402acf889fd2022c01fefc4b0))
+* **resources:** correct performance metric weights and drop FID ([8cdbed7](https://github.com/danielsogl/lighthouse-mcp-server/commit/8cdbed7c3f56396419eacd5582a17e29425857e9))
+
+
+### Miscellaneous Chores
+
+* **deps:** lock file maintenance ([#163](https://github.com/danielsogl/lighthouse-mcp-server/issues/163)) ([f5082b0](https://github.com/danielsogl/lighthouse-mcp-server/commit/f5082b0d43ecff7183cbba5153350ae5d4221510))
+* **deps:** lock file maintenance ([#179](https://github.com/danielsogl/lighthouse-mcp-server/issues/179)) ([069f920](https://github.com/danielsogl/lighthouse-mcp-server/commit/069f920a782e1dcfeecca46e636af17cacb77859))
+* **deps:** lock file maintenance ([#183](https://github.com/danielsogl/lighthouse-mcp-server/issues/183)) ([a86fcfb](https://github.com/danielsogl/lighthouse-mcp-server/commit/a86fcfba5640b2a2f62283c10df4cb03136208ee))
+* **deps:** lock file maintenance ([#192](https://github.com/danielsogl/lighthouse-mcp-server/issues/192)) ([ae6531a](https://github.com/danielsogl/lighthouse-mcp-server/commit/ae6531a175f758c6930cc7a8de46b88ad0a28360))
+* **deps:** update @modelcontextprotocol/sdk to 1.30 and lighthouse to 13.4 ([32412db](https://github.com/danielsogl/lighthouse-mcp-server/commit/32412dbbad43f1181dd8c61557ad286d52eb43a2))
+* **deps:** update dependency eslint to ^10.3.0 ([#173](https://github.com/danielsogl/lighthouse-mcp-server/issues/173)) ([90ae224](https://github.com/danielsogl/lighthouse-mcp-server/commit/90ae224a748e174b4e29bd50dec669d9d66065e0))
+* **deps:** update dependency eslint to ^10.8.1 ([#201](https://github.com/danielsogl/lighthouse-mcp-server/issues/201)) ([8109303](https://github.com/danielsogl/lighthouse-mcp-server/commit/81093039743512e4ebc1baeb244b58bbdc5f8936))
+* **deps:** update dependency lint-staged to ^17.1.0 ([#195](https://github.com/danielsogl/lighthouse-mcp-server/issues/195)) ([1d0ce57](https://github.com/danielsogl/lighthouse-mcp-server/commit/1d0ce57ddc26d5f87137461d8a35ae85f4bc1fa0))
+* **deps:** update dependency lint-staged to ^17.3.0 ([#199](https://github.com/danielsogl/lighthouse-mcp-server/issues/199)) ([8367bad](https://github.com/danielsogl/lighthouse-mcp-server/commit/8367bad4371dd421767f1f9576c4c4108d72d1be))
+* **deps:** update dependency lint-staged to v17 ([#175](https://github.com/danielsogl/lighthouse-mcp-server/issues/175)) ([0341530](https://github.com/danielsogl/lighthouse-mcp-server/commit/034153097ed79a13471cc7c15c3213f2651c69b6))
+* **deps:** update dependency prettier to ^3.8.2 ([#165](https://github.com/danielsogl/lighthouse-mcp-server/issues/165)) ([9d85eff](https://github.com/danielsogl/lighthouse-mcp-server/commit/9d85eff3f50f6f679d3e7ead8a1e0f842161caac))
+* **deps:** update dependency prettier to ^3.9.4 ([#190](https://github.com/danielsogl/lighthouse-mcp-server/issues/190)) ([5f9a8ae](https://github.com/danielsogl/lighthouse-mcp-server/commit/5f9a8ae6951246215da4da0a1745956f4e845ee5))
+* **deps:** update dependency tsx to ^4.23.0 ([#191](https://github.com/danielsogl/lighthouse-mcp-server/issues/191)) ([db8e1d5](https://github.com/danielsogl/lighthouse-mcp-server/commit/db8e1d54933f42e3d344e3cffd1dc7a6eb75f39a))
+* **deps:** update dependency typescript to ^6.0.3 ([#168](https://github.com/danielsogl/lighthouse-mcp-server/issues/168)) ([7ff1bfb](https://github.com/danielsogl/lighthouse-mcp-server/commit/7ff1bfbb8a5334b7cd166dcfad31897fd3198991))
+* **deps:** update linting and formatting ([#169](https://github.com/danielsogl/lighthouse-mcp-server/issues/169)) ([d351016](https://github.com/danielsogl/lighthouse-mcp-server/commit/d3510160b71db94953fee3d9f9ac5bc33aefd2f7))
+* **deps:** update linting and formatting ([#177](https://github.com/danielsogl/lighthouse-mcp-server/issues/177)) ([719d6d0](https://github.com/danielsogl/lighthouse-mcp-server/commit/719d6d0bad916c3ea788cf8b76d29cd172cd18a8))
+* **deps:** update linting and formatting ([#180](https://github.com/danielsogl/lighthouse-mcp-server/issues/180)) ([f58e740](https://github.com/danielsogl/lighthouse-mcp-server/commit/f58e74078d34b0b09b91bf6bd870492d14fd9833))
+* **deps:** update linting and formatting ([#184](https://github.com/danielsogl/lighthouse-mcp-server/issues/184)) ([eb974dc](https://github.com/danielsogl/lighthouse-mcp-server/commit/eb974dca9f69ae1e4e8c00aea9ed2cb3fef75466))
+* **deps:** update linting and formatting ([#188](https://github.com/danielsogl/lighthouse-mcp-server/issues/188)) ([7e173c4](https://github.com/danielsogl/lighthouse-mcp-server/commit/7e173c41bd1fd7df3504d52193086ae4938a3d40))
+* **deps:** update linting and formatting ([#193](https://github.com/danielsogl/lighthouse-mcp-server/issues/193)) ([e1822ae](https://github.com/danielsogl/lighthouse-mcp-server/commit/e1822aeb29b944251a210c8aafa357ffa970acab))
+* **deps:** update linting and formatting ([#197](https://github.com/danielsogl/lighthouse-mcp-server/issues/197)) ([4108b0d](https://github.com/danielsogl/lighthouse-mcp-server/commit/4108b0d5ac99c4b2f403047406d4f431e04f8b89))
+* **deps:** update linting and formatting to ^17.0.8 ([#186](https://github.com/danielsogl/lighthouse-mcp-server/issues/186)) ([19aabf8](https://github.com/danielsogl/lighthouse-mcp-server/commit/19aabf8b5cd937a569b6858ecdd636a893c8804b))
+* **deps:** update non-major dependencies ([#166](https://github.com/danielsogl/lighthouse-mcp-server/issues/166)) ([7dc6d1f](https://github.com/danielsogl/lighthouse-mcp-server/commit/7dc6d1f48b95791b6e7eff709aea1b4e797078a3))
+* **deps:** update non-major dependencies ([#170](https://github.com/danielsogl/lighthouse-mcp-server/issues/170)) ([3ce7176](https://github.com/danielsogl/lighthouse-mcp-server/commit/3ce7176e269ae70a12e9902a6657d592b5801e26))
+* **deps:** update non-major dependencies ([#176](https://github.com/danielsogl/lighthouse-mcp-server/issues/176)) ([7ff2474](https://github.com/danielsogl/lighthouse-mcp-server/commit/7ff247437068d3333ef26dc4456ade800ecb9737))
+* **deps:** update non-major dependencies ([#178](https://github.com/danielsogl/lighthouse-mcp-server/issues/178)) ([cfb620b](https://github.com/danielsogl/lighthouse-mcp-server/commit/cfb620b752467873d22c7a8131d0981810503d09))
+* **deps:** update non-major dependencies ([#181](https://github.com/danielsogl/lighthouse-mcp-server/issues/181)) ([ea451df](https://github.com/danielsogl/lighthouse-mcp-server/commit/ea451dfb812b31ea18a96a6317c3be7fb17326a8))
+* **deps:** update non-major dependencies ([#185](https://github.com/danielsogl/lighthouse-mcp-server/issues/185)) ([82e1f16](https://github.com/danielsogl/lighthouse-mcp-server/commit/82e1f16f501d29fc6e9359a235be73b638a087c3))
+* **deps:** update non-major dependencies ([#187](https://github.com/danielsogl/lighthouse-mcp-server/issues/187)) ([f849313](https://github.com/danielsogl/lighthouse-mcp-server/commit/f849313a5e0ea883e411f56bb9a5e36769dd1201))
+* **deps:** update non-major dependencies ([#189](https://github.com/danielsogl/lighthouse-mcp-server/issues/189)) ([e547672](https://github.com/danielsogl/lighthouse-mcp-server/commit/e5476721179682593dcebeb722db35ec4416af00))
+* **deps:** update non-major dependencies ([#194](https://github.com/danielsogl/lighthouse-mcp-server/issues/194)) ([9718e27](https://github.com/danielsogl/lighthouse-mcp-server/commit/9718e2784260c1f0006c7446d4efadc6739a97bc))
+* **deps:** update non-major dependencies ([#198](https://github.com/danielsogl/lighthouse-mcp-server/issues/198)) ([925ff3b](https://github.com/danielsogl/lighthouse-mcp-server/commit/925ff3bf61705629c0626e68a49b0b762f39e6e9))
+* **deps:** update non-major dependencies ([#200](https://github.com/danielsogl/lighthouse-mcp-server/issues/200)) ([1676f05](https://github.com/danielsogl/lighthouse-mcp-server/commit/1676f052bf3d740ac13658ccf9d5d65d00c5d360))
+* **deps:** update non-major dependencies ([#202](https://github.com/danielsogl/lighthouse-mcp-server/issues/202)) ([71c22b9](https://github.com/danielsogl/lighthouse-mcp-server/commit/71c22b9c7003a06c96f2ede0ce8eb9800120e3c5))
+* **deps:** update non-major dependencies to ^8.64.0 ([#196](https://github.com/danielsogl/lighthouse-mcp-server/issues/196)) ([bbb282e](https://github.com/danielsogl/lighthouse-mcp-server/commit/bbb282e4243fa3af473fae3e04ec2e5c6fbbfc59))
+* **deps:** update typescript-eslint to 8.67 and globals to 17.11 ([919ceeb](https://github.com/danielsogl/lighthouse-mcp-server/commit/919ceeb3424da6f294360d99f6fb7fd0c517c26d))
+
+
+### Documentation
+
+* add the CONTRIBUTING guide the README links to ([410a471](https://github.com/danielsogl/lighthouse-mcp-server/commit/410a4711c3dcd53279263b9a54951953345b1e5c))
+* correct the tool count after removing check_pwa_readiness ([b680f9e](https://github.com/danielsogl/lighthouse-mcp-server/commit/b680f9e32cdd6f7ced9f6d0a82026848a90f5299))
+* document agentic-browsing and refresh stale metadata ([3592870](https://github.com/danielsogl/lighthouse-mcp-server/commit/35928707366d1ffeae1b3a7e34164db290e089f5))
+
 ## [1.5.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.4.0...lighthouse-mcp-v1.5.0) (2026-04-05)
 
 
