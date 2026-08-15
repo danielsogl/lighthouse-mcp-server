@@ -6,12 +6,12 @@ import {
   compareMobileDesktop,
   checkPerformanceBudget,
   getLcpOpportunities,
-} from "./lighthouse-performance";
-import * as lighthouseCore from "./lighthouse-core";
-import { DEFAULTS, LCP_OPPORTUNITIES } from "./lighthouse-constants";
+} from "./lighthouse-performance.js";
+import * as lighthouseCore from "./lighthouse-core.js";
+import { DEFAULTS, LCP_OPPORTUNITIES } from "./lighthouse-constants.js";
 
 // Mock the lighthouse-core module
-vi.mock("./lighthouse-core", () => ({
+vi.mock("./lighthouse-core.js", () => ({
   runLighthouseAudit: vi.fn(),
   runRawLighthouseAudit: vi.fn(),
 }));

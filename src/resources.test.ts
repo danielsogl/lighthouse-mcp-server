@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi } from "vitest";
-import { registerResources } from "./resources";
+import { registerResources } from "./resources.js";
 import defaultConfig from "lighthouse/core/config/default-config.js";
 
 // Mock the MCP server

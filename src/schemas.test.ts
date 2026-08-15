@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { baseSchemas, coreWebVitalsSchema, performanceBudgetSchema } from "./schemas";
+import { baseSchemas, coreWebVitalsSchema, performanceBudgetSchema } from "./schemas.js";
 
 describe("baseSchemas", () => {
   describe("url validator", () => {

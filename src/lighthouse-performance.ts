@@ -1,4 +1,5 @@
 import { runLighthouseAudit, runRawLighthouseAudit } from "./lighthouse-core.js";
+import type { LighthouseAuditResult } from "./types.js";
 import { BUDGET_METRIC_MAPPINGS, LCP_OPPORTUNITIES, DEFAULTS } from "./lighthouse-constants.js";
 
 // Helper function to get performance score only
@@ -21,7 +22,10 @@ export async function getCoreWebVitals(
 ) {
   const result = await runLighthouseAudit(url, ["performance"], device);
 
-  const coreWebVitals = {
+  // Indexing the metrics record yields undefined for any metric Lighthouse did not
+  // produce, which the record's own type does not express. Spelling that out here keeps
+  // callers honest — they already guard with optional chaining.
+  const coreWebVitals: Record<string, LighthouseAuditResult["metrics"][string] | undefined> = {
     lcp: result.metrics["largest-contentful-paint"],
     fcp: result.metrics["first-contentful-paint"],
     cls: result.metrics["cumulative-layout-shift"],

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getAccessibilityScore, getSeoAnalysis } from "./lighthouse-categories";
-import * as lighthouseCore from "./lighthouse-core";
+import { getAccessibilityScore, getSeoAnalysis } from "./lighthouse-categories.js";
+import * as lighthouseCore from "./lighthouse-core.js";
 
 // Mock the lighthouse-core module
-vi.mock("./lighthouse-core", () => ({
+vi.mock("./lighthouse-core.js", () => ({
   runLighthouseAudit: vi.fn(),
   getDetailedAuditResults: vi.fn(),
 }));

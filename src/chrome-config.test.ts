@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { join } from "node:path";
-import { buildChromeFlags, buildChromeLaunchOptions, isProfileConfig } from "./chrome-config";
-import { CHROME_FLAGS } from "./lighthouse-constants";
+import { buildChromeFlags, buildChromeLaunchOptions, isProfileConfig } from "./chrome-config.js";
+import { CHROME_FLAGS } from "./lighthouse-constants.js";
 
 describe("chrome-config", () => {
   describe("buildChromeFlags", () => {

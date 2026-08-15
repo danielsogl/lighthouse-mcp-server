@@ -25,9 +25,30 @@ describe("tools/security", () => {
       overallScore: 67,
       fetchTime: "2026-01-01T00:00:00.000Z",
       audits: [
-        { id: "is-on-https", title: "HTTPS", description: "Uses HTTPS", score: 1, displayValue: "Passed" },
-        { id: "has-hsts", title: "HSTS", description: "Uses HSTS", score: 0, displayValue: undefined },
-        { id: "csp-xss", title: "CSP", description: undefined, score: null, displayValue: undefined },
+        {
+          id: "is-on-https",
+          title: "HTTPS",
+          description: "Uses HTTPS",
+          score: 1,
+          scoreDisplayMode: "binary",
+          displayValue: "Passed",
+        },
+        {
+          id: "has-hsts",
+          title: "HSTS",
+          description: "Uses HSTS",
+          score: 0,
+          scoreDisplayMode: "binary",
+          displayValue: undefined,
+        },
+        {
+          id: "csp-xss",
+          title: "CSP",
+          description: undefined,
+          score: null,
+          scoreDisplayMode: "notApplicable",
+          displayValue: undefined,
+        },
       ],
     });
 

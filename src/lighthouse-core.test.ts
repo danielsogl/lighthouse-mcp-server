@@ -7,8 +7,8 @@ import {
   formatCategoryScores,
   extractKeyMetrics,
   getLogLevel,
-} from "./lighthouse-core";
-import { SCREEN_DIMENSIONS } from "./lighthouse-constants";
+} from "./lighthouse-core.js";
+import { SCREEN_DIMENSIONS } from "./lighthouse-constants.js";
 
 describe("lighthouse-core utilities", () => {
   describe("getScreenEmulation", () => {

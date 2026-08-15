@@ -208,7 +208,16 @@ describe("get_lcp_opportunities", () => {
       lcpValue: 4.2,
       threshold: 2.5,
       needsImprovement: true,
-      opportunities: [{ id: "render-blocking-insight", title: "Render blocking", score: 0.4 }],
+      opportunities: [
+        {
+          id: "render-blocking-insight" as const,
+          title: "Render blocking",
+          description: "Requests are blocking the page's first paint",
+          score: 0.4,
+          displayValue: "300 ms",
+          numericValue: 300,
+        },
+      ],
     });
 
     const { payload } = await callTool(tools, "get_lcp_opportunities", { url: "https://example.com/" });

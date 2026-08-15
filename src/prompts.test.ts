@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi } from "vitest";
-import { registerPrompts } from "./prompts";
+import { registerPrompts } from "./prompts.js";
 
 const mockServer = { registerPrompt: vi.fn() };
 registerPrompts(mockServer as any);

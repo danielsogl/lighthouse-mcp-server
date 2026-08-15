@@ -8,7 +8,7 @@ import {
   SECURITY_AUDITS,
   BUDGET_METRIC_MAPPINGS,
   DEFAULTS,
-} from "./lighthouse-constants";
+} from "./lighthouse-constants.js";
 import defaultConfig from "lighthouse/core/config/default-config.js";
 
 // The audit IDs the installed Lighthouse actually knows about. Asserting against these

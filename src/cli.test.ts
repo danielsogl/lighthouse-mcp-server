@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { basename, dirname, join } from "node:path";
-import { parseCliArgs } from "./cli";
+import { parseCliArgs } from "./cli.js";
 
 describe("parseCliArgs", () => {
   it("parses chrome profile and headless settings", () => {

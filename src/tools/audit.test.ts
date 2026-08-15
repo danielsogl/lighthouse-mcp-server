@@ -13,8 +13,22 @@ vi.mock("../lighthouse-categories.js", () => ({
 const tools = collectTools(registerAuditTools);
 
 const detailedAudits = [
-  { id: "color-contrast", title: "Contrast", description: "Colours contrast", score: 0.5, displayValue: "2 issues" },
-  { id: "image-alt", title: "Alt text", description: "Images have alt", score: null, displayValue: undefined },
+  {
+    id: "color-contrast",
+    title: "Contrast",
+    description: "Colours contrast",
+    score: 0.5,
+    scoreDisplayMode: "numeric",
+    displayValue: "2 issues",
+  },
+  {
+    id: "image-alt",
+    title: "Alt text",
+    description: "Images have alt",
+    score: null,
+    scoreDisplayMode: "notApplicable",
+    displayValue: undefined,
+  },
 ];
 
 beforeEach(() => {

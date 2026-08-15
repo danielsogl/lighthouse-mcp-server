@@ -34,7 +34,7 @@ jobs:
       - name: Run type checking
         run: |
           npx tsc --noEmit
-          npx tsc -p tsconfig.e2e.json
+          npx tsc -p tsconfig.test.json
 
       - name: Run tests with coverage and JUnit output
         run: npm run test:coverage -- --reporter=default --reporter=junit --outputFile=test-results.junit.xml

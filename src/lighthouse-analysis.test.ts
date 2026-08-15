@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { findUnusedJavaScript, analyzeResources, getSecurityAudit } from "./lighthouse-analysis";
-import * as lighthouseCore from "./lighthouse-core";
-import { SECURITY_AUDITS, DEFAULTS } from "./lighthouse-constants";
+import { findUnusedJavaScript, analyzeResources, getSecurityAudit } from "./lighthouse-analysis.js";
+import * as lighthouseCore from "./lighthouse-core.js";
+import { SECURITY_AUDITS, DEFAULTS } from "./lighthouse-constants.js";
 
 // Mock the lighthouse-core module
-vi.mock("./lighthouse-core", () => ({
+vi.mock("./lighthouse-core.js", () => ({
   runRawLighthouseAudit: vi.fn(),
 }));
 
