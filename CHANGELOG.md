@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v2.0.0...lighthouse-mcp-v2.0.1) (2026-08-15)
+
+
+### Bug Fixes
+
+* **build:** keep the test harness out of the published package ([6e2d9f5](https://github.com/danielsogl/lighthouse-mcp-server/commit/6e2d9f599e8b39681e5595f54547daca3f3887e5))
+
 ## [2.0.0](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v1.5.0...lighthouse-mcp-v2.0.0) (2026-08-15)
 
 
