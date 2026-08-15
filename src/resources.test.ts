@@ -124,4 +124,58 @@ describe("resources", () => {
     expect(data.react).toHaveProperty("optimizations");
     expect(Array.isArray(data.react.optimizations)).toBe(true);
   });
+
+  it("should serve valid JSON for every registered resource", async () => {
+    const resourceCalls = mockServer.registerResource.mock.calls;
+
+    for (const [name, uri, , callback] of resourceCalls) {
+      const mockUri = { href: uri };
+      const result = await callback(mockUri);
+
+      expect(result.contents, `${name} returned no contents`).toHaveLength(1);
+      expect(result.contents[0].uri).toBe(uri);
+      expect(result.contents[0].mimeType).toBe("application/json");
+      expect(() => JSON.parse(result.contents[0].text), `${name} is not valid JSON`).not.toThrow();
+    }
+  });
+
+  it("should provide valid JSON content for SEO best practices", async () => {
+    const result = await mockServer.registerResource.mock.calls[3][3]({ href: "lighthouse://seo/best-practices" });
+    const data = JSON.parse(result.contents[0].text);
+
+    expect(data).toHaveProperty("technical");
+    expect(Array.isArray(data.technical.meta)).toBe(true);
+  });
+
+  it("should provide valid JSON content for security best practices", async () => {
+    const result = await mockServer.registerResource.mock.calls[4][3]({ href: "lighthouse://security/best-practices" });
+    const data = JSON.parse(result.contents[0].text);
+
+    expect(data).toHaveProperty("https");
+    expect(data.https.importance).toBe("critical");
+  });
+
+  it("should provide budget guidelines that prioritise INP over the retired FID", async () => {
+    const result = await mockServer.registerResource.mock.calls[5][3]({
+      href: "lighthouse://performance/budget-guidelines",
+    });
+    const data = JSON.parse(result.contents[0].text);
+
+    expect(data).toHaveProperty("ecommerce");
+    expect(data.ecommerce.priorities).toContain("INP");
+    expect(data.ecommerce.priorities).not.toContain("FID");
+    expect(data.ecommerce.budgets).toHaveProperty("inp");
+    expect(data.ecommerce.budgets).not.toHaveProperty("fid");
+  });
+
+  it("should provide category scoring without the removed PWA category", async () => {
+    const result = await mockServer.registerResource.mock.calls[6][3]({
+      href: "lighthouse://audits/categories-scoring",
+    });
+    const data = JSON.parse(result.contents[0].text);
+
+    expect(data.categories).toHaveProperty("performance");
+    expect(data.categories).not.toHaveProperty("pwa");
+    expect(data).toHaveProperty("scoring");
+  });
 });

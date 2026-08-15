@@ -23,15 +23,16 @@ export default defineConfig({
         "src/**/*.{test,spec}.{ts,js}",
         "src/**/*.d.ts",
         "src/**/types.ts",
-        "src/index.ts", // Main entry point - integration test level
+        "src/tools/harness.ts", // Test-only helper for invoking registered tool handlers
+        "src/index.ts", // Main entry point - covered by the e2e suite
       ],
+      // Vitest expects the thresholds inline; nesting them under `global` is Jest syntax
+      // that Vitest silently ignores, which left these unenforced.
       thresholds: {
-        global: {
-          branches: 80,
-          functions: 80,
-          lines: 80,
-          statements: 80,
-        },
+        branches: 80,
+        functions: 80,
+        lines: 80,
+        statements: 80,
       },
     },
 
