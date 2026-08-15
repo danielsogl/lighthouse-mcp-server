@@ -1,11 +1,14 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { securityAuditSchema } from "../schemas.js";
 import { getSecurityAudit } from "../lighthouse-analysis.js";
+import { securityAuditOutput } from "../output-schemas.js";
 
 interface StructuredResponse {
   summary: string;
   data: Record<string, unknown>;
   recommendations?: string[];
+  // Index signature so the envelope satisfies the SDK's structuredContent type.
+  [key: string]: unknown;
 }
 
 function createStructuredSecurity(
@@ -29,6 +32,7 @@ export function registerSecurityTools(server: McpServer) {
       title: "Get Security Audit",
       description: "Perform security audit checking HTTPS, CSP, and other security measures",
       inputSchema: securityAuditSchema,
+      outputSchema: securityAuditOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, checks }) => {
@@ -83,6 +87,7 @@ export function registerSecurityTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);

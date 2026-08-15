@@ -24,6 +24,7 @@ A Model Context Protocol (MCP) server that provides comprehensive web performanc
 - **⚡ Core Web Vitals**: LCP, INP, CLS monitoring with threshold checking
 - **🎯 Performance Budgets**: Custom performance thresholds and budget monitoring
 - **🤖 Agentic Browsing**: Lighthouse 13 audits for how well a page serves AI agents (WebMCP tools, agent accessibility tree, llms.txt)
+- **🧩 Structured Output**: Every tool declares an `outputSchema` and returns validated `structuredContent`, so clients get typed data instead of a JSON string to parse
 - **📚 Reference Resources**: Built-in guidelines and best practices for web performance, accessibility, SEO, and security
 
 ## 🛠️ Requirements

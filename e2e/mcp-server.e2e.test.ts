@@ -31,17 +31,19 @@ async function callToolRaw(name: string, args: Record<string, unknown>) {
   const result = (await client.callTool({ name, arguments: args })) as {
     isError?: boolean;
     content: { type: string; text: string }[];
+    structuredContent?: Record<string, unknown>;
   };
   return {
     isError: result.isError === true,
     message: result.content.find((part) => part.type === "text")?.text ?? "",
+    structuredContent: result.structuredContent,
   };
 }
 
 /** Calls a tool and parses the JSON payload the server encodes into its text content. */
 async function callTool(name: string, args: Record<string, unknown>) {
-  const { isError, message } = await callToolRaw(name, args);
-  return { isError, payload: JSON.parse(message) };
+  const { isError, message, structuredContent } = await callToolRaw(name, args);
+  return { isError, payload: JSON.parse(message), structuredContent };
 }
 
 beforeAll(async () => {
@@ -84,6 +86,15 @@ describe("MCP protocol surface", () => {
     }
   });
 
+  it("advertises a JSON Schema for every tool's output", async () => {
+    const { tools } = await client.listTools();
+
+    for (const tool of tools) {
+      expect(tool.outputSchema, `${tool.name} has no outputSchema`).toBeDefined();
+      expect(tool.outputSchema?.type).toBe("object");
+    }
+  });
+
   it("rejects the removed 'pwa' category through schema validation", async () => {
     const { isError, message } = await callToolRaw("run_audit", { url: fixture.url, categories: ["pwa"] });
 
@@ -118,7 +129,7 @@ describe("MCP protocol surface", () => {
 
 describe("real Lighthouse audits", () => {
   it("runs a full audit and returns only categories that still exist", async () => {
-    const { isError, payload } = await callTool("run_audit", { url: fixture.url });
+    const { isError, payload, structuredContent } = await callTool("run_audit", { url: fixture.url });
 
     expect(isError, JSON.stringify(payload)).toBe(false);
     // agentic-browsing is the category Lighthouse 13 added; pwa is the one it removed.
@@ -132,6 +143,8 @@ describe("real Lighthouse audits", () => {
     expect(payload.data.categories).not.toHaveProperty("pwa");
     expect(payload.data.version).toMatch(/^13\./);
     expect(payload.data.categories.performance.score).toBeGreaterThan(0);
+    // Clients get the same payload as validated structured data, not just JSON text.
+    expect(structuredContent).toEqual(payload);
   }, 180_000);
 
   it("resolves the Lighthouse 13 insight audits behind get_lcp_opportunities", async () => {

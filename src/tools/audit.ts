@@ -2,11 +2,14 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { runLighthouseAudit } from "../lighthouse-core.js";
 import { getAccessibilityScore, getSeoAnalysis } from "../lighthouse-categories.js";
 import { auditParamsSchema, detailedAuditSchema } from "../schemas.js";
+import { accessibilityScoreOutput, runAuditOutput, seoAnalysisOutput } from "../output-schemas.js";
 
 interface StructuredResponse {
   summary: string;
   data: Record<string, unknown>;
   recommendations?: string[];
+  // Index signature so the envelope satisfies the SDK's structuredContent type.
+  [key: string]: unknown;
 }
 
 function createStructuredAudit(
@@ -30,6 +33,7 @@ export function registerAuditTools(server: McpServer) {
       title: "Run Lighthouse Audit",
       description: "Run a comprehensive Lighthouse audit on a website",
       inputSchema: auditParamsSchema,
+      outputSchema: runAuditOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, categories, device, throttling }) => {
@@ -78,6 +82,7 @@ export function registerAuditTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -114,6 +119,7 @@ export function registerAuditTools(server: McpServer) {
       title: "Get Accessibility Score",
       description: "Get the accessibility score and recommendations for a website",
       inputSchema: detailedAuditSchema,
+      outputSchema: accessibilityScoreOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, includeDetails }) => {
@@ -150,6 +156,7 @@ export function registerAuditTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -181,6 +188,7 @@ export function registerAuditTools(server: McpServer) {
       title: "Get SEO Analysis",
       description: "Get SEO analysis and recommendations for a website",
       inputSchema: detailedAuditSchema,
+      outputSchema: seoAnalysisOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, includeDetails }) => {
@@ -217,6 +225,7 @@ export function registerAuditTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);

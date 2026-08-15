@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { resourceAnalysisSchema, unusedJavaScriptSchema } from "../schemas.js";
 import { findUnusedJavaScript, analyzeResources } from "../lighthouse-analysis.js";
+import { resourceAnalysisOutput, unusedJavaScriptOutput } from "../output-schemas.js";
 
 // Helper function to create structured content that's both AI and human readable
 function createStructuredAnalysis(title: string, data: Record<string, unknown>, summary?: string) {
@@ -23,6 +24,7 @@ export function registerAnalysisTools(server: McpServer) {
       title: "Find Unused JavaScript",
       description: "Find unused JavaScript code to reduce bundle size",
       inputSchema: unusedJavaScriptSchema,
+      outputSchema: unusedJavaScriptOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, minBytes }) => {
@@ -65,6 +67,7 @@ export function registerAnalysisTools(server: McpServer) {
 
         return {
           content: createStructuredAnalysis("Unused JavaScript Analysis", analysisData, summary),
+          structuredContent: analysisData,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -101,6 +104,7 @@ export function registerAnalysisTools(server: McpServer) {
       title: "Analyze Page Resources",
       description: "Analyze website resources (images, JS, CSS, fonts) for optimization opportunities",
       inputSchema: resourceAnalysisSchema,
+      outputSchema: resourceAnalysisOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, resourceTypes, minSize }) => {
@@ -183,6 +187,7 @@ export function registerAnalysisTools(server: McpServer) {
 
         return {
           content: createStructuredAnalysis("Resource Analysis", analysisData, summary),
+          structuredContent: analysisData,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);

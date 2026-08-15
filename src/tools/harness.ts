@@ -1,12 +1,19 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { ZodType } from "zod";
 
 export type ToolHandler = (args: Record<string, never>) => Promise<{
   content: { type: string; text: string }[];
+  structuredContent?: unknown;
   isError?: boolean;
 }>;
 
 export interface RegisteredTool {
-  config: { title?: string; description?: string; annotations?: Record<string, boolean> };
+  config: {
+    title?: string;
+    description?: string;
+    annotations?: Record<string, boolean>;
+    outputSchema?: ZodType;
+  };
   handler: ToolHandler;
 }
 
@@ -26,7 +33,14 @@ export function collectTools(register: (server: McpServer) => void): Map<string,
   return tools;
 }
 
-/** Invokes a captured handler and parses the JSON body it embeds in its text content. */
+/**
+ * Invokes a captured handler and parses the JSON body it embeds in its text content.
+ *
+ * Calling the handler directly bypasses the SDK, so this reproduces the SDK's own output
+ * validation: a successful result must carry structuredContent matching the declared
+ * outputSchema. That keeps every tool's schema honest from the unit tests, not just the
+ * handful the e2e suite happens to exercise.
+ */
 export async function callTool(tools: Map<string, RegisteredTool>, name: string, args: Record<string, unknown>) {
   const tool = tools.get(name);
   if (!tool) throw new Error(`tool ${name} was never registered`);
@@ -35,5 +49,20 @@ export async function callTool(tools: Map<string, RegisteredTool>, name: string,
   // Analysis tools put a human-readable summary first and the JSON payload second.
   const jsonPart = result.content.at(-1)?.text ?? "";
 
-  return { isError: result.isError === true, payload: JSON.parse(jsonPart), content: result.content };
+  if (tool.config.outputSchema && !result.isError) {
+    if (result.structuredContent === undefined) {
+      throw new Error(`tool ${name} declares an outputSchema but returned no structuredContent`);
+    }
+    const parsed = tool.config.outputSchema.safeParse(result.structuredContent);
+    if (!parsed.success) {
+      throw new Error(`tool ${name} structuredContent does not match its outputSchema: ${parsed.error.message}`);
+    }
+  }
+
+  return {
+    isError: result.isError === true,
+    payload: JSON.parse(jsonPart),
+    structuredContent: result.structuredContent,
+    content: result.content,
+  };
 }

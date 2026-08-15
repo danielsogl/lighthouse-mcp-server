@@ -13,11 +13,20 @@ import {
   checkPerformanceBudget,
   getLcpOpportunities,
 } from "../lighthouse-performance.js";
+import {
+  compareDevicesOutput,
+  coreWebVitalsOutput,
+  lcpOpportunitiesOutput,
+  performanceBudgetOutput,
+  performanceScoreOutput,
+} from "../output-schemas.js";
 
 interface StructuredResponse {
   summary: string;
   data: Record<string, unknown>;
   recommendations?: string[];
+  // Index signature so the envelope satisfies the SDK's structuredContent type.
+  [key: string]: unknown;
 }
 
 function createStructuredPerformance(
@@ -41,6 +50,7 @@ export function registerPerformanceTools(server: McpServer) {
       title: "Get Performance Score",
       description: "Get the performance score for a website",
       inputSchema: basicAuditSchema,
+      outputSchema: performanceScoreOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device }) => {
@@ -79,6 +89,7 @@ export function registerPerformanceTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -110,6 +121,7 @@ export function registerPerformanceTools(server: McpServer) {
       title: "Get Core Web Vitals",
       description: "Get Core Web Vitals metrics for a website",
       inputSchema: coreWebVitalsSchema,
+      outputSchema: coreWebVitalsOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, includeDetails, threshold }) => {
@@ -149,6 +161,7 @@ export function registerPerformanceTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -180,6 +193,7 @@ export function registerPerformanceTools(server: McpServer) {
       title: "Compare Mobile vs Desktop",
       description: "Compare website performance between mobile and desktop devices",
       inputSchema: compareDevicesSchema,
+      outputSchema: compareDevicesOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, categories, throttling, includeDetails }) => {
@@ -218,6 +232,7 @@ export function registerPerformanceTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -248,6 +263,7 @@ export function registerPerformanceTools(server: McpServer) {
       title: "Check Performance Budget",
       description: "Check if website performance meets specified budget thresholds",
       inputSchema: performanceBudgetSchema,
+      outputSchema: performanceBudgetOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, budget }) => {
@@ -293,6 +309,7 @@ export function registerPerformanceTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -324,6 +341,7 @@ export function registerPerformanceTools(server: McpServer) {
       title: "Get LCP Opportunities",
       description: "Get LCP optimization opportunities for a website",
       inputSchema: lcpOpportunitiesSchema,
+      outputSchema: lcpOpportunitiesOutput,
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ url, device, threshold, includeDetails }) => {
@@ -359,6 +377,7 @@ export function registerPerformanceTools(server: McpServer) {
               text: JSON.stringify(structuredResult, null, 2),
             },
           ],
+          structuredContent: structuredResult,
         };
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
