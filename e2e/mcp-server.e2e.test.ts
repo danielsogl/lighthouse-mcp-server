@@ -119,7 +119,11 @@ describe("MCP protocol surface", () => {
 
   it("serves the Core Web Vitals threshold resource using INP rather than FID", async () => {
     const result = await client.readResource({ uri: "lighthouse://performance/core-web-vitals-thresholds" });
-    const data = JSON.parse(result.contents[0].text as string);
+
+    // contents is a union of text and binary entries, so narrow before parsing.
+    const entry = result.contents[0];
+    expect(entry, "resource returned no text content").toHaveProperty("text");
+    const data = JSON.parse((entry as { text: string }).text);
 
     expect(data).toHaveProperty("inp");
     expect(data).not.toHaveProperty("fid");

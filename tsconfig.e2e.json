@@ -4,5 +4,14 @@
     "rootDir": ".",
     "noEmit": true
   },
-  "include": ["e2e/**/*", "vitest.e2e.config.ts"]
+  "include": [
+    "e2e/**/*",
+    "src/tools/harness.ts",
+    "vitest.e2e.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage"
+  ]
 }
