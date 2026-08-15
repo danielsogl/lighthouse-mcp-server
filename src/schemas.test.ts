@@ -72,7 +72,7 @@ describe("baseSchemas", () => {
 
   describe("categories validator", () => {
     it("should accept valid categories", () => {
-      const validCategories = ["performance", "accessibility", "best-practices", "seo"];
+      const validCategories = ["performance", "accessibility", "best-practices", "seo", "agentic-browsing"];
       const result = baseSchemas.categories.safeParse(validCategories);
       expect(result.success).toBe(true);
     });

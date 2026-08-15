@@ -9,7 +9,7 @@ export function registerPrompts(server: McpServer) {
       argsSchema: {
         auditResults: z.string().describe("JSON audit results from Lighthouse"),
         focusArea: z
-          .enum(["performance", "accessibility", "seo", "best-practices"])
+          .enum(["performance", "accessibility", "seo", "best-practices", "agentic-browsing"])
           .optional()
           .describe("Specific area to focus the analysis on"),
       },
