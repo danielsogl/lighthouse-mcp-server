@@ -485,13 +485,14 @@ export function registerResources(server: McpServer) {
               performance: {
                 description: "How fast your page loads and renders",
                 weight: "Most important for user experience",
+                // Weights mirror the Lighthouse 13 performance category. First Input Delay
+                // is absent because it is no longer a Lighthouse metric.
                 keyMetrics: [
                   { name: "First Contentful Paint", weight: 10, description: "Time to first visual content" },
                   { name: "Largest Contentful Paint", weight: 25, description: "Time to largest visual element" },
-                  { name: "First Input Delay", weight: 25, description: "Time to first user interaction" },
+                  { name: "Total Blocking Time", weight: 30, description: "Time blocked from user interaction" },
                   { name: "Cumulative Layout Shift", weight: 25, description: "Visual stability during loading" },
-                  { name: "Total Blocking Time", weight: 10, description: "Time blocked from user interaction" },
-                  { name: "Speed Index", weight: 5, description: "How quickly page contents are visually populated" },
+                  { name: "Speed Index", weight: 10, description: "How quickly page contents are visually populated" },
                 ],
               },
               accessibility: {

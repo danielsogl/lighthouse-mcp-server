@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi } from "vitest";
 import { registerResources } from "./resources";
+import defaultConfig from "lighthouse/core/config/default-config.js";
 
 // Mock the MCP server
 const mockServer = {
@@ -166,6 +167,31 @@ describe("resources", () => {
     expect(data.ecommerce.priorities).not.toContain("FID");
     expect(data.ecommerce.budgets).toHaveProperty("inp");
     expect(data.ecommerce.budgets).not.toHaveProperty("fid");
+  });
+
+  it("should list performance metric weights that match the installed Lighthouse", async () => {
+    const result = await mockServer.registerResource.mock.calls[6][3]({
+      href: "lighthouse://audits/categories-scoring",
+    });
+    const data = JSON.parse(result.contents[0].text);
+
+    const NAME_TO_AUDIT: Record<string, string> = {
+      "First Contentful Paint": "first-contentful-paint",
+      "Largest Contentful Paint": "largest-contentful-paint",
+      "Total Blocking Time": "total-blocking-time",
+      "Cumulative Layout Shift": "cumulative-layout-shift",
+      "Speed Index": "speed-index",
+    };
+    const realWeights = new Map(
+      (defaultConfig.categories?.performance.auditRefs ?? []).filter((r) => r.weight).map((r) => [r.id, r.weight]),
+    );
+
+    for (const metric of data.categories.performance.keyMetrics) {
+      const auditId = NAME_TO_AUDIT[metric.name];
+      expect(auditId, `${metric.name} is not a Lighthouse metric`).toBeDefined();
+      expect(metric.weight, `${metric.name} weight is stale`).toBe(realWeights.get(auditId));
+    }
+    expect(data.categories.performance.keyMetrics).toHaveLength(realWeights.size);
   });
 
   it("should provide category scoring without the removed PWA category", async () => {
