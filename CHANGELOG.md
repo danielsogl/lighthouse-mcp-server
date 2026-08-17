@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v2.0.1...lighthouse-mcp-v2.0.2) (2026-08-17)
+
+
+### Miscellaneous Chores
+
+* **deps:** update github actions ([#204](https://github.com/danielsogl/lighthouse-mcp-server/issues/204)) ([f660535](https://github.com/danielsogl/lighthouse-mcp-server/commit/f66053521608cb0ac3b5839be3af60973fe92b82))
+
 ## [2.0.1](https://github.com/danielsogl/lighthouse-mcp-server/compare/lighthouse-mcp-v2.0.0...lighthouse-mcp-v2.0.1) (2026-08-15)
 
 
